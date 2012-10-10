@@ -6,27 +6,37 @@
  * Licensed under the MIT license.
  * https://github.com/derekeder/FusionTable-Map-Template/wiki/License
  *
- * Date: 5/2/2012
+ * Date: 8/15/2012
  * 
  */
-
+ 
 var MapsLib = MapsLib || {};
 var MapsLib = {
   
-  //Setup - put your Fusion Table details here
-  fusionTableId:      "1HmI6PT0q7rFbEXDfEt2VTbFyZVLZn__58AUe86E",        //the encrypted Table ID of your Fusion Table (found under File => About)
-  zoneDescriptionId:  "1r2vtU4il89uXmlcqAjGs72sjSXN-zuuS2vtnLu0",
-  googleApiKey:       "AIzaSyAcsnDc7_YZskPj4ep3jT_fkpB3HI_1a98",        //*NEW* API key. found at https://code.google.com/apis/console/
-  locationColumn:     "geometry",     //name of the location column in your Fusion Table
+  //Setup section - put your Fusion Table details here
+  //Using the v1 Fusion Tables API. See https://developers.google.com/fusiontables/docs/v1/migration_guide for more info
+  
+  //the encrypted Table ID of your Fusion Table (found under File => About)
+  //NOTE: numeric IDs will be depricated soon
+  fusionTableId:      "1m4Ez9xyTGfY2CU6O-UgEcPzlS0rnzLU93e4Faa0",  
+  
+  //*New Fusion Tables Requirement* API key. found at https://code.google.com/apis/console/   
+  //*Important* this key is for demonstration purposes. please register your own.   
+  googleApiKey:       "AIzaSyA3FQFrNr5W2OEVmuENqhb2MBB2JabdaOY",        
+  
+  //name of the location column in your Fusion Table. 
+  //NOTE: if your location column name has spaces in it, surround it with single quotes 
+  //example: locationColumn:     "'my location'",
+  locationColumn:     "geometry",  
+
   map_centroid:       new google.maps.LatLng(41.8781136, -87.66677856445312), //center that your map defaults to
   locationScope:      "chicago",      //geographical area appended to all address searches
-  recordName:         "zoning area",       //for showing number of results
-  recordNamePlural:   "zoning areas", 
+  recordName:         "result",       //for showing number of results
+  recordNamePlural:   "results", 
   
-  searchRadius:       1,            //in meters ~ 1/2 mile
-  defaultZoom:        13,             //zoom level when map is loaded (bigger is more zoomed in)
+  searchRadius:       805,            //in meters ~ 1/2 mile
+  defaultZoom:        11,             //zoom level when map is loaded (bigger is more zoomed in)
   addrMarkerImage: 'http://derekeder.com/images/icons/blue-pushpin.png',
-  infoWindow: null,
   currentPinpoint: null,
   
   initialize: function() {
@@ -36,42 +46,44 @@ var MapsLib = {
     var myOptions = {
       zoom: MapsLib.defaultZoom,
       center: MapsLib.map_centroid,
-      mapTypeId: google.maps.MapTypeId.ROADMAP,
-      styles: [
-        {
-          stylers: [
-            { saturation: -100 },
-            { lightness: 40 }
-          ]
-        }
-      ]
+      mapTypeId: google.maps.MapTypeId.ROADMAP
     };
     map = new google.maps.Map($("#mapCanvas")[0],myOptions);
     
     MapsLib.searchrecords = null;
-    $("#txtSearchAddress").val(MapsLib.convertToPlainString($.address.parameter('address')));
-    $(":checkbox").attr("checked", "checked");
     
-    //default search shows all points on map, but doesn't list results 
+    //reset filters
+    $("#txtSearchAddress").val(MapsLib.convertToPlainString($.address.parameter('address')));
+    var loadRadius = MapsLib.convertToPlainString($.address.parameter('radius'));
+    if (loadRadius != "") $("#ddlRadius").val(loadRadius);
+    else $("#ddlRadius").val(MapsLib.searchRadius);
+    $(":checkbox").attr("checked", "checked");
     $("#resultCount").hide();
      
+    //run the default search
     MapsLib.doSearch();
   },
   
   doSearch: function(location) {
     MapsLib.clearSearch();
     var address = $("#txtSearchAddress").val();
+    MapsLib.searchRadius = $("#ddlRadius").val();
 
     var whereClause = MapsLib.locationColumn + " not equal to ''";
     
-    var searchType = "ZONE_TYPE IN (-1,";
-    if ( $("#cbZone1").is(':checked')) searchType += "1,2,7,8,10,";
-    if ( $("#cbZone3").is(':checked')) searchType += "3,6,";
-    if ( $("#cbZone4").is(':checked')) searchType += "4,9,";
-    if ( $("#cbZone5").is(':checked')) searchType += "5,";
-    if ( $("#cbZone11").is(':checked')) searchType += "11,";
-    if ( $("#cbZone12").is(':checked')) searchType += "12,";
+    //-----filter by type-------
+    //remove MapsLib if you don't have any types to filter
+    
+    //best way to filter results by a type is to create a 'type' column and assign each row a number (strings work as well, but numbers are faster). then we can use the 'IN' operator and return all that are selected
+    //NOTE: if your column name has spaces in it, surround it with single quotes 
+    //example: var searchType = "'my filter' IN (-1,";
+    var searchType = "type IN (-1,";
+    if ( $("#cbType1").is(':checked')) searchType += "1,";
+    if ( $("#cbType2").is(':checked')) searchType += "2,";
+    if ( $("#cbType3").is(':checked')) searchType += "3,";
     whereClause += " AND " + searchType.slice(0, searchType.length - 1) + ")";
+    
+    //-------end of filter by type code--------
     
     if (address != "") {
       if (address.toLowerCase().indexOf(MapsLib.locationScope) == -1)
@@ -82,8 +94,9 @@ var MapsLib = {
           MapsLib.currentPinpoint = results[0].geometry.location;
           
           $.address.parameter('address', encodeURIComponent(address));
+          $.address.parameter('radius', encodeURIComponent(MapsLib.searchRadius));
           map.setCenter(MapsLib.currentPinpoint);
-          map.setZoom(16);
+          map.setZoom(14);
           
           MapsLib.addrMarker = new google.maps.Marker({
             position: MapsLib.currentPinpoint, 
@@ -92,10 +105,11 @@ var MapsLib = {
             animation: google.maps.Animation.DROP,
             title:address
           });
-
-          addressWhereClause = " AND ST_INTERSECTS(" + MapsLib.locationColumn + ", CIRCLE(LATLNG" + MapsLib.currentPinpoint.toString() + "," + MapsLib.searchRadius + "))";
           
-          MapsLib.submitSearch(whereClause, addressWhereClause, map, MapsLib.currentPinpoint);
+          whereClause += " AND ST_INTERSECTS(" + MapsLib.locationColumn + ", CIRCLE(LATLNG" + MapsLib.currentPinpoint.toString() + "," + MapsLib.searchRadius + "))";
+          
+          MapsLib.drawSearchRadiusCircle(MapsLib.currentPinpoint);
+          MapsLib.submitSearch(whereClause, map, MapsLib.currentPinpoint);
         } 
         else {
           alert("We could not find your address: " + status);
@@ -103,130 +117,21 @@ var MapsLib = {
       });
     }
     else { //search without geocoding callback
-      MapsLib.submitSearch(whereClause, "", map);
+      MapsLib.submitSearch(whereClause, map);
     }
   },
   
-  submitSearch: function(whereClause, addressWhereClause, map, location) {
+  submitSearch: function(whereClause, map, location) {
     //get using all filters
     MapsLib.searchrecords = new google.maps.FusionTablesLayer({
       query: {
         from:   MapsLib.fusionTableId,
         select: MapsLib.locationColumn,
         where:  whereClause
-      },
-      suppressInfoWindows: true
+      }
     });
-
-    if (location) {
-      MapsLib.getInfoWindowContent(whereClause + addressWhereClause);
-      MapsLib.query(MapsLib.locationColumn, whereClause + addressWhereClause, MapsLib.fusionTableId, "MapsLib.drawResultPolygon");
-    }
-
     MapsLib.searchrecords.setMap(map);
-    MapsLib.enableMapTips();
-    
-    //override default info window
-    google.maps.event.addListener(MapsLib.searchrecords, 'click', 
-      function(e) { 
-        if (MapsLib.infoWindow) MapsLib.infoWindow.close();
-        MapsLib.openFtInfoWindow(e.latLng, e.row['ZONE_TYPE'].value, e.row['ZONE_CLASS'].value, e.row['ORDINANCE_'].value, e.row['ORDINANCE1'].value);
-      }
-    ); 
-  },
-
-  drawResultPolygon: function(data) {
-    //console.log(data);
-    var rows = data["rows"];
-    for (var i in rows) {
-      var newCoordinates = [];
-      var geometries = rows[0][0]['geometries'];
-      //console.log(geometries);
-      if (geometries) {
-        for (var j in geometries) {
-          //console.log(geometries[j]);
-          newCoordinates.push(MapsLib.constructNewCoordinates(geometries[j]));
-        }
-      } else {
-        //console.log("returning one geometry");
-        newCoordinates = MapsLib.constructNewCoordinates(rows[0][0]['geometry']);
-      }
-      var randomnumber = Math.floor(Math.random() * 4);
-      var zone = new google.maps.Polygon({
-        paths: newCoordinates,
-        strokeColor: "#333333",
-        strokeOpacity: 1,
-        strokeWeight: 3,
-        fillOpacity: 0
-      });
-
-      zone.setMap(map);
-    }
-  },
-
-  constructNewCoordinates: function(polygon) {
-    //console.log(polygon);
-    var newCoordinates = [];
-    var coordinates = polygon['coordinates'][0];
-    for (var i in coordinates) {
-      newCoordinates.push(
-          new google.maps.LatLng(coordinates[i][1], coordinates[i][0]));
-    }
-    return newCoordinates;
-  },
-
-  openFtInfoWindow: function(position, zone_type, zone_class, ordinance, ordinance_date) {
-    // Set up and create the infowindow
-    if (!MapsLib.infoWindow) MapsLib.infoWindow = new google.maps.InfoWindow({});
-     
-    var content = "<div class='googft-info-window' style='font-family: sans-serif'>";
-    content += "<span class='lead'>" + ZoningDict[zone_type - 1] + "</span>"
-    content += "<p>Zoned <a href='zones#" + MapsLib.createZoneSlug(zone_class) + "'>" + zone_class + "</a>"
-    //content += '<br /><br /><!-- description -->';
-    if (ordinance != "" && ordinance != undefined) 
-      content += "<br /><br />Ordinance: " + ordinance
-    if (ordinance_date != "" && ordinance_date != undefined) 
-      content += "<br />Ordinance date: " + ordinance_date
-    content += '</p>';
-    content += '</div>';
-    
-    MapsLib.infoWindow.setOptions({
-      content: content,
-      pixelOffset: null,
-      position: position
-    });
-    // Infowindow-opening event handler
-    MapsLib.infoWindow.open(map);
-    //MapsLib.getInfoWindowDescription(zone_class);
-  },
-  
-  getInfoWindowContent: function(whereClause) {
-    var selectColumns = "ZONE_TYPE, ZONE_CLASS, ORDINANCE_, ORDINANCE1";
-    MapsLib.query(selectColumns, whereClause, MapsLib.fusionTableId, "MapsLib.setInfoWindowContent");
-  },
-  
-  setInfoWindowContent: function(json) { 
-    var data = json["rows"];
-    MapsLib.openFtInfoWindow(MapsLib.currentPinpoint, data[0][0], data[0][1], data[0][2], data[0][3])
-  },
-  
-  getInfoWindowDescription: function(zone_class) {
-    var selectColumns = "'New Code', Description";
-    MapsLib.query(selectColumns, "'New Code' = '" + MapsLib.createZoneSlug(zone_class) + "'", MapsLib.zoneDescriptionId, "MapsLib.setInfoWindowDescription");
-  },
-  
-  setInfoWindowDescription: function(json) { 
-    var data = json["rows"];
-    MapsLib.infoWindow.setContent(MapsLib.infoWindow.getContent().replace("<br /><!-- description -->", data[0][1]));
-  },
-
-  enableMapTips: function () {
-    MapsLib.searchrecords.enableMapTips({
-      select: 'ZONE_TYPE, ZONE_CLASS',
-      from: MapsLib.fusionTableId,
-      geometryColumn: MapsLib.locationColumn,
-      delay: 100
-    });
+    MapsLib.displayCount(whereClause);
   },
   
   clearSearch: function() {
@@ -267,46 +172,72 @@ var MapsLib = {
     });
   },
   
-  query: function(selectColumns, whereClause, tableId, callback) {
+  drawSearchRadiusCircle: function(point) {
+      var circleOptions = {
+        strokeColor: "#4b58a6",
+        strokeOpacity: 0.3,
+        strokeWeight: 1,
+        fillColor: "#4b58a6",
+        fillOpacity: 0.05,
+        map: map,
+        center: point,
+        clickable: false,
+        zIndex: -1,
+        radius: parseInt(MapsLib.searchRadius)
+      };
+      MapsLib.searchRadiusCircle = new google.maps.Circle(circleOptions);
+  },
+  
+  query: function(selectColumns, whereClause, callback) {
     var queryStr = [];
     queryStr.push("SELECT " + selectColumns);
-    queryStr.push(" FROM " + tableId);
+    queryStr.push(" FROM " + MapsLib.fusionTableId);
     queryStr.push(" WHERE " + whereClause);
   
     var sql = encodeURIComponent(queryStr.join(" "));
     $.ajax({url: "https://www.googleapis.com/fusiontables/v1/query?sql="+sql+"&callback="+callback+"&key="+MapsLib.googleApiKey, dataType: "jsonp"});
   },
-  
-  createZoneSlug: function(text) {
-    if (text == undefined) return '';
-    
-    if (text.indexOf("PMD") != -1)
-      return "PMD";
-    if (text.indexOf("PD") != -1)
-      return "PD";
-      
-  	return (text+'').replace(/ /g,'-').replace(/[^\w-]+/g,'');
+
+  handleError: function(json) {
+    if (json["error"] != undefined)
+      console.log("Error in Fusion Table call: " + json["error"]["message"]);
   },
   
-  //converts text to a formatted query string
-  convertToQueryString: function(text) {
-  	if (text == undefined) return '';
-  	return encodeURI(text);
+  displayCount: function(whereClause) {
+    var selectColumns = "Count()";
+    MapsLib.query(selectColumns, whereClause,"MapsLib.displaySearchCount");
+  },
+  
+  displaySearchCount: function(json) { 
+    MapsLib.handleError(json);
+    var numRows = 0;
+    if (json["rows"] != null)
+      numRows = json["rows"][0];
+    
+    var name = MapsLib.recordNamePlural;
+    if (numRows == 1)
+    name = MapsLib.recordName;
+    $( "#resultCount" ).fadeOut(function() {
+        $( "#resultCount" ).html(MapsLib.addCommas(numRows) + " " + name + " found");
+      });
+    $( "#resultCount" ).fadeIn();
+  },
+  
+  addCommas: function(nStr) {
+    nStr += '';
+    x = nStr.split('.');
+    x1 = x[0];
+    x2 = x.length > 1 ? '.' + x[1] : '';
+    var rgx = /(\d+)(\d{3})/;
+    while (rgx.test(x1)) {
+      x1 = x1.replace(rgx, '$1' + ',' + '$2');
+    }
+    return x1 + x2;
   },
   
   //converts a slug or query string in to readable text
   convertToPlainString: function(text) {
     if (text == undefined) return '';
-  	return decodeURIComponent(text);
+    return decodeURIComponent(text);
   }
 }
-
-// Hack for fusion tables tiles not loading
-/*
-setTimeout(function() {
-  console.log("refetching map tiles");
-  $("img[src*='googleapis']").each(function(){
-    $(this).attr("src",$(this).attr("src")+"&"+(new Date()).getTime());
-  });
-},3000);
-*/

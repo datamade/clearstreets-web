@@ -3,7 +3,7 @@ require "sinatra/reloader"
 require "sinatra-initializers"
 require "sinatra/r18n"
 
-module ChicagoZoning
+module FusionTemplate
   class Application < Sinatra::Base
     enable :logging, :sessions
     enable :dump_errors, :show_exceptions if development?
@@ -22,23 +22,11 @@ module ChicagoZoning
     use Rack::Logger
     use Rack::Session::Cookie
 
-    helpers SiteTemplate::HtmlHelpers
+    helpers FusionTemplate::HtmlHelpers
     
     get "/" do
       @current_menu = "home"
       haml :index
-    end
-    
-    get "/ordinances" do 
-      @current_menu = "zones"
-      @ordinances = FT.execute("SELECT ORDINANCE1, ORDINANCE_ FROM 4904329 WHERE ORDINANCE1 NOT EQUAL TO '' AND ORDINANCE_ NOT EQUAL TO '' ORDER BY ORDINANCE1 DESC LIMIT 100;")
-      haml :ordinances
-    end
-    
-    get "/zones" do 
-      @current_menu = "zones"
-      @zones = FT.execute("SELECT * FROM 4895941;")
-      haml :zones
     end
     
     get "/:page" do

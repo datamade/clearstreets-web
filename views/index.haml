@@ -1,25 +1,5 @@
-#welcome-modal.modal.hide.fade.in{"aria-hidden" => "true", "aria-labelledby" => "welcomeModalLabel", :role => "dialog", :tabindex => "-1"}
-  .modal-header
-    %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} ×
-    %h3#myModalLabel Explore Chicago's Zoning
-  .modal-body
-    %p Welcome to Chicago Zoning! This app lets you: 
-    %ul
-      %li find out how your building is zoned
-      %li explore zoning areas throughout the city
-      
-    %p 
-      If you've ever played 
-      = link_to "Sim City", "http://en.wikipedia.org/wiki/SimCity_2000"
-      I tried to follow the color scheme: green for residential, blue for commercial and yellow for industrial. 
-      
-    %p
-      So dive in and explore!
-  .modal-footer
-    %button.btn.btn-info{"aria-hidden" => "true", "data-dismiss" => "modal"} Ok, thanks!
-
 .row-fluid
-  .span3
+  .span4
     .well
       %h4
         Find address
@@ -29,72 +9,41 @@
       
       %input#btnSearch.btn.btn-primary{:type => "button", :value => "Search"}
       %button#reset.btn Reset
-      
+
     .well
       %h4
-        Filter by zoning type
-        <small>(<a href='/zones'>huh?</a>)</small>
+        Recycling services
       %ul.inputs-list.unstyled
         %li
-          %label.checkbox.inline{:rel => "popover", :"data-original-title" => "Business (B)", :"data-content" => "Business districts are intended to accommodate retail, service and commercial uses." }
-            %input#cbZone1{:type => "checkbox"}
-            %span.zone-box.zone-1
-            Commercial
+          %label.checkbox.inline
+            %input#cbType1{:type => "checkbox"}
+            %span.filter-box.filter-blue
+            City drop-off location
         %li
-          %label.checkbox.inline{:rel => "popover", :"data-original-title" => "Residential (R)", :"data-content" => "Residential districts are intended to create, maintain and promote a variety of housing opportunities for individual households and to maintain the desired physical character of the city’s existing neighborhoods. While the districts primarily accommodate residential use types, nonresidential uses that are compatible with residential neighborhoods are also allowed." }
-            %input#cbZone4{:type => "checkbox"}
-            %span.zone-box.zone-4
-            Residential
+          %label.checkbox.inline
+            %input#cbType2{:type => "checkbox"}
+            %span.filter-box.filter-green
+            Private business
         %li
-          %label.checkbox.inline{:rel => "popover", :"data-original-title" => "Manufacturing (M)", :"data-content" => "Manufacturing districts are intended to accommodate manufacturing, warehousing, wholesale and industrial uses outside the Central (Planned Manufacturing) Area." }
-            %input#cbZone3{:type => "checkbox"}
-            %span.zone-box.zone-3
-            Industrial
-        
-      %h5
-        Special Purpose Districts
-      %ul.inputs-list.unstyled
-        %li
-          %label.checkbox.inline{:rel => "popover", :"data-original-title" => "Planned Development (PD)", :"data-content" => "The Planned Development zoning designation is required for certain projects to ensure adequate public review, encourage unified planning and development, promote economically beneficial development patterns that are compatible with the character of existing neighborhoods, allow design flexibility, and encourage the protection and conservation of the city's natural resources." }
-            %input#cbZone5{:type => "checkbox"}
-            %span.zone-box.zone-5
-            Planned Development
-        %li
-          %label.checkbox.inline{:rel => "popover", :"data-original-title" => "Transportation (T)", :"data-content" => "Transportation zoning district is intended to preserve, protect and enhance road, rail and other important transportation corridors" }
-            %input#cbZone11{:type => "checkbox"}
-            %span.zone-box.zone-11
-            Transportation
-        %li
-          %label.checkbox.inline{:rel => "popover", :"data-original-title" => "Parks and Open Space (POS)", :"data-content" => "Parks and Open Space zoning district is intended to preserve, protect and enhance lands set aside for public open space, public parks and public beaches." }
-            %input#cbZone12{:type => "checkbox"}
-            %span.zone-box.zone-12
-            Parks and Open Space
+          %label.checkbox.inline
+            %input#cbType3{:type => "checkbox"}
+            %span.filter-box.filter-red
+            Hazardous materials
+      
 
     %p
-      An 
-      %a{:href => "https://data.cityofchicago.org/Community-Economic-Development/Boundaries-Zoning-Districts/p8va-airx"} open data 
-      project by
+      A project by
       %a{:href => "http://derekeder.com"} Derek Eder
-      /and
-      /%a{:href => "https://jpvelez.contently.com"} Juan-Pablo Velez
 
-  .span9
+  .span8
     #mapCanvas
 
 - content_for :javascripts do
-  :javascript
-    var ZoningDict = ["Business", "Commercial / Mixed-Use", "Manufacturing", "Residential", "Planned Development",
-                  "Planned Manufacturing District", "Downtown Mixed-Use", "Downtown Core", "Downtown Residential", "Downtown Service",
-                  "Transportation","Parks and Open Space"];
-
   = include_javascript :"jquery.address.min"
   = include_javascript :"http://maps.google.com/maps/api/js?sensor=false"
   = include_javascript :"http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"
-  = include_javascript :fusiontips
   = include_javascript :maps_lib
   = include_javascript :"bootstrap-popover"
-  = include_javascript :"bootstrap-modal"
-  = include_javascript :"jquery.cookie"
 
   :javascript
     $(window).resize(function () {
@@ -135,10 +84,4 @@
               return false;
           }
       });
-      
-      //$('#welcome-modal').modal('show');
-      if ($.cookie("show-welcome") != "read") {
-        $('#welcome-modal').modal('show');
-        $.cookie("show-welcome", "read", { expires: 7 });
-      }
     });
