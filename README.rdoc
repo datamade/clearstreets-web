@@ -4,6 +4,8 @@ This is a basic site template that I use to kick off a lot of my map projects. U
 
 For help setting up Fusion Tables, see https://github.com/derekeder/FusionTable-Map-Template/blob/master/README.rdoc
 
+Demo: http://searchable-map-template.herokuapp.com
+
 == Installation
 
   $ git clone git@github.com:derekeder/site-template.git
