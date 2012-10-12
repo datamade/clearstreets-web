@@ -7,6 +7,14 @@
 
       %input#txtSearchAddress.input-block-level{:placeholder => "Enter an address or an intersection", :type => "text"}
       
+      %label
+        within
+        %select#ddlRadius.input-small
+          %option{:value => "400"} 2 blocks
+          %option{:value => "805"} 1/2 mile
+          %option{:value => "1610"} 1 mile
+          %option{:value => "3220"} 2 miles
+      
       %input#btnSearch.btn.btn-primary{:type => "button", :value => "Search"}
       %button#reset.btn Reset
 
