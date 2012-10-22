@@ -15,6 +15,13 @@ Demo: http://searchable-map-template.herokuapp.com
   $ unicorn
   navigate to http://localhost:8080/
 
+== Setup for fusion_tables gem
+
+  $ cp config/config.yml.example config/config.yml
+  enter the Google username and password you want to use to access your Fusion Table
+  $ unicorn
+  navigate to http://localhost:8080/location_list
+
 == Dependencies
 
 * {Fusion Tables}[http://www.google.com/fusiontables/Home/]

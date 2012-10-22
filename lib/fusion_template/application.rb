@@ -28,6 +28,17 @@ module FusionTemplate
       @current_menu = "home"
       haml :index
     end
+
+    # note: the fusion_tables gem can only access tables based on the numeric ID of the table
+    get "/location_list" do
+      if defined? FT
+        # note: the fusion_tables gem can only access tables based on the numeric ID of the table
+        @recycling_locations = FT.execute("SELECT * FROM 2086698;")
+        haml :location_list
+      else
+        "You need to set your Google account and password in config/config.yml"
+      end
+    end
     
     get "/:page" do
       @current_menu = params[:page]
