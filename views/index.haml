@@ -37,14 +37,14 @@
             %input#cbType3{:type => "checkbox"}
             %span.filter-box.filter-red
             Hazardous materials
-      
-
-    %p
-      A project by
-      %a{:href => "http://derekeder.com"} Derek Eder
 
   .span8
     #mapCanvas
+    %span.pull-right
+      Map and 
+      %a{:href => "https://github.com/derekeder/FusionTable-Map-Template-Heroku"} search template 
+      by
+      %a{:href => "http://derekeder.com"} Derek Eder
 
 - content_for :javascripts do
   = include_javascript :"jquery.address.min"
@@ -56,7 +56,7 @@
   :javascript
     $(window).resize(function () {
       var h = $(window).height(),
-        offsetTop = 70; // Calculate the top offset
+        offsetTop = 85; // Calculate the top offset
     
       $('#mapCanvas').css('height', (h - offsetTop));
     }).resize();
