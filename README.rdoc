@@ -52,7 +52,7 @@ When you want to deploy to Heroku, you will need to set your account and passwor
 == Errors / Bugs
 
 If something is not behaving intuitively, it is a bug, and should be reported.
-Report it here: https://github.com/derekeder/site-template/issues
+Report it here: https://github.com/derekeder/FusionTable-Map-Template-Heroku/issues
 
 
 == Note on Patches/Pull Requests
