@@ -38,3 +38,9 @@ Report it here: https://github.com/derekeder/site-template/issues
 * Fork the project.
 * Make your feature addition or bug fix.
 * Commit and send me a pull request. Bonus points for topic branches.
+
+== Copyright
+
+Copyright (c) 2012 Derek Eder. Released under the MIT License.
+
+See LICENSE for details https://github.com/derekeder/FusionTable-Map-Template-Heroku/wiki/License
