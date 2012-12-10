@@ -1,8 +1,6 @@
-body { 
-	padding-top: 60px;
-}
+a { color: #4B58A6; }
 
-#mapCanvas img {
+#map_canvas img {
   max-width: none;
 }
 

@@ -9,7 +9,7 @@
     
     / Styles
     = include_stylesheet "bootstrap.spacelab.min"
-    = include_stylesheet "bootstrap-responsive"
+    = include_stylesheet "bootstrap-responsive.min"
     = include_stylesheet :custom
     = include_stylesheet "http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css"
     = content :stylesheets
@@ -18,14 +18,14 @@
     /[if lt IE 9]
       <script type="text/javascript" src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
   %body
-    .navbar.navbar-fixed-top
+    .navbar
       .navbar-inner
         .container
           %a.btn.btn-navbar{"data-target" => ".nav-collapse", "data-toggle" => "collapse"}
             %span.icon-bar
             %span.icon-bar
             %span.icon-bar
-          %a.brand(href="/") Searchable Map Template
+          %a.brand(href="/") Searchable Map Template - Heroku Ready
           
           .container.nav-collapse
             %ul.nav.pull-right
