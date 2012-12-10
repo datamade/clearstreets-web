@@ -50,7 +50,8 @@
 
 - content_for :javascripts do
   = include_javascript :"jquery.address.min"
-  = include_javascript :"http://maps.google.com/maps/api/js?sensor=false"
+  = include_javascript :"http://maps.google.com/maps/api/js?sensor=false&amp;libraries=places"
+  = include_javascript "jquery.geocomplete.min"
   %script{:src => "/javascripts/maps_lib.js?1", :type => "text/javascript"}
 
   :javascript
@@ -63,6 +64,7 @@
     
     $(function() {
       MapsLib.initialize();
+      $("#search_address").geocomplete();
 
       $(':checkbox').click(function(){
         MapsLib.doSearch();
