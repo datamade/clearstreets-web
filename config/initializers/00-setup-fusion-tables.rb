@@ -5,7 +5,7 @@ configure do
       set(key.to_sym, value)
     end
   rescue Errno::ENOENT
-    puts "config file not found"
+    puts "Setup Fusion Tables: config file not found"
   end
 end
 
