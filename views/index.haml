@@ -1,7 +1,7 @@
 .row-fluid
   .span4
     %p.alert.alert-info
-      Chicago is expected to get 2-4" of snow from 
+      Chicago is expected to get 1-3" of snow from 
       = succeed '.' do
         %a{:href => 'http://www.weather.com/news/weather-winter/winter-storm-draco-west-midwest-20121217'} Winter Storm Draco
       See which streets have been plowed and when.
@@ -31,7 +31,7 @@
       %a{:href => "/about"} More »
 
     %hr
-    %p#active_plows
+    %p.alert.alert-info#active_plows
     %p#last_updated
     
 
@@ -48,7 +48,7 @@
   = include_javascript :"http://maps.google.com/maps/api/js?sensor=false&amp;libraries=places"
   = include_javascript "jquery.geocomplete.min"
   = include_javascript "jquery.dateFormat-1.0"
-  %script{:src => "/javascripts/maps_lib.js?3", :type => "text/javascript"}
+  %script{:src => "/javascripts/maps_lib.js?5", :type => "text/javascript"}
 
   :javascript
     $(window).resize(function () {

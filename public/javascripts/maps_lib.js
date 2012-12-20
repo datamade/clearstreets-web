@@ -70,8 +70,8 @@ var MapsLib = {
      
     //run the default search
     MapsLib.doSearch();
-    //MapsLib.getLastUpdated();
-    //MapsLib.getActivePlows();
+    MapsLib.getLastUpdated();
+    MapsLib.getActivePlows();
   },
   
   doSearch: function(location) {
@@ -218,7 +218,7 @@ var MapsLib = {
   },
 
   queryRaw: function(sql, callback) {
-    console.log(sql);
+    //console.log(sql);
     $.ajax({url: "https://www.googleapis.com/fusiontables/v1/query?sql="+sql+"&callback="+callback+"&key="+MapsLib.googleApiKey, dataType: "jsonp"});
   },
 
@@ -241,11 +241,13 @@ var MapsLib = {
   
   displayLastUpdated: function(json) { 
     MapsLib.handleError(json);
-    var datestamp = json["rows"][0];
-    $( "#last_updated" ).fadeOut(function() {
-        $( "#last_updated" ).html("Last updated: " + datestamp);
-      });
-    $( "#last_updated" ).fadeIn();
+    if (json["rows"] != null) {
+      var datestamp = json["rows"][0];
+      $( "#last_updated" ).fadeOut(function() {
+          $( "#last_updated" ).html("Last updated: " + datestamp);
+        });
+      $( "#last_updated" ).fadeIn();
+    }
   },
 
   getActivePlows: function() {
@@ -260,9 +262,10 @@ var MapsLib = {
     MapsLib.handleError(json);
     var count = 0;
 
-    count = json["rows"][0];
+    if (json["rows"] != null)
+      count = json["rows"][0];
     $( "#active_plows" ).fadeOut(function() {
-        $( "#active_plows" ).html("Active plows: <strong>" + count + "</strong>/309");
+        $( "#active_plows" ).html("Active plows: <strong>" + count + "</strong>/~300");
       });
     $( "#active_plows" ).fadeIn();
   },
