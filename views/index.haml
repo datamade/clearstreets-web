@@ -1,7 +1,10 @@
 .row-fluid
   .span4
     %p.alert.alert-info
-      On Jan 20, 2012 the Chicago area got 6 to 8" of snow. See what streets got plowed and when.
+      Chicago is expected to get 2-4" of snow from 
+      = succeed '.' do
+        %a{:href => 'http://www.weather.com/news/weather-winter/winter-storm-draco-west-midwest-20121217'} Winter Storm Draco
+      See which streets have been plowed and when.
     .well
       %h4
         Address
@@ -17,7 +20,7 @@
           %option{:value => "1610"} 1 mile
           %option{:value => "3220"} 2 miles
       
-      %input#search.btn.btn-primary{:type => "button", :value => "Search"}
+      %input#search.btn.btn-info{:type => "button", :value => "Search"}
       %button#reset.btn Reset
 
     %p

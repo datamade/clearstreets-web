@@ -132,10 +132,10 @@ var MapsLib = {
         query: {
           from:   MapsLib.fusionTableId,
           select: MapsLib.locationColumn,
-          where:  whereClause,
-          styleId: 2,
-          templateId: 2
-        }
+          where:  whereClause
+        },
+        styleId: 2,
+        templateId: 2
       });
     }
     else {
@@ -262,7 +262,7 @@ var MapsLib = {
 
     count = json["rows"][0];
     $( "#active_plows" ).fadeOut(function() {
-        $( "#active_plows" ).html("Active plows: " + count);
+        $( "#active_plows" ).html("Active plows: <strong>" + count + "</strong>/309");
       });
     $( "#active_plows" ).fadeIn();
   },
