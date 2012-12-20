@@ -1,14 +1,7 @@
 .row-fluid
   .span4
-    %p
-      This is a demo of
-      %a{:href => "http://derekeder.com"} Derek Eder's
-      %a{:href => "http://derekeder.com/searchable_map_template/"} Searchable Map Template
-      using Google
-      = succeed "." do
-        %a{:href => "http://support.google.com/fusiontables/answer/2571232?hl=en&ref_topic=1652595"} Fusion Tables
-      Use this section to give a little context your map. Maybe a link to
-      %a{:href => "#"} read more »
+    %p.alert.alert-info
+      On Jan 20, 2012 the Chicago area got 6 to 8" of snow. See what streets got plowed and when.
     .well
       %h4
         Address
@@ -27,43 +20,36 @@
       %input#search.btn.btn-primary{:type => "button", :value => "Search"}
       %button#reset.btn Reset
 
-    .well
-      / Once you decide what filter you want, place the HTML code here. The section in the maps_lib.js is also marked. Once you're done, feel free to delete this explanatory section.
-      %h4 Custom filters and views
-      %p
-        Take a look at the
-        %a{:href => "https://github.com/derekeder/FusionTable-Map-Template/wiki/Filter-examples"} wiki
-        to see how to add your own custom filters and views like:
-      %ul
-        %li
-          %a{:href => "https://github.com/derekeder/FusionTable-Map-Template/wiki/Filter-examples#wiki-checkboxes"} Checkboxes
-        %li
-          %a{:href => "https://github.com/derekeder/FusionTable-Map-Template/wiki/Filter-examples#wiki-radiobuttons"} Radio buttons
-        %li
-          %a{:href => "https://github.com/derekeder/FusionTable-Map-Template/wiki/Filter-examples#wiki-textsearches"} Text searches
-        %li
-          %a{:href => "https://github.com/derekeder/FusionTable-Map-Template/wiki/List-search-results"} Results lists
+    %p
+      On January 3rd 2012, the City of Chicago launched
+      = succeed "," do
+        %a{:href => "http://www.cityofchicago.org/content/city/en/depts/mayor/iframe/plow_tracker.html"} Plow Tracker
+      an app that tracks the city's snow plows in real time. This app uses the same data. By knowing where the plows are, we've figured which streets have been plowed.
+      %a{:href => "/about"} More »
 
-    %p.alert.alert-info.lead#result_count
+    %hr
+    %p#last_updated
+    %p#active_plows
 
   .span8
     #map_canvas
     %span.pull-right
-      %a{:href => "http://derekeder.com/searchable_map_template/"} Searchable Map Template
-      by
-      = succeed "." do
+      By
+      = succeed "," do
         %a{:href => "http://derekeder.com"} Derek Eder
+      Forest Gregg, Juan-Pablo Velez, Ben Smithgall, and Samarth Bhaskar
 
 - content_for :javascripts do
   = include_javascript :"jquery.address.min"
   = include_javascript :"http://maps.google.com/maps/api/js?sensor=false&amp;libraries=places"
   = include_javascript "jquery.geocomplete.min"
-  %script{:src => "/javascripts/maps_lib.js?1", :type => "text/javascript"}
+  = include_javascript "jquery.dateFormat-1.0"
+  %script{:src => "/javascripts/maps_lib.js?2", :type => "text/javascript"}
 
   :javascript
     $(window).resize(function () {
       var h = $(window).height(),
-        offsetTop = 90; // Calculate the top offset
+        offsetTop = 130; // Calculate the top offset
     
       $('#map_canvas').css('height', (h - offsetTop));
     }).resize();

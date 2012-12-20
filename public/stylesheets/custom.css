@@ -1,5 +1,7 @@
 a { color: #4B58A6; }
 
+body { font-size: 15px;}
+
 #map_canvas img {
   max-width: none;
 }

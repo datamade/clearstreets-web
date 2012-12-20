@@ -1,0 +1,19 @@
+.row
+  .span8
+    %h1 Plow activity
+
+    %p
+      Each plow in the City of Chicago is given an 'asset name' like 
+      = succeed '.' do
+        %strong S11321
+      We can use this to track which plows are the most active.
+
+    - max_tracks = @plows.first[:"count()"].to_f
+    - @plows.each do |plow|
+      %h3
+        = plow[:plow_id]
+        %small
+          = plow[:"count()"] 
+          traces
+      .progress
+        .bar{:style => "width: #{100*plow[:"count()"].to_f/max_tracks}%;"}

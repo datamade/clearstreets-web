@@ -1,15 +1,136 @@
-.row-fluid
-  .span3
+.row
+  .span4
     .well
       %h3 Sections
       %ol
         %li
-          %a{:href => "#section-1"} Section 1
+          %a{:href => "#what-is-this"} What is this?
         %li
-          %a{:href => "#section-2"} Section 2
-  .span9
-    %h2 About
+          %a{:href => "#press"} Press
+        %li
+          %a{:href => "#who-made-this"} Who made this?
+        %li
+          %a{:href => "#what-data-is"} What exactly does the map show?
+        %li
+          %a{:href => "#dont-sue-us"} Disclaimer: data may not be accurate
+        %li
+          %a{:href => "#how-does-it-work"} How did we do this?
+        %li
+          %a{:href => "#how-does-it-really-work"} how-does-it-really-work
+        %li
+          %a{:href => "#how-does-it-work"}
+            How did we
+            %i really
+            do this? (For the geeks)
+  .span8
+    %h1 About
 
-    %h4#section-1 Section 1
-    
-    %h4#section-2 Section 2
+    %h2#what-is-this What is this?
+    %p
+      On Jan 3rd 2012, the City of Chicago released Plow Tracker, an app that tracks the city's snow plows in real time. We want to thank the city for taking this innovative step towards
+      = succeed "." do
+        %a{:href => "http://radar.oreilly.com/2011/08/chicago-data-apps-open-government.html"} open government
+      In the
+      = succeed "," do
+        %a{:href => "http://gridchicago.com/2012/plow-tracker-not-ready-for-prime-time/#comment-410190320"} words of Dan O'Neil
+      "it exposed city data in a fun and timely way that got people talking about an essential city service."
+    %p
+      %b> We wanted to help make it better
+      , so we took the plows' locations and figured out which streets they're clearing.
+    %p
+      However, the urge to make this ClearStreets app only hit us on Thursday evening, 12 hours before the storm descended on our fair city. So this is a rough draft (see disclaimer), but it shows what can be done when the city embraces
+      = succeed "." do
+        %a{:href => "http://www.ascentstage.com/archives/2012/01/open-data-in-chicago/"} open data
+      The more data they release, the more useful stuff we can build.
+
+    %h2#press Press
+    %ul
+      %li
+        %a{:href => "http://www.chicagotribune.com/news/ct-talk-snow-tracker-0121-20120121,0,4501133.story"} What streets have been plowed, and when? Check the Web
+        \- Chicago Tribune
+      %li
+        %a{:href => "http://www.chicagojournal.com/News/01-20-2012/Web_apps_track_snow_plows_progress_around_Chicago"} Web apps track snow plows progress around Chicago
+        \- Chicago Journal
+      %li
+        %a{:href => "http://gridchicago.com/2012/new-plow-tracker-style-website-hits-the-web-in-time-for-todays-snow-storm/"} New plow tracker-style website hits the web in time for today's snow storm
+        \- GridChicago
+      %li
+        %a{:href => "http://chicagoist.com/2012/01/20/clear_streets_a_better_use_of_snow.php#photo-1"} Chicago ClearStreets: A Better Use Of Snow Plow Tracker Technology
+        \- Chicagoist
+
+    %h2#who-made-this Who made this?
+    %p
+      This is an
+      %a{:href => "http://opencityapps.org"} Open City
+      project. Open City is a group of volunteers that create web apps with open data to improve transparency, efficiency, and decision-making for governments and our democracy.
+    %ul
+      %li
+        %a{:href => "http://derekeder.com"} Derek Eder
+        \- Open data web developer and owner of
+        = succeed "." do
+          %a{:href => "http://derekeder.com/datamade"} DataMade
+      %li 
+        Forest Gregg 
+        \- University of Chicago Sociology Ph.D. student
+      %li 
+        %a{:href => 'https://twitter.com/jpvelez'} Juan-Pablo Velez 
+        \- data scientist at DataScope
+      %li 
+        %a{:href => 'https://twitter.com/bsmithgall'} Ben Smithgall 
+        \- former data analyst at Obama For America 
+      %li 
+        %a{:href => 'https://twitter.com/samarthbhaskar'} Samarth Bhaskar 
+        \- former data analyst at Obama For America 
+        
+    %h2#what-data-is What exactly does the map show?
+    %p The dark lines on the map are road segments that plows have driven over since 10am on Friday. That's it. We don't know whether they were salting, plowing, or just passing through. And we don't know for sure whether those streets are currently clear, because we don't have info about road conditions. Roads that were plowed early on might accumulate fresh snow as the storm ginds on.
+
+    %h2#dont-sue-us Disclaimer: data may not be accurate
+    %p What's more, we don't guarantee that the dark lines — which, again, show where plows have passed - are accurate or complete. The plows only transmit their rough locations, and they don't quite do so in real time. We make a best guess about where plows have passed, but it's still just that: a guess, though hopefully a good one. Don't sue us.
+
+    %h2#how-does-it-work How did we do this?
+    %p Each of the city's snow plows is outfitted with a GPS system. When a storm hits, the plows begin transmitting their location to the city in real-time. The city puts this data online and constantly updates it to power their real-time Plow Tracker map.
+    %p We took that location data - where was plow x at time y? - and used it to figure out which streets plows have driven through.
+
+    %h2#how-does-it-really-work
+      How did we
+      %i really
+      do this? (For the geeks)
+    %p This app was hacked together with python, php, google fusion tables, javascript, html/css, and a humble batch script. Here's how we did it:
+    %ol
+      %li
+        %p
+          We dug around in the Plow Tracker code and stumbled into the
+          = succeed "." do
+            %a{:href => "https://gisapps.cityofchicago.org/ArcGISRest/services/ExternalApps/operational/MapServer/38/query?f=json&where=OBJECTID%20is%20not%20null%20AND%20POSTING_TIME%20%3E%20SYSDATE-1%2F96&returnGeometry=true&spatialRel=esriSpatialRelIntersects&outFields=ADDRESS%2CPOSTING_TIME%2CASSET_NAME%2CASSET_TYPE%2COBJECTID"} data feed of GPS plow locations
+          We pulled these dots.
+      %li
+        %p
+          In order to figure out which streets had been cleared, we needed to turn these dots into plow paths. Lukas Kabrt's
+          %a{:href => "http://wiki.openstreetmap.org/wiki/Routing/Travel_Time_Analysis/MatchGPX2OSM"} MatchGPX2OSM
+          did the trick. It takes a series of GPS locations and snaps them to the street grid in order to calculate the most likely path taken by the vehicle. The street grid itself was provided by the thousands of unsung heroes at
+          = succeed "." do
+            %a{:href => "http://www.openstreetmap.org/"} OpenStreetMap
+          %br/
+          = succeed ":" do
+            %strong Code
+          %a{:href => "https://github.com/open-city/clearstreets-gpx2osm"} ClearStreets GPX to OSM script
+      %li
+        %p
+          We then wrote a script to import this data into
+          = succeed "," do
+            %a{:href => "http://wiki.openstreetmap.org/wiki/Routing/Travel_Time_Analysis/MatchGPX2OSM"} Google Fusion Tables
+          so we could display it using Derek Eder's
+          = succeed "." do
+            %a{:href => "http://derekeder.com/searchable_map_template/"} searchable map template
+          %br/
+          = succeed ":" do
+            %strong Code
+          %a{:href => "https://github.com/open-city/clearstreets-osm-to-ft"} ClearStreets OSM to Fusion Tables script
+      %li
+        %p
+          Finally, we styled the template based on Derek's Fusion Tables searchable map and flipped the switch.
+          %br/
+          = succeed ":" do
+            %strong Code
+          %a{:href => "https://github.com/open-city/clearstreets-web"} ClearStreets map front-end
