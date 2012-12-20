@@ -1,0 +1,22 @@
+.row
+  .span8
+    %h1 
+      Plow
+      = @plow[:plow_id]
+
+    - traces = FT.execute("SELECT Count() FROM #{FusionTableId} WHERE 'Plow ID' = '#{@plow[:plow_id]}'").first[:"count()"]
+
+    %h3
+      = traces
+      traces
+
+    %dl.dl-horizontal
+
+      %dt Last location
+      %dd 1234 State Street Chicago IL
+
+      %dt Last updated
+      %dd 6pm Dec 20th 2012
+
+      %dt Started plowing
+      %dd 6pm Dec 20th 2012

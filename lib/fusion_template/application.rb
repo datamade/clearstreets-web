@@ -23,6 +23,8 @@ module FusionTemplate
     use Rack::Session::Cookie
 
     helpers FusionTemplate::HtmlHelpers
+
+    FusionTableId = "129O2iei3jOpvTT_yG2xjHjY2hvunTb4IzTHBj_A"
     
     get "/" do
       cache_control :public, max_age: 1800  # 30 min
@@ -30,10 +32,15 @@ module FusionTemplate
       haml :index
     end
 
-    # note: the fusion_tables gem can only access tables based on the numeric ID of the table
-    get "/plows" do
+    get "/plows/:id" do
       cache_control :public, max_age: 1800  # 30 min
-      @plows = FT.execute("SELECT 'Plow ID', Count() FROM 11yYfQgUNUB6V5hziYp3fThtgK686_0qopDJ2GeQ GROUP BY 'Plow ID' ORDER BY Count() DESC")
+      @plow = FT.execute("SELECT * FROM #{FusionTableId} WHERE 'Plow ID' = '#{params[:id]}'").first
+      haml :plow_detail
+    end
+
+    get "/plows/?" do
+      cache_control :public, max_age: 1800  # 30 min
+      @plows = FT.execute("SELECT 'Plow ID', Count() FROM #{FusionTableId} GROUP BY 'Plow ID' ORDER BY Count() DESC")
       haml :plows
     end
 

@@ -16,9 +16,7 @@
         %li
           %a{:href => "#how-does-it-work"} How did we do this?
         %li
-          %a{:href => "#how-does-it-really-work"} how-does-it-really-work
-        %li
-          %a{:href => "#how-does-it-work"}
+          %a{:href => "#how-does-it-really-work"}
             How did we
             %i really
             do this? (For the geeks)
@@ -81,6 +79,9 @@
       %li 
         %a{:href => 'https://twitter.com/samarthbhaskar'} Samarth Bhaskar 
         \- former data analyst at Obama For America 
+
+    %p
+      The processing scripts
         
     %h2#what-data-is What exactly does the map show?
     %p The dark lines on the map are road segments that plows have driven over since 10am on Friday. That's it. We don't know whether they were salting, plowing, or just passing through. And we don't know for sure whether those streets are currently clear, because we don't have info about road conditions. Roads that were plowed early on might accumulate fresh snow as the storm ginds on.
@@ -103,7 +104,8 @@
           We dug around in the Plow Tracker code and stumbled into the
           = succeed "." do
             %a{:href => "https://gisapps.cityofchicago.org/ArcGISRest/services/ExternalApps/operational/MapServer/38/query?f=json&where=OBJECTID%20is%20not%20null%20AND%20POSTING_TIME%20%3E%20SYSDATE-1%2F96&returnGeometry=true&spatialRel=esriSpatialRelIntersects&outFields=ADDRESS%2CPOSTING_TIME%2CASSET_NAME%2CASSET_TYPE%2COBJECTID"} data feed of GPS plow locations
-          We pulled these dots.
+          = succeed '.' do
+            %a{:href => 'https://github.com/open-city/clearstreets-processing/tree/master/slurp2gpx'} We pulled these dots with a script
       %li
         %p
           In order to figure out which streets had been cleared, we needed to turn these dots into plow paths. Lukas Kabrt's
@@ -126,7 +128,7 @@
           %br/
           = succeed ":" do
             %strong Code
-          %a{:href => "https://github.com/open-city/clearstreets-osm-to-ft"} ClearStreets OSM to Fusion Tables script
+          %a{:href => "https://github.com/open-city/clearstreets-processing/tree/master/osm2ft"} ClearStreets OSM to Fusion Tables script
       %li
         %p
           Finally, we styled the template based on Derek's Fusion Tables searchable map and flipped the switch.
@@ -134,3 +136,13 @@
           = succeed ":" do
             %strong Code
           %a{:href => "https://github.com/open-city/clearstreets-web"} ClearStreets map front-end
+
+      %p
+        The processing scripts are all 
+        %a{:href => 'http://www.smartchicagocollaborative.org/projects/hosted-web-space/'} hosted 
+        on Amazon's EC2 by the 
+        = succeed '.' do
+          %a{:href => 'http://www.smartchicagocollaborative.org/'} Smart Chicago Collaborative
+        This website is hosed on 
+        = succeed '.' do
+          %a{:href => 'http://heroku.com'} Heroku

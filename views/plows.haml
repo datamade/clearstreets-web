@@ -8,12 +8,21 @@
         %strong S11321
       We can use this to track which plows are the most active.
 
-    - max_tracks = @plows.first[:"count()"].to_f
-    - @plows.each do |plow|
-      %h3
-        = plow[:plow_id]
-        %small
-          = plow[:"count()"] 
-          traces
-      .progress
-        .bar{:style => "width: #{100*plow[:"count()"].to_f/max_tracks}%;"}
+    %p This page is updated every 30 minutes.
+
+    - if @plows.count > 0
+      - max_tracks = @plows.first[:"count()"].to_f
+      %ol
+        - @plows.each do |plow|
+          - if plow[:"count()"] != '1'
+            %li
+              %h3
+                = plow[:plow_id]
+                %small
+                  = plow[:"count()"] 
+                  traces
+              .progress
+                .bar{:style => "width: #{100*plow[:"count()"].to_f/max_tracks}%;"}
+
+    - else
+      %p.lead.alert.alert-info No plow data at this time. Check back later!
