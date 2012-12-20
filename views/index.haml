@@ -60,7 +60,16 @@
     
     $(function() {
       MapsLib.initialize();
-      $("#search_address").geocomplete();
+
+      var chicagoBounds = new google.maps.LatLngBounds(
+        new google.maps.LatLng(41.691747,-87.54692),
+        new google.maps.LatLng(41.991511,-87.806472));
+
+      $("#search_address").geocomplete({
+        types: ['geocode'],
+        bounds: chicagoBounds,
+        componentRestrictions: {country: 'us'}
+      });
 
       $(':checkbox').click(function(){
         MapsLib.doSearch();
