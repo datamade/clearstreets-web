@@ -28,8 +28,9 @@
       %a{:href => "/about"} More »
 
     %hr
-    %p#last_updated
     %p#active_plows
+    %p#last_updated
+    
 
   .span8
     #map_canvas
@@ -44,7 +45,7 @@
   = include_javascript :"http://maps.google.com/maps/api/js?sensor=false&amp;libraries=places"
   = include_javascript "jquery.geocomplete.min"
   = include_javascript "jquery.dateFormat-1.0"
-  %script{:src => "/javascripts/maps_lib.js?2", :type => "text/javascript"}
+  %script{:src => "/javascripts/maps_lib.js?3", :type => "text/javascript"}
 
   :javascript
     $(window).resize(function () {
