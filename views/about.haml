@@ -22,6 +22,8 @@
             How did we
             %i really
             do this? (For the geeks)
+        %li
+          %a{:href => "#can-i-have-your-data"} Can I have your data?
   .span8
     %h1 About
 
@@ -180,3 +182,19 @@
         This website is hosted on 
         = succeed '.' do
           %a{:href => 'http://heroku.com'} Heroku
+
+      %h2#can-i-have-your-data Can I have your data?
+
+      %p
+        Sure! We'd love other people to use our plow data. You can download all the raw files below:
+
+      %h4 Dec 20th, 2012
+      %ul
+        %li
+          %a{:href => 'https://s3.amazonaws.com/clearstreets/12-20-2012/plow-12-20-2012.db'} Sqlite3 database of scraped plow points
+        %li
+          %a{:href => 'https://s3.amazonaws.com/clearstreets/12-20-2012/gpx-12-20-2012.tar.gz'} GPX files showing points for each plow
+        %li
+          %a{:href => 'https://s3.amazonaws.com/clearstreets/12-20-2012/osm-12-20-2012.tar.gz'} OSM files showing traces for each plow
+        %li
+          %a{:href => 'https://www.google.com/fusiontables/DataSource?docid=129O2iei3jOpvTT_yG2xjHjY2hvunTb4IzTHBj_A'} Fusion Table of KML line segments with datestamps
