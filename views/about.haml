@@ -6,6 +6,8 @@
         %li
           %a{:href => "#what-is-this"} What is this?
         %li
+          %a{:href => "#whats-new"} What's new in the latest version?
+        %li
           %a{:href => "#press"} Press
         %li
           %a{:href => "#who-made-this"} Who made this?
@@ -41,20 +43,52 @@
         %a{:href => "http://www.ascentstage.com/archives/2012/01/open-data-in-chicago/"} open data
       The more data they release, the more useful stuff we can build.
 
+    %h2#whats-new What's new in the latest version?
+
+    %p
+      On Dec 20th 2012, ahead of the impending 
+      = succeed ',' do
+        %a{:href => 'http://www.weather.com/news/weather-winter/winter-storm-draco-west-midwest-20121217'} Winter Storm Draco
+      we made some upgrades to ClearStreets. They include:
+
+    %ul
+      %li
+        %a{:href => '/plows'} The Plow Leaderboard
+        \-
+        a list of all active plows and the number of traces we have for each. Note that traces are not the same as distance, but we plan on adding 'miles plowed' soon.
+      %li 
+        RESTful URLs - when you type in an address, it is saved in the URL so you can 
+        %a{:href => '/#/?address=merchandise%20mart%20chicago&radius=805'} share it
+      %li
+        Mobile and Tablet friendly 'responsive' design using 
+        %a{:href => 'http://twitter.github.com/bootstrap/'} Twitter Bootstrap
+
+    %p 
+      For more details, see the 
+      = succeed '.' do
+        %a{:href => 'http://gridchicago.com/2012/updated-clearstreets-alternative-to-plow-tracker-brings-new-features-and-mobile-friendly-design/'} interview Derek gave to GridChicago
+
+
     %h2#press Press
     %ul
       %li
+        %a{:href => "http://gridchicago.com/2012/updated-clearstreets-alternative-to-plow-tracker-brings-new-features-and-mobile-friendly-design/"} Updated ClearStreets, Alternative to Plow Tracker, Brings New Features and Mobile Friendly Design
+        \- GridChicago | Dec 20th, 2012 
+      %li
+        %a{:href => "http://www.smartchicagocollaborative.org/clearstreets-another-great-project-benefitting-from-space-on-the-smart-chicago-ec2-account/"} ClearStreets: Another Great Project Benefitting from Space on the Smart Chicago EC2 Account
+        \- Smart Chicago Collaborative Blog | Dec 20th, 2012 
+      %li
         %a{:href => "http://www.chicagotribune.com/news/ct-talk-snow-tracker-0121-20120121,0,4501133.story"} What streets have been plowed, and when? Check the Web
-        \- Chicago Tribune
+        \- Chicago Tribune | Jan 21st, 2012 
       %li
         %a{:href => "http://www.chicagojournal.com/News/01-20-2012/Web_apps_track_snow_plows_progress_around_Chicago"} Web apps track snow plows progress around Chicago
-        \- Chicago Journal
+        \- Chicago Journal | Jan 20th, 2012 
       %li
         %a{:href => "http://gridchicago.com/2012/new-plow-tracker-style-website-hits-the-web-in-time-for-todays-snow-storm/"} New plow tracker-style website hits the web in time for today's snow storm
-        \- GridChicago
+        \- GridChicago | Jan 20th, 2012 
       %li
         %a{:href => "http://chicagoist.com/2012/01/20/clear_streets_a_better_use_of_snow.php#photo-1"} Chicago ClearStreets: A Better Use Of Snow Plow Tracker Technology
-        \- Chicagoist
+        \- Chicagoist | Jan 20th, 2012 
 
     %h2#who-made-this Who made this?
     %p
