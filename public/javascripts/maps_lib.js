@@ -254,16 +254,17 @@ var MapsLib = {
     var startTime = new Date();
     startTime.setTime(startTime.getTime() + (365 * 24 * -60 * 60 * 1000)); 
 
-    var sql = "SELECT Count() FROM " + MapsLib.fusionTableId + " GROUP BY 'Plow ID'";
+    var sql = "SELECT 'Plow ID', Count() FROM " + MapsLib.fusionTableId + " GROUP BY 'Plow ID' ORDER BY Count() DESC";
     MapsLib.queryRaw(sql,"MapsLib.displayActivePlows");
   },
   
   displayActivePlows: function(json) { 
     MapsLib.handleError(json);
+    //console.log(json);
     var count = 0;
 
     if (json["rows"] != null)
-      count = json["rows"][0];
+      count = json["rows"].length;
     $( "#active_plows" ).fadeOut(function() {
         $( "#active_plows" ).html("Active plows: <strong>" + count + "</strong>/~300");
       });
