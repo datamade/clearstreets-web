@@ -39,7 +39,7 @@ module FusionTemplate
     end
 
     get "/plows/?" do
-      cache_control :public, max_age: 1800  # 30 min
+      cache_control :public, max_age: 900  # 15 min
       @plows = FT.execute("SELECT 'Plow ID', Count() FROM #{FusionTableId} GROUP BY 'Plow ID' ORDER BY Count() DESC")
       haml :plows
     end

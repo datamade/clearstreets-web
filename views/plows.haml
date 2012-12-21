@@ -8,7 +8,7 @@
         %strong S11321
       We can use this to track which plows are the most active.
 
-    %p This page is updated every 30 minutes.
+    %p This page is updated every 15 minutes.
 
     - if @plows.count > 0
       - max_tracks = @plows.first[:"count()"].to_f
@@ -16,7 +16,7 @@
         - @plows.each do |plow|
           - if plow[:"count()"] != '1'
             %li
-              %h3
+              %h3{:id => plow[:plow_id]}
                 = plow[:plow_id]
                 %small
                   = plow[:"count()"] 
