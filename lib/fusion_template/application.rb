@@ -50,9 +50,20 @@ module FusionTemplate
       haml :about
     end
     
-    get "/:page" do
-      @current_menu = params[:page]
-      haml params[:page].to_sym
+    # catchall for static pages
+    get "/:page/?" do
+      begin 
+        @current_menu = params[:page]
+        @title = params[:page].capitalize.gsub(/[_-]/, " ") + " - ClearStreets"
+        @page_path = params[:page]
+        haml params[:page].to_sym
+      rescue Errno::ENOENT
+        haml :not_found
+      end
+    end
+
+    error do
+      'Sorry there was a nasty error - ' + env['sinatra.error'].name
     end
   end
 end

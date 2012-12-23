@@ -1,0 +1,11 @@
+%h2 Oops! Couldn't find that page
+
+%p 
+  The page
+  %strong
+    = "'#{params[:page]}'"
+  doesn't exist
+
+%p
+  &laquo Back to
+  %a{:href => "/"} home
