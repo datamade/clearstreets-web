@@ -25,7 +25,21 @@ module FusionTemplate
     helpers FusionTemplate::HtmlHelpers
 
     FusionTableId = "129O2iei3jOpvTT_yG2xjHjY2hvunTb4IzTHBj_A"
+
+    # redirects for old site
+    get "/2012*" do
+      redirect "/?1"
+    end
+
+    get "/about.html" do
+      redirect "/about"
+    end
+
+    get "/past-storms.html" do
+      redirect "/?2"
+    end
     
+    # primary routes
     get "/" do
       cache_control :public, max_age: 1800  # 30 min
       @current_menu = "home"
