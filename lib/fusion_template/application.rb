@@ -24,8 +24,6 @@ module FusionTemplate
 
     helpers FusionTemplate::HtmlHelpers
 
-    FusionTableId = "129O2iei3jOpvTT_yG2xjHjY2hvunTb4IzTHBj_A"
-
     # redirects for old site
     get "/2012*" do
       redirect "/?1"
@@ -48,13 +46,13 @@ module FusionTemplate
 
     get "/plows/:id" do
       cache_control :public, max_age: 1800  # 30 min
-      @plow = FT.execute("SELECT * FROM #{FusionTableId} WHERE 'Plow ID' = '#{params[:id]}'").first
+      @plow = FT.execute("SELECT * FROM #{Current_fusion_table_id} WHERE 'Plow ID' = '#{params[:id]}'").first
       haml :plow_detail
     end
 
     get "/plows/?" do
       cache_control :public, max_age: 900  # 15 min
-      @plows = FT.execute("SELECT 'Plow ID', Count() FROM #{FusionTableId} GROUP BY 'Plow ID' ORDER BY Count() DESC")
+      @plows = FT.execute("SELECT 'Plow ID', Count() FROM #{Current_fusion_table_id} GROUP BY 'Plow ID' ORDER BY Count() DESC")
       haml :plows
     end
 

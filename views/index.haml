@@ -1,9 +1,7 @@
 .row-fluid
   .span4
     %p.alert.alert-info
-      Chicago is expected to get 1-3" of snow from 
-      = succeed '.' do
-        %a{:href => 'http://www.weather.com/news/weather-winter/winter-storm-draco-west-midwest-20121217'} Winter Storm Draco
+      Chicago is expected to get 2-3" of snow the morning of Jan 25, 2013.
       See which streets have been plowed and when.
     .well
       %h4
@@ -22,6 +20,13 @@
       
       %input#search.btn.btn-info{:type => "button", :value => "Search"}
       %button#reset.btn Reset
+
+    .well
+      %h4
+        Select storm
+      %select#select_storm
+        %option{:value => "129O2iei3jOpvTT_yG2xjHjY2hvunTb4IzTHBj_A", :selected => 'selected'} Jan 25, 2013 (Current)
+        %option{:value => "12vrI6yT7pIKFqRLPDs2BiRNdH3Y0DXzyNEISSeg"} Dec 20, 2012
 
     %p
       On January 3rd 2012, the City of Chicago launched
@@ -48,7 +53,7 @@
   = include_javascript :"http://maps.google.com/maps/api/js?sensor=false&amp;libraries=places"
   = include_javascript "jquery.geocomplete.min"
   = include_javascript "jquery.dateFormat-1.0"
-  %script{:src => "/javascripts/maps_lib.js?7", :type => "text/javascript"}
+  %script{:src => "/javascripts/maps_lib.js?8", :type => "text/javascript"}
 
   :javascript
     $(window).resize(function () {
@@ -104,6 +109,10 @@
               $('#search').click();
               return false;
           }
+      });
+
+      $('#select_storm').change(function(){
+        MapsLib.doSearch();
       });
 
       setTimeout(function() {

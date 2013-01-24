@@ -18,7 +18,7 @@ var MapsLib = {
   
   //the encrypted Table ID of your Fusion Table (found under File => About)
   //NOTE: numeric IDs will be depricated soon
-  fusionTableId:      "129O2iei3jOpvTT_yG2xjHjY2hvunTb4IzTHBj_A",  
+  fusionTableId:      "", //handled by Storm select dropdown
   
   //*New Fusion Tables Requirement* API key. found at https://code.google.com/apis/console/   
   //*Important* this key is for demonstration purposes. please register your own.   
@@ -82,7 +82,7 @@ var MapsLib = {
     var whereClause = MapsLib.locationColumn + " not equal to ''";
     
     //-----custom filters-------
-    
+    MapsLib.fusionTableId = $("#select_storm").val();
     //-------end of custom filters--------
     
     if (address != "") {
