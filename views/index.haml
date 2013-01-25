@@ -1,7 +1,7 @@
 .row-fluid
   .span4
     %p.alert.alert-info
-      On Dec 20, 2012, Chicago got about 1" of snow.
+      Chicago is expected to get 1-3" of snow the morning of Jan 25, 2013.
       See which streets have been plowed and when.
     .well
       %h4
@@ -25,7 +25,8 @@
       %h4
         Select storm
       %select#select_storm
-        %option{:value => "129O2iei3jOpvTT_yG2xjHjY2hvunTb4IzTHBj_A", :selected => 'selected'} Dec 20, 2012 (Current)
+        %option{:value => "129O2iei3jOpvTT_yG2xjHjY2hvunTb4IzTHBj_A", :selected => 'selected'} Jan 25, 2013 (Current)
+        %option{:value => "12vrI6yT7pIKFqRLPDs2BiRNdH3Y0DXzyNEISSeg"} Dec 20, 2012
         %option{:value => "1Joj30eltDiXAhbhizuurstPUfqYeSISEmlOANHE"} Feb 10, 2012
         %option{:value => "18LV9PXFVzgP_eZhBRcbsCWRW9sHTMLPaxx3lDa8"} Jan 21, 2012 (part 2)
         %option{:value => "1hq3bK1dUqyE6LCQ488tZF3syQQc5jYsluMS5Fy0"} Jan 21, 2012 (part 1)
@@ -55,7 +56,7 @@
   = include_javascript :"http://maps.google.com/maps/api/js?sensor=false&amp;libraries=places"
   = include_javascript "jquery.geocomplete.min"
   = include_javascript "jquery.dateFormat-1.0"
-  %script{:src => "/javascripts/maps_lib.js?10", :type => "text/javascript"}
+  %script{:src => "/javascripts/maps_lib.js?9", :type => "text/javascript"}
 
   :javascript
     $(window).resize(function () {
