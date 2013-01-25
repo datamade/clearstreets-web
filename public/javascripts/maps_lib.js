@@ -71,7 +71,7 @@ var MapsLib = {
     //run the default search
     MapsLib.doSearch();
     MapsLib.getLastUpdated();
-    //MapsLib.getActivePlows();
+    MapsLib.getActivePlows();
   },
   
   doSearch: function(location) {
@@ -128,15 +128,17 @@ var MapsLib = {
     //for more details, see https://developers.google.com/fusiontables/docs/v1/using#WorkingStyles 
 
     //ugh - hack for older fusion tables not having style IDs
+
     var legacy_fusion_tables = ["1Joj30eltDiXAhbhizuurstPUfqYeSISEmlOANHE", "18LV9PXFVzgP_eZhBRcbsCWRW9sHTMLPaxx3lDa8", "1hq3bK1dUqyE6LCQ488tZF3syQQc5jYsluMS5Fy0"];
+
     var styleId = 2;
     var templateId = 2;
-    for (var t in legacy_fusion_tables) {
-      //console.log(t);
+    for (t in legacy_fusion_tables) {
       if (MapsLib.fusionTableId == legacy_fusion_tables[t]) {
         styleId = 1;
         templateId = 1;
       }
+
     }
 
     if (whereClause != '') {
@@ -256,7 +258,7 @@ var MapsLib = {
     if (json["rows"] != null) {
       var datestamp = json["rows"][0];
       $( "#last_updated" ).fadeOut(function() {
-          $( "#last_updated" ).html("Last updated: " + datestamp);
+          $( "#last_updated" ).html("<br />Updated: " + datestamp);
         });
       $( "#last_updated" ).fadeIn();
     }
