@@ -25,7 +25,7 @@
       %h4
         Select storm
       %select#select_storm
-        %option{:value => "129O2iei3jOpvTT_yG2xjHjY2hvunTb4IzTHBj_A", :selected => 'selected'} Jan 25, 2013 (Current)
+        %option{:value => "1uofgOyiCkJNoq6U2Vi2Dd8SDr1BELl29NbZvRHk", :selected => 'selected'} Jan 25, 2013 (Current)
         %option{:value => "12vrI6yT7pIKFqRLPDs2BiRNdH3Y0DXzyNEISSeg"} Dec 20, 2012
         %option{:value => "1Joj30eltDiXAhbhizuurstPUfqYeSISEmlOANHE"} Feb 10, 2012
         %option{:value => "18LV9PXFVzgP_eZhBRcbsCWRW9sHTMLPaxx3lDa8"} Jan 21, 2012 (part 2)
@@ -57,7 +57,7 @@
   = include_javascript :"http://maps.google.com/maps/api/js?sensor=false&amp;libraries=places"
   = include_javascript "jquery.geocomplete.min"
   = include_javascript "jquery.dateFormat-1.0"
-  %script{:src => "/javascripts/maps_lib.js?9", :type => "text/javascript"}
+  %script{:src => "/javascripts/maps_lib.js?10", :type => "text/javascript"}
 
   :javascript
     $(window).resize(function () {
@@ -121,8 +121,6 @@
 
       setTimeout(function() {
         //console.log("refetching map tiles");
-        $("img[src*='googleapis']").each(function(){
-        $(this).attr("src",$(this).attr("src")+"&"+(new Date()).getTime());
-        });
+        MapsLib.uncacheTiles();
       },3000);
     });

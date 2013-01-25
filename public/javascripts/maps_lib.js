@@ -164,6 +164,7 @@ var MapsLib = {
     }
 
     MapsLib.searchrecords.setMap(map);
+    MapsLib.uncacheTiles();
   },
   
   clearSearch: function() {
@@ -301,5 +302,12 @@ var MapsLib = {
   convertToPlainString: function(text) {
     if (text == undefined) return '';
     return decodeURIComponent(text);
+  },
+
+  uncacheTiles: function() {
+    $("img[src*='googleapis']").each(function(){
+      $(this).attr("src",$(this).attr("src")+"&"+(new Date()).getTime());
+      //console.log($(this).attr("src"));
+    });
   }
 }
