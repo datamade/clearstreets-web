@@ -132,7 +132,7 @@ var MapsLib = {
     var styleId = 2;
     var templateId = 2;
     for (var t in legacy_fusion_tables) {
-      console.log(t);
+      //console.log(t);
       if (MapsLib.fusionTableId == legacy_fusion_tables[t]) {
         styleId = 1;
         templateId = 1;
