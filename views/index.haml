@@ -1,7 +1,7 @@
 .row-fluid
   .span4
     %p.alert.alert-info
-      Chicago is expected to get 1-3" of snow the morning of Jan 25, 2013.
+      Whenever it snows in Chicago, the City deploys a fleet of snow plows.
       See which streets have been plowed and when.
     .well
       %h4
@@ -25,11 +25,9 @@
       %h4
         Select storm
       %select#select_storm
-        %option{:value => "1uofgOyiCkJNoq6U2Vi2Dd8SDr1BELl29NbZvRHk", :selected => 'selected'} Jan 25, 2013 (Current)
-        %option{:value => "12vrI6yT7pIKFqRLPDs2BiRNdH3Y0DXzyNEISSeg"} Dec 20, 2012
-        %option{:value => "1Joj30eltDiXAhbhizuurstPUfqYeSISEmlOANHE"} Feb 10, 2012
-        %option{:value => "18LV9PXFVzgP_eZhBRcbsCWRW9sHTMLPaxx3lDa8"} Jan 21, 2012 (part 2)
-        %option{:value => "1hq3bK1dUqyE6LCQ488tZF3syQQc5jYsluMS5Fy0"} Jan 21, 2012 (part 1)
+        - Fusion_tables.each do |f|
+          %option{:value => f[:id]}
+            = f[:title]
 
     %p
       On January 3rd 2012, the City of Chicago launched

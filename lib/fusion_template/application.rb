@@ -24,6 +24,16 @@ module FusionTemplate
 
     helpers FusionTemplate::HtmlHelpers
 
+    Fusion_tables = [
+      {:id => '1NKzNt2E0ScHUs9OIM22UAmh1pQZl7geWqH1fSyg', :title => 'Jan 25-28, 2013', :type => ''},
+      {:id => '12vrI6yT7pIKFqRLPDs2BiRNdH3Y0DXzyNEISSeg', :title => 'Dec 20, 2012', :type => ''},
+      {:id => '1Joj30eltDiXAhbhizuurstPUfqYeSISEmlOANHE', :title => 'Feb 10, 2012', :type => 'legacy'},
+      {:id => '18LV9PXFVzgP_eZhBRcbsCWRW9sHTMLPaxx3lDa8', :title => 'Jan 21, 2012 (part 2)', :type => 'legacy'},
+      {:id => '1hq3bK1dUqyE6LCQ488tZF3syQQc5jYsluMS5Fy0', :title => 'Jan 21, 2012 (part 1)', :type => 'legacy'}
+    ]
+
+    Current_fusion_table_id = Fusion_tables.first[:id]
+
     # redirects for old site
     get "/2012*" do
       redirect "/?1"

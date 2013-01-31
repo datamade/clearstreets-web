@@ -71,7 +71,7 @@ var MapsLib = {
     //run the default search
     MapsLib.doSearch();
     MapsLib.getLastUpdated();
-    MapsLib.getActivePlows();
+    //MapsLib.getActivePlows();
   },
   
   doSearch: function(location) {
