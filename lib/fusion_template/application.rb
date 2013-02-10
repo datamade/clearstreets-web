@@ -49,6 +49,16 @@ module FusionTemplate
     get "/past-storms.html" do
       redirect "/?2"
     end
+
+    # utility for flushing cache
+    get "/flush_cache" do
+      if memcache_servers = ENV["MEMCACHE_SERVERS"]
+        require 'dalli'
+        dc = Dalli::Client.new
+        dc.flush
+      end
+      redirect "/"
+    end
     
     # primary routes
     get "/" do
