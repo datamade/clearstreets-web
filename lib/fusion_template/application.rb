@@ -25,7 +25,8 @@ module FusionTemplate
     helpers FusionTemplate::HtmlHelpers
 
     Fusion_tables = [
-      {:id => '129O2iei3jOpvTT_yG2xjHjY2hvunTb4IzTHBj_A', :title => 'Feb 7, 2013 (Live!)', :type => ''},
+      {:id => '129O2iei3jOpvTT_yG2xjHjY2hvunTb4IzTHBj_A', :title => 'Feb 21, 2013 (Live!)', :type => ''},
+      {:id => '1fBpR7sN8avSbL1Zc0Ye8rs7Qkww-4raKLm0WrwM', :title => 'Feb 7, 2013', :type => ''},
       {:id => '1ejPv2ivummsG1Qgn6tW1molfZul-nUHdqbdLduc', :title => 'Feb 4, 2013', :type => ''},
       {:id => '1hYWSY3i91n8lUnCI9i2CfK1TVp2UFgx9IVjLmbo', :title => 'Feb 2, 2013', :type => ''},
       {:id => '1NKzNt2E0ScHUs9OIM22UAmh1pQZl7geWqH1fSyg', :title => 'Jan 25-28, 2013', :type => ''},
