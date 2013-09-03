@@ -9,10 +9,10 @@ gem "haml"
 gem "fusion_tables" #, :git  => 'git://github.com/derekeder/fusion_tables.git'
 
 # cache
+gem "memcachier"
 gem "dalli"
 gem "rack-cache"
 
 group :development do
-  gem "heroku"
   gem "unicorn"
 end
