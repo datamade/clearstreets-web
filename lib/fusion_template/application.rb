@@ -25,17 +25,18 @@ module FusionTemplate
     helpers FusionTemplate::HtmlHelpers
 
     Fusion_tables = [
-      {:id => '129O2iei3jOpvTT_yG2xjHjY2hvunTb4IzTHBj_A', :title => 'Mar 5, 2013', :type => ''},
-      {:id => '1yYkZlNtZHFfAZ4vdOi2jTvIDV4hdkd2XmoicJ9U', :title => 'Feb 26-27, 2013', :type => ''},
-      {:id => '1o5iP9qK0YnCcuqIQ8G3KkgA8qGQEaI8HrxlXKbs', :title => 'Feb 22, 2013', :type => ''},
-      {:id => '1fBpR7sN8avSbL1Zc0Ye8rs7Qkww-4raKLm0WrwM', :title => 'Feb 7, 2013', :type => ''},
-      {:id => '1ejPv2ivummsG1Qgn6tW1molfZul-nUHdqbdLduc', :title => 'Feb 4, 2013', :type => ''},
-      {:id => '1hYWSY3i91n8lUnCI9i2CfK1TVp2UFgx9IVjLmbo', :title => 'Feb 2, 2013', :type => ''},
-      {:id => '1NKzNt2E0ScHUs9OIM22UAmh1pQZl7geWqH1fSyg', :title => 'Jan 25-28, 2013', :type => ''},
-      {:id => '12vrI6yT7pIKFqRLPDs2BiRNdH3Y0DXzyNEISSeg', :title => 'Dec 20, 2012', :type => ''},
-      {:id => '1Joj30eltDiXAhbhizuurstPUfqYeSISEmlOANHE', :title => 'Feb 10, 2012', :type => 'legacy'},
-      {:id => '18LV9PXFVzgP_eZhBRcbsCWRW9sHTMLPaxx3lDa8', :title => 'Jan 21, 2012 (part 2)', :type => 'legacy'},
-      {:id => '1hq3bK1dUqyE6LCQ488tZF3syQQc5jYsluMS5Fy0', :title => 'Jan 21, 2012 (part 1)', :type => 'legacy'}
+      {:id => '129O2iei3jOpvTT_yG2xjHjY2hvunTb4IzTHBj_A', :title => 'Dec 8, 2013', :type => '', :backup_folder => ''},
+      {:id => '1RIRVDtmgZxBet1Hd9kJi6GLdvl9dC45SrtzsAko', :title => 'Mar 5, 2013', :type => '', :backup_folder => '03-06-2013'},
+      {:id => '1yYkZlNtZHFfAZ4vdOi2jTvIDV4hdkd2XmoicJ9U', :title => 'Feb 26-27, 2013', :type => '', :backup_folder => '02-27-2013'},
+      {:id => '1o5iP9qK0YnCcuqIQ8G3KkgA8qGQEaI8HrxlXKbs', :title => 'Feb 22, 2013', :type => '', :backup_folder => '02-22-2013'},
+      {:id => '1fBpR7sN8avSbL1Zc0Ye8rs7Qkww-4raKLm0WrwM', :title => 'Feb 7, 2013', :type => '', :backup_folder => ''},
+      {:id => '1ejPv2ivummsG1Qgn6tW1molfZul-nUHdqbdLduc', :title => 'Feb 4, 2013', :type => '', :backup_folder => '02-05-2013'},
+      {:id => '1hYWSY3i91n8lUnCI9i2CfK1TVp2UFgx9IVjLmbo', :title => 'Feb 2, 2013', :type => '', :backup_folder => '02-03-2013'},
+      {:id => '1NKzNt2E0ScHUs9OIM22UAmh1pQZl7geWqH1fSyg', :title => 'Jan 25-28, 2013', :type => '', :backup_folder => '01-31-2013'},
+      {:id => '12vrI6yT7pIKFqRLPDs2BiRNdH3Y0DXzyNEISSeg', :title => 'Dec 20, 2012', :type => '', :backup_folder => '12-20-2012'},
+      {:id => '1Joj30eltDiXAhbhizuurstPUfqYeSISEmlOANHE', :title => 'Feb 10, 2012', :type => 'legacy', :backup_folder => ''},
+      {:id => '18LV9PXFVzgP_eZhBRcbsCWRW9sHTMLPaxx3lDa8', :title => 'Jan 21, 2012 (part 2)', :type => 'legacy', :backup_folder => ''},
+      {:id => '1hq3bK1dUqyE6LCQ488tZF3syQQc5jYsluMS5Fy0', :title => 'Jan 21, 2012 (part 1)', :type => 'legacy', :backup_folder => ''}
     ]
 
     Current_fusion_table_id = Fusion_tables.first[:id]
