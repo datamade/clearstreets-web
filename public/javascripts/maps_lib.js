@@ -18,7 +18,7 @@ var MapsLib = {
   
   //the encrypted Table ID of your Fusion Table (found under File => About)
   //NOTE: numeric IDs will be depricated soon
-  fusionTableId:      "", //handled by Storm select dropdown
+  fusionTableId:      "129O2iei3jOpvTT_yG2xjHjY2hvunTb4IzTHBj_A", //handled by Storm select dropdown
   
   //*New Fusion Tables Requirement* API key. found at https://code.google.com/apis/console/   
   //*Important* this key is for demonstration purposes. please register your own.   
@@ -65,9 +65,14 @@ var MapsLib = {
     var loadRadius = MapsLib.convertToPlainString($.address.parameter('radius'));
     if (loadRadius != "") $("#search_radius").val(loadRadius);
     else $("#search_radius").val(MapsLib.searchRadius);
+    
+    var loadStorm = $.address.parameter('storm_id');
+    if (loadStorm != "") $("#storm_id").val(loadStorm);
+    else $("#storm_id").val(MapsLib.fusionTableId);
+
     $(":checkbox").attr("checked", "checked");
     $("#result_count").hide();
-     
+
     //run the default search
     MapsLib.doSearch();
     MapsLib.getLastUpdated();
@@ -82,7 +87,9 @@ var MapsLib = {
     var whereClause = MapsLib.locationColumn + " not equal to ''";
     
     //-----custom filters-------
-    MapsLib.fusionTableId = $("#select_storm").val();
+    MapsLib.fusionTableId = $("#storm_id").val();
+    $.address.parameter('storm_id', MapsLib.fusionTableId);
+    console.log(MapsLib.fusionTableId);
     //-------end of custom filters--------
     
     if (address != "") {
