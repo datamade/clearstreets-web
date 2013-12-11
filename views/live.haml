@@ -1,0 +1,98 @@
+.row-fluid
+  .span4
+    %p.alert.alert-info  
+      %strong Dec 11th, 2013
+      Chicago area is expected to get <a href='http://www.chicagotribune.com/news/local/breaking/chi-chicago-weather-20131210,0,918739.story'>up to 4 inches of snow</a>.
+      See which streets have been plowed and when.
+    .well
+      %h4
+        Did my street get plowed?
+        <small>(<a id='find_me' href='#'>find me</a>)</small>
+
+      %input#search_address.input-block-level{:placeholder => "Enter an address or an intersection", :type => "text"}
+      
+      %label
+        within
+        %select#search_radius.input-small
+          %option{:value => "400"} 2 blocks
+          %option{:value => "805"} 1/2 mile
+          %option{:value => "1610"} 1 mile
+          %option{:value => "3220"} 2 miles
+      
+      %input#search.btn.btn-info{:type => "button", :value => "Search"}
+      %button#reset.btn Reset
+
+    %p
+      On January 3rd 2012, the City of Chicago launched
+      = succeed "," do
+        %a{:href => "http://www.cityofchicago.org/content/city/en/depts/mayor/iframe/plow_tracker.html"} Plow Tracker
+      an app that tracks the city's snow plows in real time. This app uses the same data. By knowing where the plows are, we've figured which streets have been plowed.
+      %a{:href => "/about"} More »
+
+    %hr
+    %p.alert.alert-info
+      %span#active_plows
+      %span#last_updated
+    
+
+  .span8
+    #map_canvas
+    %span.pull-right
+      An 
+      %a{:href => 'http://opencityapps.org'} Open City
+      project by Derek Eder, Forest Gregg and Juan-Pablo Velez
+
+- content_for :stylesheets do
+  = include_stylesheet "http://libs.cartocdn.com/cartodb.js/v3/themes/css/cartodb.css"  
+
+- content_for :javascripts do
+  = include_javascript :"jquery.address.min"
+  = include_javascript :"http://libs.cartocdn.com/cartodb.js/v3/cartodb.js"
+  = include_javascript "jquery.geocomplete.min"
+  = include_javascript "jquery.dateFormat-1.0"
+
+  :javascript
+    $(window).resize(function () {
+      var h = $(window).height(),
+        offsetTop = 130; // Calculate the top offset
+    
+      $('#map_canvas').css('height', (h - offsetTop));
+    }).resize();
+
+    var map;
+    function init(){
+      // initiate leaflet map
+      map = new L.Map('map_canvas', { 
+        center: [41.8781136, -87.66677856445312],
+        zoom: 13
+      })
+
+      L.tileLayer('http://{s}.tile.cloudmade.com/{key}/{styleId}/256/{z}/{x}/{y}.png', {
+        attribution: 'Mapbox <a href="http://mapbox.com/about/maps" target="_blank">Terms &amp; Feedback</a>',
+        key: 'BC9A493B41014CAABB98F0471D759707',
+        styleId: 22677
+      }).addTo(map);
+
+      var layerUrl = 'http://clearstreets.cartodb.com/api/v2/viz/5540780a-62a5-11e3-92ab-c7be36a2d904/viz.json';
+
+      // change the query for the first layer
+      var lat = '41.8781136';
+      var lng = '-87.66677856445312';
+      var subLayerOptions = {
+        sql: "SELECT * FROM clearstreets_live"
+      }
+
+      //console.log(subLayerOptions['sql']);
+
+      cartodb.createLayer(map, layerUrl)
+        .addTo(map)
+        .on('done', function(layer) {
+          layer.getSubLayer(0).set(subLayerOptions);
+        }).on('error', function() {
+          //log the error
+        });
+    }
+
+    $(function() {
+      init();
+    });
