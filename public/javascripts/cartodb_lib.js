@@ -53,7 +53,7 @@ var CartoDbLib = {
     CartoDbLib.info.update = function (props) {
       //var date_formatted = new moment(props.datestamp).format("h:mm:ss a M/D/YYYY");
 
-      this._div.innerHTML = '<h4>Plow info</h4>' +  (props ?
+      this._div.innerHTML = '<h4>Dec 8-11, 2013 storm</h4>' +  (props ?
             'Plowed at <b/>' + props.datestamp + '</b> by Plow ' + props.id : 'Hover over a plow path');
     };
 
