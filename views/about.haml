@@ -45,30 +45,15 @@
         %a{:href => "http://www.ascentstage.com/archives/2012/01/open-data-in-chicago/"} open data
       The more data they release, the more useful stuff we can build.
 
-    %h2#whats-new What's new in the latest version?
+    %h2#whats-new Dec 2013 updates
+    %p
+      For the first two winters of ClearStreets, we used Google Fusion Tables to display our maps. This worked out really well, especially since it able to display a lot of data quickly at no cost to us. However, for storms when the city deploys all ~300 of its plows over a period of several days, we found that Fusion Tables could not display all our data due to its <a href='https://developers.google.com/fusiontables/docs/v1/using#Geo'>limit of 100,000 features per map</a>.
 
     %p
-      On Dec 20th 2012, ahead of the impending 
-      = succeed ',' do
-        %a{:href => 'http://www.weather.com/news/weather-winter/winter-storm-draco-west-midwest-20121217'} Winter Storm Draco
-      we made some upgrades to ClearStreets. They include:
+      This was an issue we weren't sure how to solve with the resources we had (none), but as luck would have it, <a href='https://twitter.com/andrewxhill'>Andrew Hill</a> from <a href='https://cartodb.com/'>CartoDB</a> reached out to us with an <a href='http://andrew.cartodb.com/viz/0fc7f022-5ed7-11e3-b3ad-3085a9a9563c/embed_map'>animated map built with our plow data</a> and we got to talking. From that conversation, CartoDB graciously offered to gift us their <a href='https://cartodb.com/pricing/'>Cornelli plan</a> to display our plow data.
 
-    %ul
-      %li
-        %a{:href => '/plows'} The Plow Leaderboard
-        \-
-        a list of all active plows and the number of traces we have for each. Note that traces are not the same as distance, but we plan on adding 'miles plowed' soon.
-      %li 
-        RESTful URLs - when you type in an address, it is saved in the URL so you can 
-        %a{:href => '/#/?address=merchandise%20mart%20chicago&radius=805'} share it
-      %li
-        Mobile and Tablet friendly 'responsive' design using 
-        %a{:href => 'http://twitter.github.com/bootstrap/'} Twitter Bootstrap
-
-    %p 
-      For more details, see the 
-      = succeed '.' do
-        %a{:href => 'http://gridchicago.com/2012/updated-clearstreets-alternative-to-plow-tracker-brings-new-features-and-mobile-friendly-design/'} interview Derek gave to GridChicago
+    %p
+      ClearStreets now uses CartoDB to fully map the most recent snow storm and Fusion Tables to archive our past storms.
 
 
     %h2#press Press
@@ -108,16 +93,10 @@
           %a{:href => "http://derekeder.com/datamade"} DataMade
       %li 
         Forest Gregg 
-        \- University of Chicago Sociology Ph.D. student
+        \- University of Chicago Sociology Ph.D. student and partner at DataMade
       %li 
         %a{:href => 'https://twitter.com/jpvelez'} Juan-Pablo Velez 
-        \- data scientist at DataScope
-      %li 
-        %a{:href => 'https://twitter.com/bsmithgall'} Ben Smithgall 
-        \- former data analyst at Obama For America 
-      %li 
-        %a{:href => 'https://twitter.com/samarthbhaskar'} Samarth Bhaskar 
-        \- former data analyst at Obama For America 
+        \- data scientist at Civic Insight
 
     %p
       The processing scripts
@@ -168,6 +147,12 @@
           = succeed ":" do
             %strong Code
           %a{:href => "https://github.com/open-city/clearstreets-processing/tree/master/osm2ft"} ClearStreets OSM to Fusion Tables script
+
+        %p
+          In December 2013, we updated our frontend to use <a href='http://cartodb.com'>CartoDB</a>. The process works very much the same as with Fusion Tables, but we get some advantages with the speed of updating our data and the ability to display more than 100,000 traces.
+          %br
+          %strong Code
+          %a{:href => "https://github.com/open-city/clearstreets-processing/tree/master/osm2cartodb"} ClearStreets OSM to CartoDB script
       %li
         %p
           Finally, we styled the template based on Derek's Fusion Tables searchable map and flipped the switch.
@@ -188,8 +173,8 @@
         Thanks to the 
         %a{:href => 'http://cct.org'} Chicago Community Trust 
         for helping us increase our
-        = succeed '.' do 
-          %a{:href => 'https://developers.google.com/fusiontables/docs/v1/using#Geo'} Google Fusion Tables limit
+        %a{:href => 'https://developers.google.com/fusiontables/docs/v1/using#Geo'} Google Fusion Tables limit
+        and a very special thanks to <a href='http://cartodb.com'>CartoDB</a> for gifting us their Cornelli data plan that we use to power the latest version of this site.
 
       %h2#can-i-have-your-data Can I have your data?
 
