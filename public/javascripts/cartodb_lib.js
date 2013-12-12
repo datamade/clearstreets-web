@@ -6,7 +6,7 @@ var CartoDbLib = {
   locationScope:   "chicago",
   currentPinpoint: null,
   searchRadius:    805,
-  layerUrl: 'http://clearstreets.cartodb.com/api/v2/viz/5540780a-62a5-11e3-92ab-c7be36a2d904/viz.json',
+  layerUrl: 'http://clearstreets.cartodb.com/api/v2/viz/640eb3da-636b-11e3-9670-3b2f4166e582/viz.json',
 
   initialize: function(){
     geocoder = new google.maps.Geocoder();
@@ -35,15 +35,39 @@ var CartoDbLib = {
 
     // change the query for the first layer
     var subLayerOptions = {
-      sql: sql
+      sql: sql,
+      interactivity: 'cartodb_id, id, datestamp'
     }
 
     // console.log(sql);
 
+    CartoDbLib.info = L.control({position: 'bottomright'});
+
+    CartoDbLib.info.onAdd = function (map) {
+        this._div = L.DomUtil.create('div', 'info'); // create a div with a class "info"
+        this.update();
+        return this._div;
+    };
+
+    // method that we will use to update the control based on feature properties passed
+    CartoDbLib.info.update = function (props) {
+      //var date_formatted = new moment(props.datestamp).format("h:mm:ss a M/D/YYYY");
+
+      this._div.innerHTML = '<h4>Plow info</h4>' +  (props ?
+            'Plowed at <b/>' + props.datestamp + '</b> by Plow ' + props.id : 'Hover over a plow path');
+    };
+
+    CartoDbLib.info.addTo(CartoDbLib.map);
+
     CartoDbLib.dataLayer = cartodb.createLayer(CartoDbLib.map, CartoDbLib.layerUrl)
       .addTo(CartoDbLib.map)
       .on('done', function(layer) {
-        layer.getSubLayer(0).set(subLayerOptions);
+        layer.getSubLayer(0)
+        .set(subLayerOptions)
+        .on('featureOver', function(e, latlng, pos, data, subLayerIndex) {
+          //console.log(data);
+          CartoDbLib.info.update(data);
+        });
       }).on('error', function() {
         //log the error
     }); 
@@ -68,7 +92,7 @@ var CartoDbLib = {
           CartoDbLib.currentPinpoint = [results[0].geometry.location.lat(), results[0].geometry.location.lng()];
           $.address.parameter('address', encodeURIComponent(address));
           $.address.parameter('radius', encodeURIComponent(CartoDbLib.searchRadius));
-          CartoDbLib.map.setView(new L.LatLng( CartoDbLib.currentPinpoint[0], CartoDbLib.currentPinpoint[1] ), 15)
+          CartoDbLib.map.setView(new L.LatLng( CartoDbLib.currentPinpoint[0], CartoDbLib.currentPinpoint[1] ), 16)
           
           CartoDbLib.centerMark = new L.Marker(CartoDbLib.currentPinpoint, { icon: (new L.Icon({
             iconUrl: '/images/blue-pushpin.png',
@@ -76,7 +100,7 @@ var CartoDbLib = {
             iconAnchor: [10, 32]
           }))}).addTo(CartoDbLib.map);
 
-          CartoDbLib.drawCircle(CartoDbLib.currentPinpoint);
+          // CartoDbLib.drawCircle(CartoDbLib.currentPinpoint);
         } 
         else {
           alert("We could not find your address: " + status);
