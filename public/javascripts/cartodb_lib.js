@@ -1,8 +1,8 @@
 var CartoDbLib = CartoDbLib || {};
 var CartoDbLib = {
 
-  map_centroid:    [41.8781136, -87.66677856445312],
-  defaultZoom:     13,
+  map_centroid:    [41.880517,-87.644061],
+  defaultZoom:     14,
   locationScope:   "chicago",
   currentPinpoint: null,
   searchRadius:    805,
@@ -12,10 +12,12 @@ var CartoDbLib = {
     geocoder = new google.maps.Geocoder();
 
     // initiate leaflet map
-    CartoDbLib.map = new L.Map('map_canvas', { 
-      center: CartoDbLib.map_centroid,
-      zoom: CartoDbLib.defaultZoom
-    })
+    if (!CartoDbLib.map) {
+      CartoDbLib.map = new L.Map('map_canvas', { 
+        center: CartoDbLib.map_centroid,
+        zoom: CartoDbLib.defaultZoom
+      });
+    }
 
     L.tileLayer('http://{s}.tile.cloudmade.com/{key}/{styleId}/256/{z}/{x}/{y}.png', {
       attribution: 'Mapbox <a href="http://mapbox.com/about/maps" target="_blank">Terms &amp; Feedback</a>',
@@ -29,6 +31,23 @@ var CartoDbLib = {
     if (loadRadius != "") $("#search_radius").val(loadRadius);
     else $("#search_radius").val(CartoDbLib.searchRadius);
 
+    var sql = "SELECT * FROM clearstreets_live ";
+
+    // change the query for the first layer
+    var subLayerOptions = {
+      sql: sql
+    }
+
+    // console.log(sql);
+
+    CartoDbLib.dataLayer = cartodb.createLayer(CartoDbLib.map, CartoDbLib.layerUrl)
+      .addTo(CartoDbLib.map)
+      .on('done', function(layer) {
+        layer.getSubLayer(0).set(subLayerOptions);
+      }).on('error', function() {
+        //log the error
+    }); 
+
     CartoDbLib.doSearch();
   },
 
@@ -37,12 +56,8 @@ var CartoDbLib = {
     var address = $("#search_address").val();
     CartoDbLib.searchRadius = $("#search_radius").val();
 
-    var whereClause = "";
-    
     //-----custom filters-------
     //-------end of custom filters--------
-
-    var sql = "SELECT * FROM clearstreets_live ";
     
     if (address != "") {
       if (address.toLowerCase().indexOf(CartoDbLib.locationScope) == -1)
@@ -53,7 +68,7 @@ var CartoDbLib = {
           CartoDbLib.currentPinpoint = [results[0].geometry.location.lat(), results[0].geometry.location.lng()];
           $.address.parameter('address', encodeURIComponent(address));
           $.address.parameter('radius', encodeURIComponent(CartoDbLib.searchRadius));
-          CartoDbLib.map.setView(new L.LatLng( CartoDbLib.currentPinpoint[0], CartoDbLib.currentPinpoint[1] ), 14)
+          CartoDbLib.map.setView(new L.LatLng( CartoDbLib.currentPinpoint[0], CartoDbLib.currentPinpoint[1] ), 15)
           
           CartoDbLib.centerMark = new L.Marker(CartoDbLib.currentPinpoint, { icon: (new L.Icon({
             iconUrl: '/images/blue-pushpin.png',
@@ -61,9 +76,7 @@ var CartoDbLib = {
             iconAnchor: [10, 32]
           }))}).addTo(CartoDbLib.map);
 
-          sql += "WHERE ST_Intersects( the_geom, ST_Buffer( ST_SetSRID('POINT(" + CartoDbLib.currentPinpoint[0] + " " + CartoDbLib.currentPinpoint[1] + ")'::geometry , 4326) , " + CartoDbLib.getRadDeg(CartoDbLib.searchRadius) + "))";
           CartoDbLib.drawCircle(CartoDbLib.currentPinpoint);
-          CartoDbLib.submitSearch(sql);
         } 
         else {
           alert("We could not find your address: " + status);
@@ -71,25 +84,8 @@ var CartoDbLib = {
       });
     }
     else { //search without geocoding callback
-      CartoDbLib.submitSearch(sql);
+      CartoDbLib.map.setView(new L.LatLng( CartoDbLib.map_centroid[0], CartoDbLib.map_centroid[1] ), CartoDbLib.defaultZoom)
     }
-  },
-
-  submitSearch: function(sql){
-    // change the query for the first layer
-    var subLayerOptions = {
-      sql: sql
-    }
-
-    console.log(sql);
-
-    CartoDbLib.dataLayer = cartodb.createLayer(CartoDbLib.map, CartoDbLib.layerUrl)
-      .addTo(CartoDbLib.map)
-      .on('done', function(layer) {
-        layer.getSubLayer(0).set(subLayerOptions);
-      }).on('error', function() {
-        //log the error
-      }); 
   },
 
   clearSearch: function(){
