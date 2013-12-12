@@ -41,33 +41,33 @@ var CartoDbLib = {
 
     // console.log(sql);
 
-    CartoDbLib.info = L.control({position: 'bottomright'});
+    // CartoDbLib.info = L.control({position: 'bottomright'});
 
-    CartoDbLib.info.onAdd = function (map) {
-        this._div = L.DomUtil.create('div', 'info'); // create a div with a class "info"
-        this.update();
-        return this._div;
-    };
+    // CartoDbLib.info.onAdd = function (map) {
+    //     this._div = L.DomUtil.create('div', 'info'); // create a div with a class "info"
+    //     this.update();
+    //     return this._div;
+    // };
 
-    // method that we will use to update the control based on feature properties passed
-    CartoDbLib.info.update = function (props) {
-      //var date_formatted = new moment(props.datestamp).format("h:mm:ss a M/D/YYYY");
+    // // method that we will use to update the control based on feature properties passed
+    // CartoDbLib.info.update = function (props) {
+    //   //var date_formatted = new moment(props.datestamp).format("h:mm:ss a M/D/YYYY");
 
-      this._div.innerHTML = '<h4>Dec 8-11, 2013 storm</h4>' +  (props ?
-            'Plowed at <b/>' + props.datestamp + '</b> by Plow ' + props.id : 'Hover over a plow path');
-    };
+    //   this._div.innerHTML = '<h4>Dec 8-11, 2013 storm</h4>' +  (props ?
+    //         'Plowed at <b/>' + props.datestamp + '</b> by Plow ' + props.id : 'Hover over a plow path');
+    // };
 
-    CartoDbLib.info.addTo(CartoDbLib.map);
+    // CartoDbLib.info.addTo(CartoDbLib.map);
 
     CartoDbLib.dataLayer = cartodb.createLayer(CartoDbLib.map, CartoDbLib.layerUrl)
       .addTo(CartoDbLib.map)
       .on('done', function(layer) {
         layer.getSubLayer(0)
-        .set(subLayerOptions)
-        .on('featureOver', function(e, latlng, pos, data, subLayerIndex) {
-          //console.log(data);
-          CartoDbLib.info.update(data);
-        });
+        .set(subLayerOptions);
+        // .on('featureOver', function(e, latlng, pos, data, subLayerIndex) {
+        //   //console.log(data);
+        //   CartoDbLib.info.update(data);
+        // });
       }).on('error', function() {
         //log the error
     }); 

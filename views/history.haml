@@ -1,8 +1,8 @@
 .row-fluid
   .span4
     %p.alert.alert-info  
-      %strong Dec 8-11th, 2013
-      The Chicago area got <a href='http://www.chicagotribune.com/news/local/breaking/chi-chicago-weather-20131210,0,918739.story'>up to 4 inches of snow</a>.
+      %strong History
+      Since January 2012, we've tracked #{Fusion_tables.length} snow storms in Chicago.
       See which streets have been plowed and when.
     .well
       %h4
@@ -22,17 +22,22 @@
       %input#search.btn.btn-info{:type => "button", :value => "Search"}
       %button#reset.btn Reset
 
-    %p
-      On January 3rd 2012, the City of Chicago launched
-      = succeed "," do
-        %a{:href => "http://www.cityofchicago.org/content/city/en/depts/mayor/iframe/plow_tracker.html"} Plow Tracker
-      an app that tracks the city's snow plows in real time. This app uses the same data. By knowing where the plows are, we've figured which streets have been plowed.
-      %a{:href => "/about"} More »
+    .well
+      %h4
+        Select storm
+      %select#storm_id
+        - Fusion_tables.each do |f|
+          %option{:value => f[:id]}
+            = f[:title]
 
-    / %hr
-    / %p.alert.alert-info
-    /   %span#active_plows
-    /   %span#last_updated
+      %p
+        Want to work with or analyze Chicago plow patterns?
+        %a{:href => "/about#can-i-have-your-data"} Download our data &raquo;
+
+    %hr
+    %p.alert.alert-info
+      %span#active_plows
+      %span#last_updated
     
 
   .span8
@@ -41,17 +46,14 @@
       An 
       %a{:href => 'http://opencityapps.org'} Open City
       project by Derek Eder, Forest Gregg and Juan-Pablo Velez
-
-- content_for :stylesheets do
-  = include_stylesheet "http://libs.cartocdn.com/cartodb.js/v3/themes/css/cartodb.css"  
+      
 
 - content_for :javascripts do
   = include_javascript :"jquery.address.min"
-  = include_javascript :"http://libs.cartocdn.com/cartodb.js/v3/cartodb.js"
   = include_javascript :"http://maps.google.com/maps/api/js?sensor=false&amp;libraries=places"
   = include_javascript "jquery.geocomplete.min"
-  = include_javascript "moment.min"
-  = include_javascript "cartodb_lib"
+  = include_javascript "jquery.dateFormat-1.0"
+  %script{:src => "/javascripts/maps_lib.js?11", :type => "text/javascript"}
 
   :javascript
     $(window).resize(function () {
@@ -60,9 +62,9 @@
     
       $('#map_canvas').css('height', (h - offsetTop));
     }).resize();
-
+    
     $(function() {
-      CartoDbLib.initialize();
+      MapsLib.initialize();
 
       var chicagoBounds = new google.maps.LatLngBounds(
         new google.maps.LatLng(41.691747,-87.806472),
@@ -73,23 +75,31 @@
         bounds: chicagoBounds,
         componentRestrictions: {country: 'us'}
       });
+
+      $(':checkbox').click(function(){
+        MapsLib.doSearch();
+      });
+
+      $(':radio').click(function(){
+        MapsLib.doSearch();
+      });
       
       $('#search_radius').change(function(){
-        CartoDbLib.doSearch();
+        MapsLib.doSearch();
       });
       
       $('#search').click(function(){
-        CartoDbLib.doSearch();
+        MapsLib.doSearch();
       });
       
       $('#find_me').click(function(){
-        CartoDbLib.findMe(); 
+        MapsLib.findMe(); 
         return false;
       });
       
       $('#reset').click(function(){
         $.address.parameter('address','');
-        CartoDbLib.initialize(); 
+        MapsLib.initialize(); 
         return false;
       });
       
@@ -100,4 +110,13 @@
               return false;
           }
       });
+
+      $('#storm_id').change(function(){
+        MapsLib.doSearch();
+      });
+
+      setTimeout(function() {
+        //console.log("refetching map tiles");
+        MapsLib.uncacheTiles();
+      },3000);
     });

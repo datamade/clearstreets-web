@@ -36,10 +36,12 @@
             %ul.nav.pull-right
               %li{:class => current_menu_class("home")}
                 %a{:href => "/"} Home
+              %li{:class => current_menu_class("history")}
+                %a{:href => "/history"} Past storms
               %li{:class => current_menu_class("about")}
                 %a{:href => "/about"} About
-              %li{:class => current_menu_class("plows")}
-                %a{:href => "/plows"} Plow Leaderboard
+              / %li{:class => current_menu_class("plows")}
+              /   %a{:href => "/plows"} Plow Leaderboard
   
     .container-fluid
           
