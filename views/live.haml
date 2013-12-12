@@ -79,10 +79,10 @@
       var lat = '41.8781136';
       var lng = '-87.66677856445312';
       var subLayerOptions = {
-        sql: "SELECT * FROM clearstreets_live"
+        sql: "SELECT * FROM clearstreets_live WHERE ST_Intersects( the_geom, ST_SetSRID(ST_POINT(" + lng + " " + lat + ") , 4326))"
       }
 
-      //console.log(subLayerOptions['sql']);
+      console.log(subLayerOptions['sql']);
 
       cartodb.createLayer(map, layerUrl)
         .addTo(map)
