@@ -1,0 +1,20 @@
+.row-fluid
+  .span12
+    %h3 Plow playback animation
+    %p
+      Play back the City of Chicago snow plow operations between Dec 8-10, 2013. Powered by <a href='http://cartodb.com'>CartoDB</a>.
+
+    <iframe id='cartodb_playback' width='100%' height='520' frameborder='0' src='http://clearstreets.cartodb.com/viz/0f5b57a4-6428-11e3-86ec-27d9893efbd5/embed_map?title=false&description=false&search=false&shareable=false&cartodb_logo=true&layer_selector=false&legends=false&scrollwheel=true&sublayer_options=1&sql=SELECT%20*%20FROM%20dec_8_11_2013%20where%20time%20%3C%20'2013-12-10'%20and%20time%20%3E%20'2013-12-08%2022%3A00%3A00'&sw_lat=41.81994337977476&sw_lon=-87.8466796875&ne_lat=41.94519164538106&ne_lon=-87.51708984375'></iframe>
+    %span.pull-right
+      An 
+      %a{:href => 'http://opencityapps.org'} Open City
+      project by Derek Eder, Forest Gregg and Juan-Pablo Velez
+
+- content_for :javascripts do
+  :javascript
+    $(window).resize(function () {
+      var h = $(window).height(),
+        offsetTop = 190; // Calculate the top offset
+    
+      $('#cartodb_playback').attr('height', (h - offsetTop));
+    }).resize();
