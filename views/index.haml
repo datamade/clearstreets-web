@@ -2,7 +2,9 @@
   .span4
     %p.alert.alert-info  
       %strong Dec 8-11th, 2013
+      %br
       The Chicago area got <a href='http://www.chicagotribune.com/news/local/breaking/chi-chicago-weather-20131210,0,918739.story'>up to 4 inches of snow</a>.
+      %br
       See which streets have been plowed and when.
     .well
       %h4
@@ -22,6 +24,8 @@
       %input#search.btn.btn-info{:type => "button", :value => "Search"}
       %button#reset.btn Reset
 
+    %p.alert.alert-info 
+      %a{:href => '/playback'} Watch an animation of the plows in action &raquo;
     %p
       On January 3rd 2012, the City of Chicago launched
       = succeed "," do
@@ -51,7 +55,7 @@
   = include_javascript :"http://maps.google.com/maps/api/js?sensor=false&amp;libraries=places"
   = include_javascript "jquery.geocomplete.min"
   = include_javascript "moment.min"
-  = include_javascript "cartodb_lib"
+  %script{:src => "/javascripts/cartodb_lib.js?1", :type => "text/javascript"}
 
   :javascript
     $(window).resize(function () {

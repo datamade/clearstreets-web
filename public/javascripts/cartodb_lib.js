@@ -2,7 +2,7 @@ var CartoDbLib = CartoDbLib || {};
 var CartoDbLib = {
 
   map_centroid:    [41.880517,-87.644061],
-  defaultZoom:     14,
+  defaultZoom:     13,
   locationScope:   "chicago",
   currentPinpoint: null,
   searchRadius:    805,
