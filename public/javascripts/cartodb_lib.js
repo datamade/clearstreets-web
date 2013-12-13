@@ -120,6 +120,8 @@ var CartoDbLib = {
       CartoDbLib.map.removeLayer( CartoDbLib.centerMark );
     if (CartoDbLib.circle)
       CartoDbLib.map.removeLayer( CartoDbLib.circle );
+
+    CartoDbLib.map.setView(new L.LatLng( CartoDbLib.map_centroid[0], CartoDbLib.map_centroid[1] ), CartoDbLib.defaultZoom)
   },
 
   drawCircle: function(centroid){
