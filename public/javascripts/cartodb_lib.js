@@ -2,11 +2,12 @@ var CartoDbLib = CartoDbLib || {};
 var CartoDbLib = {
 
   map_centroid:    [41.880517,-87.644061],
-  defaultZoom:     13,
+  defaultZoom:     12,
   locationScope:   "chicago",
   currentPinpoint: null,
   searchRadius:    805,
-  layerUrl: 'http://clearstreets.cartodb.com/api/v2/viz/640eb3da-636b-11e3-9670-3b2f4166e582/viz.json',
+  layerUrl: 'http://clearstreets.cartodb.com/api/v2/viz/939c3a24-6455-11e3-bc2d-3f9cbfc31a0d/viz.json',
+  tableName: 'clearstreets_live_2013_12_13',
 
   initialize: function(){
     geocoder = new google.maps.Geocoder();
@@ -31,7 +32,7 @@ var CartoDbLib = {
     if (loadRadius != "") $("#search_radius").val(loadRadius);
     else $("#search_radius").val(CartoDbLib.searchRadius);
 
-    var sql = "SELECT * FROM clearstreets_live ";
+    var sql = "SELECT * FROM " + CartoDbLib.tableName;
 
     // change the query for the first layer
     var subLayerOptions = {
@@ -55,7 +56,7 @@ var CartoDbLib = {
       if (props)
         date_formatted = new moment(props.date_stamp).format("h:mm:ss a M/D/YYYY");
 
-      this._div.innerHTML = '<h4>Dec 8-11, 2013</h4>' +  (props ?
+      this._div.innerHTML = '<h4>Plow info</h4>' +  (props ?
             'Plowed at <b/>' + date_formatted + '</b> by Plow ' + props.id : 'Hover over a plow path');
     };
 
