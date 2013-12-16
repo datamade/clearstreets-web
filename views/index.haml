@@ -1,9 +1,9 @@
 .row-fluid
   .span4
     %p.alert.alert-info  
-      %strong Dec 13-14th, 2013
+      %strong Dec 16th, 2013
       %br
-      The Chicago area got <a href='http://abclocal.go.com/wls/story?section=news/local/chicago_news&id=9360611'>4.1 inches of snow</a>.
+      The Chicago area will to get <a href='http://www.nbcchicago.com/news/local/Snow-Forecast-for-Afternoon-Rush-Hour-235999361.html'>up to 2" of snow</a>.
       %br
       See which streets have been plowed and when.
     .well
@@ -55,7 +55,7 @@
   = include_javascript :"http://maps.google.com/maps/api/js?sensor=false&amp;libraries=places"
   = include_javascript "jquery.geocomplete.min"
   = include_javascript "moment.min"
-  %script{:src => "/javascripts/cartodb_lib.js?2", :type => "text/javascript"}
+  %script{:src => "/javascripts/cartodb_lib.js?3", :type => "text/javascript"}
 
   :javascript
     $(window).resize(function () {
