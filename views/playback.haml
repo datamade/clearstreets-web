@@ -1,10 +1,10 @@
 .row-fluid
   .span12
-    %h3 Plows in action Dec 8-10, 2013
+    %h3 Plows in action Dec 13-14, 2013
     %p
-      Play back the City of Chicago snow plow operations between Dec 8-10, 2013. Powered by <a href='http://cartodb.com'>CartoDB</a>.
+      Watch where the 300+ City of Chicago snow plows went between Dec 13-14, 2013. They start by plowing and salting the main roads and around 2pm Dec 14 start plowing the side streets.
 
-    <iframe id='cartodb_playback' width='100%' height='520' frameborder='0' src='http://clearstreets.cartodb.com/viz/0f5b57a4-6428-11e3-86ec-27d9893efbd5/embed_map?title=false&description=false&search=false&shareable=false&cartodb_logo=true&layer_selector=false&legends=false&scrollwheel=true&sublayer_options=1&sql=SELECT%20*%20FROM%20dec_8_11_2013%20where%20time%20%3C%20'2013-12-10'%20and%20time%20%3E%20'2013-12-08%2022%3A00%3A00'&sw_lat=41.81994337977476&sw_lon=-87.8466796875&ne_lat=41.94519164538106&ne_lon=-87.51708984375'></iframe>
+    <iframe width='100%' height='520' frameborder='0' src='http://clearstreets.cartodb.com/viz/98f5537e-6668-11e3-ba1e-2f54c223712e/embed_map?title=false&description=false&search=false&shareable=false&cartodb_logo=false&layer_selector=false&legends=false&scrollwheel=true&sublayer_options=1&sql=SELECT%20*%20FROM%20playback_2013_12_13%20where%20time%20%3E%20'2013_12_13%2022%3A00%3A00'%20and%20time%20%3C%20'2013_12_14%2022%3A00%3A00'&sw_lat=41.85294071095589&sw_lon=-87.74368286132811&ne_lat=41.91556321720713&ne_lon=-87.57888793945312'></iframe>
     %span.pull-right
       An 
       %a{:href => 'http://opencityapps.org'} Open City
@@ -16,5 +16,5 @@
       var h = $(window).height(),
         offsetTop = 190; // Calculate the top offset
     
-      $('#cartodb_playback').attr('height', (h - offsetTop));
+      $('iframe').attr('height', (h - offsetTop));
     }).resize();
