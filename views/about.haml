@@ -193,13 +193,14 @@
         - unless f[:backup_folder].empty?
           %h4 #{f[:title]}
           %ul
-            %li
-              %a{:href => "/#/?storm_id=#{f[:id]}"} ClearStreets map
+            - unless f[:id].empty?
+              %li
+                %a{:href => "/#/?storm_id=#{f[:id]}"} ClearStreets map
+              %li
+                %a{:href => "https://www.google.com/fusiontables/DataSource?docid=#{f[:id]}"} Fusion Table of KML line segments with datestamps
             %li
               %a{:href => "https://s3.amazonaws.com/clearstreets/#{f[:backup_folder]}/plow-#{f[:backup_folder]}.db"} Sqlite3 database of scraped plow points
             %li
               %a{:href => "https://s3.amazonaws.com/clearstreets/#{f[:backup_folder]}/gpx-#{f[:backup_folder]}.tar.gz"} GPX points for each plow
             %li
               %a{:href => "https://s3.amazonaws.com/clearstreets/#{f[:backup_folder]}/osm-#{f[:backup_folder]}.tar.gz"} OSM traces for each plow
-            %li
-              %a{:href => "https://www.google.com/fusiontables/DataSource?docid=#{f[:id]}"} Fusion Table of KML line segments with datestamps

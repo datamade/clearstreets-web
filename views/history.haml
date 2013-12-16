@@ -27,8 +27,9 @@
         Select storm
       %select#storm_id
         - Fusion_tables.each do |f|
-          %option{:value => f[:id]}
-            = f[:title]
+          - unless f[:id].empty?
+            %option{:value => f[:id]}
+              = f[:title]
 
       %p
         Want to work with or analyze Chicago plow patterns?
