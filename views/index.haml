@@ -1,9 +1,9 @@
 .row-fluid
   .span4
     %p.alert.alert-info  
-      %strong Dec 16th, 2013
+      %strong Dec 17th, 2013 (LIVE)
       %br
-      The Chicago area got <a href='http://www.nbcchicago.com/news/local/Snow-Forecast-for-Afternoon-Rush-Hour-235999361.html'>up to 2" of snow</a>.
+      The Chicago area will get about 1 inch of snow</a>.
       %br
       See which streets have been plowed and when.
     .well
@@ -55,7 +55,7 @@
   = include_javascript :"http://maps.google.com/maps/api/js?sensor=false&amp;libraries=places"
   = include_javascript "jquery.geocomplete.min"
   = include_javascript "moment.min"
-  %script{:src => "/javascripts/cartodb_lib.js?3", :type => "text/javascript"}
+  %script{:src => "/javascripts/cartodb_lib.js?4", :type => "text/javascript"}
 
   :javascript
     $(window).resize(function () {

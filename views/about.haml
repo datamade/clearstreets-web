@@ -192,18 +192,26 @@
       %p
         Sure! We'd love other people to use our plow data. You can download all the raw files from past storms below:
 
-      - Fusion_tables.each do |f|
-        - unless f[:backup_folder].empty?
-          %h4 #{f[:title]}
-          %ul
-            - unless f[:id].empty?
-              %li
-                %a{:href => "/#/?storm_id=#{f[:id]}"} ClearStreets map
-              %li
-                %a{:href => "https://www.google.com/fusiontables/DataSource?docid=#{f[:id]}"} Fusion Table of KML line segments with datestamps
-            %li
-              %a{:href => "https://s3.amazonaws.com/clearstreets/#{f[:backup_folder]}/plow-#{f[:backup_folder]}.db"} Sqlite3 database of scraped plow points
-            %li
-              %a{:href => "https://s3.amazonaws.com/clearstreets/#{f[:backup_folder]}/gpx-#{f[:backup_folder]}.tar.gz"} GPX points for each plow
-            %li
-              %a{:href => "https://s3.amazonaws.com/clearstreets/#{f[:backup_folder]}/osm-#{f[:backup_folder]}.tar.gz"} OSM traces for each plow
+      %table.table.table-striped.table-bordered
+        %thead
+          %tr
+            %th Date
+            %th Snowfall
+            %th SQLite databse
+            %th GPX traces
+            %th OSM traces
+            %th Fusion Table
+        %tbody
+          - Fusion_tables.each do |f|
+            - unless f[:backup_folder].empty?
+              %tr
+                %td #{f[:title]}
+                %td #{f[:snowfall]}
+                %td 
+                  %a{:href => "https://s3.amazonaws.com/clearstreets/#{f[:backup_folder]}/plow-#{f[:backup_folder]}.db"} Download
+                %td
+                  %a{:href => "https://s3.amazonaws.com/clearstreets/#{f[:backup_folder]}/gpx-#{f[:backup_folder]}.tar.gz"} Download
+                %td 
+                  %a{:href => "https://s3.amazonaws.com/clearstreets/#{f[:backup_folder]}/gpx-#{f[:backup_folder]}.tar.gz"} Download
+                %td 
+                  %a{:href => "https://www.google.com/fusiontables/DataSource?docid=#{f[:id]}"} View

@@ -6,8 +6,8 @@ var CartoDbLib = {
   locationScope:   "chicago",
   currentPinpoint: null,
   searchRadius:    805,
-  layerUrl: 'http://clearstreets.cartodb.com/api/v2/viz/755f19da-66a5-11e3-aaed-093c20b21c2c/viz.json',
-  tableName: 'clearstreets_live_2013_12_16',
+  layerUrl: 'http://clearstreets.cartodb.com/api/v2/viz/7ba12324-6736-11e3-a0d3-27d40b6ff03f/viz.json',
+  tableName: 'clearstreets_live_2013_12_17',
 
   initialize: function(){
     geocoder = new google.maps.Geocoder();
