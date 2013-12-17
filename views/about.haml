@@ -214,4 +214,5 @@
                 %td 
                   %a{:href => "https://s3.amazonaws.com/clearstreets/#{f[:backup_folder]}/gpx-#{f[:backup_folder]}.tar.gz"} Download
                 %td 
-                  %a{:href => "https://www.google.com/fusiontables/DataSource?docid=#{f[:id]}"} View
+                  - unless f[:id].empty?
+                    %a{:href => "https://www.google.com/fusiontables/DataSource?docid=#{f[:id]}"} View
