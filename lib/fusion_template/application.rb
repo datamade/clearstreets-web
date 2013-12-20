@@ -25,6 +25,7 @@ module FusionTemplate
     helpers FusionTemplate::HtmlHelpers
 
     Fusion_tables = [
+      {:id => '', :title => 'Dec 17, 2013', :type => '', :backup_folder => '12-19-2013', :snowfall => '1 inch'},
       {:id => '', :title => 'Dec 16, 2013', :type => '', :backup_folder => '12-17-2013', :snowfall => '2 inches'},
       {:id => '', :title => 'Dec 13-14, 2013', :type => '', :backup_folder => '12-16-2013', :snowfall => '4.2 inches'},
       {:id => '129O2iei3jOpvTT_yG2xjHjY2hvunTb4IzTHBj_A', :title => 'Dec 10-11, 2013', :type => '', :backup_folder => '12-11-2013', :snowfall => '0.9 inches'},

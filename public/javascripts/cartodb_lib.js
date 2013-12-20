@@ -8,7 +8,7 @@ var CartoDbLib = {
   searchRadius:    805,
   layerUrl: 'http://clearstreets.cartodb.com/api/v2/viz/7ba12324-6736-11e3-a0d3-27d40b6ff03f/viz.json',
   vizHackUrl: 'http://clearstreets.cartodb.com/api/v2/viz/589c99a4-673a-11e3-bc87-37a820bb3867/viz.json',
-  tableName: 'clearstreets_live_2013_12_17',
+  tableName: 'clearstreets_live',
 
   initialize: function(){
     geocoder = new google.maps.Geocoder();
