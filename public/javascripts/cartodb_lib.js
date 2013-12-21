@@ -20,6 +20,21 @@ var CartoDbLib = {
       });
     }
 
+    // var gmap_options = {
+    //   mapOptions: { 
+    //     styles: [
+    //       {
+    //         stylers: [
+    //           { saturation: -100 },
+    //           { lightness: 40 }
+    //         ]
+    //       }
+    //     ]
+    //   }
+    // };
+
+    // var gmap_layer = new L.Google('ROADMAP', gmap_options);
+    // CartoDbLib.map.addLayer(gmap_layer);
     L.tileLayer('http://{s}.tile.cloudmade.com/{key}/{styleId}/256/{z}/{x}/{y}.png', {
       attribution: 'Mapbox <a href="http://mapbox.com/about/maps" target="_blank">Terms &amp; Feedback</a>',
       key: 'BC9A493B41014CAABB98F0471D759707',
