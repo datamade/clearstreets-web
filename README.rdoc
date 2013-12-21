@@ -23,24 +23,8 @@ Heroku is a cloud hosting platform that can host small Ruby apps (among others) 
   make sure all of your changes are committed
   $ git push heroku master
 
-== Setup for fusion_tables gem
-
-To access Fusion Tables in more advanced ways, you will need to setup the fusion_tables gem connection by providing a Google account and password.
-
-  $ cp config/config.yml.example config/config.yml
-  set the Google account and password you want to use to access your Fusion Table
-  $ unicorn
-  navigate to http://localhost:8080/location_list to see a demonstration
-
-When you want to deploy to Heroku, you will need to set your account and password as Heroku config variables. For more info, see https://devcenter.heroku.com/articles/config-vars
-
-  $ heroku config:add google_account=youraccount
-  $ heroku config:add google_password=yourpassword
-
 == Dependencies
 
-* {Fusion Tables}[http://www.google.com/fusiontables/Home/]
-* {fusion_tables gem}[https://github.com/tokumine/fusion_tables]
 * {Ruby 1.9.3}[http://www.ruby-lang.org/en/downloads]
 * {Sinatra}[http://www.sinatrarb.com]
 * {Haml}[http://haml.info]

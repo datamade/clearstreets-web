@@ -5,7 +5,6 @@ var CartoDbLib = {
   defaultZoom:     12,
   locationScope:   "chicago",
   currentPinpoint: null,
-  searchRadius:    805,
   layerUrl: 'http://clearstreets.cartodb.com/api/v2/viz/7ba12324-6736-11e3-a0d3-27d40b6ff03f/viz.json',
   vizHackUrl: 'http://clearstreets.cartodb.com/api/v2/viz/589c99a4-673a-11e3-bc87-37a820bb3867/viz.json',
   tableName: 'clearstreets_live',
@@ -29,9 +28,6 @@ var CartoDbLib = {
 
     //reset filters
     $("#search_address").val(CartoDbLib.convertToPlainString($.address.parameter('address')));
-    var loadRadius = CartoDbLib.convertToPlainString($.address.parameter('radius'));
-    if (loadRadius != "") $("#search_radius").val(loadRadius);
-    else $("#search_radius").val(CartoDbLib.searchRadius);
 
     var sql = "SELECT * FROM " + CartoDbLib.tableName;
 
@@ -83,7 +79,6 @@ var CartoDbLib = {
   doSearch: function() {
     CartoDbLib.clearSearch();
     var address = $("#search_address").val();
-    CartoDbLib.searchRadius = $("#search_radius").val();
 
     //-----custom filters-------
     //-------end of custom filters--------
@@ -96,7 +91,6 @@ var CartoDbLib = {
         if (status == google.maps.GeocoderStatus.OK) {
           CartoDbLib.currentPinpoint = [results[0].geometry.location.lat(), results[0].geometry.location.lng()];
           $.address.parameter('address', encodeURIComponent(address));
-          $.address.parameter('radius', encodeURIComponent(CartoDbLib.searchRadius));
           CartoDbLib.map.setView(new L.LatLng( CartoDbLib.currentPinpoint[0], CartoDbLib.currentPinpoint[1] ), 16)
           
           CartoDbLib.centerMark = new L.Marker(CartoDbLib.currentPinpoint, { icon: (new L.Icon({
@@ -126,14 +120,6 @@ var CartoDbLib = {
       CartoDbLib.map.removeLayer( CartoDbLib.circle );
 
     CartoDbLib.map.setView(new L.LatLng( CartoDbLib.map_centroid[0], CartoDbLib.map_centroid[1] ), CartoDbLib.defaultZoom)
-  },
-
-  drawCircle: function(centroid){
-    CartoDbLib.circle = L.circle(centroid, CartoDbLib.searchRadius, {
-        color: '4b58a6',
-        fillColor: '#4b58a6',
-        fillOpacity: 0.2
-    }).addTo(CartoDbLib.map);
   },
 
   findMe: function() {

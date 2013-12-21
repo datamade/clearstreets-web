@@ -13,19 +13,9 @@
 
       %input#search_address.input-block-level{:placeholder => "Enter an address or an intersection", :type => "text"}
       
-      %label
-        within
-        %select#search_radius.input-small
-          %option{:value => "400"} 2 blocks
-          %option{:value => "805"} 1/2 mile
-          %option{:value => "1610"} 1 mile
-          %option{:value => "3220"} 2 miles
-      
       %input#search.btn.btn-info{:type => "button", :value => "Search"}
       %button#reset.btn Reset
 
-    %p.alert.alert-info 
-      %a{:href => '/playback'} Watch an animation of the plows in action &raquo;
     %p
       On January 3rd 2012, the City of Chicago launched
       = succeed "," do
@@ -33,12 +23,11 @@
       an app that tracks the city's snow plows in real time. This app uses the same data. By knowing where the plows are, we've figured which streets have been plowed.
       %a{:href => "/about"} More »
 
-    / %hr
-    / %p.alert.alert-info
-    /   %span#active_plows
-    /   %span#last_updated
+    %p.alert.alert-info 
+      %strong Is your street missing?
+      %br
+      Did your street get plowed but our map doesn't show it? <a href='mailto:clearstreets@gmail.com'>Let us know</a>!
     
-
   .span8
     #map_canvas
     %span.pull-right
@@ -55,7 +44,7 @@
   = include_javascript :"http://maps.google.com/maps/api/js?sensor=false&amp;libraries=places"
   = include_javascript "jquery.geocomplete.min"
   = include_javascript "moment.min"
-  %script{:src => "/javascripts/cartodb_lib.js?6", :type => "text/javascript"}
+  %script{:src => "/javascripts/cartodb_lib.js?7", :type => "text/javascript"}
 
   :javascript
     $(window).resize(function () {
