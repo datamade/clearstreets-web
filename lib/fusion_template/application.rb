@@ -25,6 +25,7 @@ module FusionTemplate
     helpers FusionTemplate::HtmlHelpers
 
     Past_storms = [
+      {:carto_db_url => 'http://clearstreets.cartodb.com/tables/9446/public/map', :title => 'Dec 25, 2013', :backup_folder => '12-27-2013', :snowfall => '1.2 inches'},
       {:carto_db_url => 'http://clearstreets.cartodb.com/tables/9215/public/map', :title => 'Dec 22, 2013', :backup_folder => '12-25-2013', :snowfall => '2 inches'},
       {:carto_db_url => 'http://clearstreets.cartodb.com/tables/8961/public/map', :title => 'Dec 17, 2013', :backup_folder => '12-19-2013', :snowfall => '1 inch'},
       {:carto_db_url => 'http://clearstreets.cartodb.com/tables/7862/public/map', :title => 'Dec 16, 2013', :backup_folder => '12-17-2013', :snowfall => '2 inches'},
