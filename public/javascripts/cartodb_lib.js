@@ -6,7 +6,7 @@ var CartoDbLib = {
   locationScope:   "chicago",
   currentPinpoint: null,
   layerUrl: 'http://clearstreets.cartodb.com/api/v2/viz/7ba12324-6736-11e3-a0d3-27d40b6ff03f/viz.json',
-  vizHackUrl: 'http://clearstreets.cartodb.com/api/v2/viz/589c99a4-673a-11e3-bc87-37a820bb3867/viz.json',
+  //vizHackUrl: 'http://clearstreets.cartodb.com/api/v2/viz/589c99a4-673a-11e3-bc87-37a820bb3867/viz.json',
   tableName: 'clearstreets_live',
 
   initialize: function(){
@@ -86,7 +86,7 @@ var CartoDbLib = {
         //log the error
     }); 
 
-    CartoDbLib.hackLayer = cartodb.createLayer(CartoDbLib.map, CartoDbLib.vizHackUrl).addTo(CartoDbLib.map);
+    //CartoDbLib.hackLayer = cartodb.createLayer(CartoDbLib.map, CartoDbLib.vizHackUrl).addTo(CartoDbLib.map);
 
     CartoDbLib.doSearch();
   },
