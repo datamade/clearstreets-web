@@ -44,7 +44,7 @@ var CartoDbLib = {
     //reset filters
     $("#search_address").val(CartoDbLib.convertToPlainString($.address.parameter('address')));
 
-    var sql = "SELECT * FROM " + CartoDbLib.tableName + " ORDER BY cartodb_id DESC LIMIT 200000";
+    var sql = "SELECT * FROM " + CartoDbLib.tableName + "";
 
     // change the query for the first layer
     var subLayerOptions = {
