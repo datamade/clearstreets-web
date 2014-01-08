@@ -1,9 +1,13 @@
 .row-fluid
   .span4
-    %p.alert.alert-info  
-      %strong Jan 4th, 2014
+    %p.alert.alert-warning  
+      %strong Missing data
       %br
-      Chicago is expected to get 6-8 inches of snow over 48 hours.
+      Our map is missing data from 9:30am Jan 7th on. Your street may have been plowed since then.
+    %p.alert.alert-info  
+      %strong Jan 4-5th, 2014
+      %br
+      Chicago got <a href='http://www.wunderground.com/history/airport/KORD/2014/1/6/DailyHistory.html?req_city=NA&req_state=NA&req_statename=NA'>11 inches of snow</a>.
       %br
       See which streets have been plowed and when.
     .well
@@ -26,7 +30,7 @@
     %p.alert.alert-info 
       %strong Is your street missing?
       %br
-      Did your street get plowed but our map doesn't show it? <a href='mailto:clearstreets@opencityapps.org'>Let us know</a>!
+      If you have a snow removal request, call <strong>311</strong>. If your street got plowed but our map doesn't show it, <a href='mailto:clearstreets@opencityapps.org'>let us know</a>! 
     
   .span8
     #map_canvas
