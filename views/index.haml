@@ -1,13 +1,9 @@
 .row-fluid
   .span4
-    %p.alert.alert-warning  
-      %strong Missing data
-      %br
-      Our map is missing data from 9:30am Jan 7th on. Your street may have been plowed since then.
     %p.alert.alert-info  
-      %strong Jan 4-5th, 2014
+      %strong Jan 4-10th, 2014
       %br
-      Chicago got <a href='http://www.wunderground.com/history/airport/KORD/2014/1/6/DailyHistory.html?req_city=NA&req_state=NA&req_statename=NA'>11 inches of snow</a>.
+      Chicago got <a href='http://www.wunderground.com/history/airport/KORD/2014/1/6/DailyHistory.html?req_city=NA&req_state=NA&req_statename=NA'>11" of snow</a> and <a href='http://forecast.io/#/f/41.8884,-87.6376'>will to get 3-4" more</a>.
       %br
       See which streets have been plowed and when.
     .well
@@ -24,13 +20,17 @@
       On January 3rd 2012, the City of Chicago launched
       = succeed "," do
         %a{:href => "http://www.cityofchicago.org/content/city/en/depts/mayor/iframe/plow_tracker.html"} Plow Tracker
-      an app that tracks the city's snow plows in real time. This app uses the same data. By knowing where the plows are, we've figured which streets have been plowed.
+      an app that tracks the city's snow plows in real time. This app, <a href='http://clearstreets.org/about#who-made-this'>built by volunteers at Open City</a>, uses the same data. By knowing where the plows are, we've figured which streets have been plowed.
       %a{:href => "/about"} More »
 
+    %p.alert.alert-warning  
+      %strong Missing data
+      %br
+      Our map is missing data from Jan 7-8. Your street may have been plowed then.
     %p.alert.alert-info 
       %strong Is your street missing?
       %br
-      If you have a snow removal request, call <strong>311</strong>. If your street got plowed but our map doesn't show it, <a href='mailto:clearstreets@opencityapps.org'>let us know</a>! 
+      We <a href='http://clearstreets.org/about#who-made-this'>aren't associated with the city</a> or have any control over plow operations, but if your street got plowed and our map doesn't show it, <a href='mailto:clearstreets@opencityapps.org'>let us know</a>! 
     
   .span8
     #map_canvas
