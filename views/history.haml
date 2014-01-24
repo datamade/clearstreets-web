@@ -1,50 +1,55 @@
 %h1 Past storms
 
 %p
-  Since January 2012, we've tracked and archived plow activity for <strong>#{Past_storms.length} snow storms</strong> in Chicago. 
+  Since January 2012, we've tracked and archived plow activity for <strong>#{Past_storms.length} snow events</strong> in Chicago. 
   %br
   You can download all the raw files from past storms here.
-.row
-  .span8
 
-    %table.table.table-striped.table-bordered
-      %thead
-        %tr
-          %th Date
-          %th Snowfall
-          %th SQLite databse
-          %th GPX points
-          %th OSM traces
-          %th Map
-      %tbody
-        - Past_storms.each do |f|
+
+%table.table.table-striped.table-bordered
+  %thead
+    %tr
+      %th Date
+      %th Snowfall
+      %th SQLite databse
+      %th GPX points
+      %th OSM traces
+      %th Map
+      %th Notes
+  %tbody
+    - Past_storms.each do |f|
+      %tr
+        %td #{f[:title]}
+        %td #{f[:snowfall]}
+        %td 
           - unless f[:backup_folder].empty?
-            %tr
-              %td #{f[:title]}
-              %td #{f[:snowfall]}
-              %td 
-                %a{:href => "https://s3.amazonaws.com/clearstreets/#{f[:backup_folder]}/plow-#{f[:backup_folder]}.db"} Download
-              %td
-                %a{:href => "https://s3.amazonaws.com/clearstreets/#{f[:backup_folder]}/gpx-#{f[:backup_folder]}.tar.gz"} Download
-              %td 
-                %a{:href => "https://s3.amazonaws.com/clearstreets/#{f[:backup_folder]}/gpx-#{f[:backup_folder]}.tar.gz"} Download
-              %td 
-                - unless f[:fusion_table_id].nil?
-                  %a{:href => "https://www.google.com/fusiontables/DataSource?docid=#{f[:fusion_table_id]}"} Fusion Table
-                - unless f[:carto_db_url].nil?
-                  %a{:href => f[:carto_db_url]} CartoDB
-  .span4
-    .well
+            %a{:href => "https://s3.amazonaws.com/clearstreets/#{f[:backup_folder]}/plow-#{f[:backup_folder]}.db"} Download
+        %td
+          - unless f[:backup_folder].empty?
+            %a{:href => "https://s3.amazonaws.com/clearstreets/#{f[:backup_folder]}/gpx-#{f[:backup_folder]}.tar.gz"} Download
+        %td 
+          - unless f[:backup_folder].empty?
+            %a{:href => "https://s3.amazonaws.com/clearstreets/#{f[:backup_folder]}/gpx-#{f[:backup_folder]}.tar.gz"} Download
+        %td 
+          - unless f[:fusion_table_id].nil?
+            %a{:href => "https://www.google.com/fusiontables/DataSource?docid=#{f[:fusion_table_id]}"} Fusion&nbsp;Table
+          - unless f[:carto_db_url].nil?
+            %a{:href => f[:carto_db_url]} CartoDB
+        %td
+          = f[:notes]
 
-      %h4 SQLite database
-      %p Database of scraped plow locations from the <a href='https://gisapps.cityofchicago.org/ArcGISRest/services/ExternalApps/operational/MapServer/38/query?where=POSTING_TIME+%3E+SYSDATE-30/24/60+&returnGeometry=true&outSR=4326&outFields=ADDRESS,POSTING_TIME,ASSET_NAME,ASSET_TYPE,OBJECTID&f=pjson'>Chicago Plow Tracker JSON feed</a>.
 
-      %h4 GPX points
-      %p Collection of GPS points for each plow in <a href='http://en.wikipedia.org/wiki/GPS_eXchange_Format'>GPX format</a>.
+.well
 
-      %h4 OSM traces
-      %p Line segments that represent the liekly street paths taken by each plow. Computed using Lukas Kabrt's <a href='http://wiki.openstreetmap.org/wiki/Routing/Travel_Time_Analysis/MatchGPX2OSM'>MatchGPX2OSM</a>
+  %h4 SQLite database
+  %p Database of scraped plow locations from the <a href='https://gisapps.cityofchicago.org/ArcGISRest/services/ExternalApps/operational/MapServer/38/query?where=POSTING_TIME+%3E+SYSDATE-30/24/60+&returnGeometry=true&outSR=4326&outFields=ADDRESS,POSTING_TIME,ASSET_NAME,ASSET_TYPE,OBJECTID&f=pjson'>Chicago Plow Tracker JSON feed</a>.
 
-      %h4 Map
-      %p Interactive <a href='https://cartodb.com/'>CartoDB</a> or <a href='https://support.google.com/fusiontables/answer/2571232?hl=en'>Fusion Table</a> showing plow traces.
-      
+  %h4 GPX points
+  %p Collection of GPS points for each plow in <a href='http://en.wikipedia.org/wiki/GPS_eXchange_Format'>GPX format</a>.
+
+  %h4 OSM traces
+  %p Line segments that represent the liekly street paths taken by each plow. Computed using Lukas Kabrt's <a href='http://wiki.openstreetmap.org/wiki/Routing/Travel_Time_Analysis/MatchGPX2OSM'>MatchGPX2OSM</a>
+
+  %h4 Map
+  %p Interactive <a href='https://cartodb.com/'>CartoDB</a> or <a href='https://support.google.com/fusiontables/answer/2571232?hl=en'>Fusion Table</a> showing plow traces.
+  
