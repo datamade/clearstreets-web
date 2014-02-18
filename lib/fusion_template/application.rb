@@ -25,13 +25,14 @@ module FusionTemplate
     helpers FusionTemplate::HtmlHelpers
 
     Past_storms = [
+      {:title => 'Feb 17, 2014', :backup_folder => '', :snowfall => '5"', :notes => 'Missing last 10 hours of data'},
       {:title => 'Feb 8, 2014', :backup_folder => '02-10-2014', :snowfall => '2.5"'},
       {:title => 'Feb 4-5, 2014', :backup_folder => '02-07-2014', :snowfall => '7.1"'},
       {:title => 'Jan 31 - Feb 2, 2014', :backup_folder => '02-04-2014', :snowfall => '4"'},
       {:title => 'Jan 24-26, 2014', :backup_folder => '01-27-2014', :snowfall => '2.8"'},
       {:title => 'Jan 21-23, 2014', :backup_folder => '01-24-2014', :snowfall => '3.1"'},
       {:title => 'Jan 18, 2014', :backup_folder => '01-20-2014', :snowfall => '2.4"', :notes => 'Missing first 8 hours of data'},
-      {:title => 'Jan 4-10, 2014', :backup_folder => '', :snowfall => '12"', :notes => 'Missing data from Jan 7-8 due to unforseen City data feed changes'},
+      {:title => 'Jan 4-10, 2014', :backup_folder => '01-10-2014', :snowfall => '12"', :notes => 'Missing data from Jan 7-8 due to unforseen City data feed changes'},
       {:carto_db_url => 'http://clearstreets.cartodb.com/tables/9446/public/map', :title => 'Dec 25, 2013', :backup_folder => '12-27-2013', :snowfall => '1.2"'},
       {:carto_db_url => 'http://clearstreets.cartodb.com/tables/9215/public/map', :title => 'Dec 22, 2013', :backup_folder => '12-25-2013', :snowfall => '2"'},
       {:carto_db_url => 'http://clearstreets.cartodb.com/tables/8961/public/map', :title => 'Dec 17, 2013', :backup_folder => '12-19-2013', :snowfall => '1"'},
