@@ -35,10 +35,8 @@ var CartoDbLib = {
 
     // var gmap_layer = new L.Google('ROADMAP', gmap_options);
     // CartoDbLib.map.addLayer(gmap_layer);
-    L.tileLayer('http://{s}.tile.cloudmade.com/{key}/{styleId}/256/{z}/{x}/{y}.png', {
-      attribution: 'Mapbox <a href="http://mapbox.com/about/maps" target="_blank">Terms &amp; Feedback</a>',
-      key: 'BC9A493B41014CAABB98F0471D759707',
-      styleId: 22677
+    L.tileLayer('https://{s}.tiles.mapbox.com/v3/derekeder.hehblhbj/{z}/{x}/{y}.png', {
+      attribution: '<a href="http://www.mapbox.com/about/maps/" target="_blank">Terms &amp; Feedback</a>'
     }).addTo(CartoDbLib.map);
 
     //reset filters
