@@ -23,13 +23,13 @@
         %td #{f[:snowfall]}
         %td 
           - unless f[:backup_folder].empty?
-            %a{:href => "https://s3.amazonaws.com/clearstreets/#{f[:backup_folder]}/plow-#{f[:backup_folder]}.db"} Download
+            %a{:href => "https://s3.amazonaws.com/clearstreets-data/#{f[:backup_folder]}/plow-#{f[:backup_folder]}.db"} Download
         %td
           - unless f[:backup_folder].empty?
-            %a{:href => "https://s3.amazonaws.com/clearstreets/#{f[:backup_folder]}/gpx-#{f[:backup_folder]}.tar.gz"} Download
+            %a{:href => "https://s3.amazonaws.com/clearstreets-data/#{f[:backup_folder]}/gpx-#{f[:backup_folder]}.tar.gz"} Download
         %td 
           - unless f[:backup_folder].empty?
-            %a{:href => "https://s3.amazonaws.com/clearstreets/#{f[:backup_folder]}/gpx-#{f[:backup_folder]}.tar.gz"} Download
+            %a{:href => "https://s3.amazonaws.com/clearstreets-data/#{f[:backup_folder]}/osm-#{f[:backup_folder]}.tar.gz"} Download
         %td 
           - unless f[:fusion_table_id].nil?
             %a{:href => "https://www.google.com/fusiontables/DataSource?docid=#{f[:fusion_table_id]}"} Fusion&nbsp;Table
