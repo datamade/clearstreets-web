@@ -1,12 +1,11 @@
 .row-fluid
   .span4
-    %p.alert.alert-info 
-      %strong Mar 12, 2014
-      %br
-      Chicago got <a href='http://www.wunderground.com/history/airport/KORD/2014/03/12/DailyHistory.html?req_city=NA&req_state=NA&req_statename=NA'>3.2 inches of snow</a>.
-      %br
-      See which streets have been plowed and when.
     .well
+      %strong Mar 12, 2014
+      %p
+        Chicago got <a href='http://www.wunderground.com/history/airport/KORD/2014/03/12/DailyHistory.html?req_city=NA&req_state=NA&req_statename=NA'>3.2 inches of snow</a>.
+        %br
+        See which streets have been plowed and when.
       %h4
         Did my street get plowed?
         <small>(<a id='find_me' href='#'>find me</a>)</small>
@@ -17,26 +16,24 @@
       %button#reset.btn Reset
 
     %p
-      On January 3rd 2012, the City of Chicago launched
-      = succeed "," do
-        %a{:href => "http://www.cityofchicago.org/content/city/en/depts/mayor/iframe/plow_tracker.html"} Plow Tracker
-      an app that tracks the city's snow plows in real time. This app, <a href='http://clearstreets.org/about#who-made-this'>built by Open City</a>, uses the same data. By knowing where the plows are, we've figured which streets have been plowed.
-      %a{:href => "/about"} More »
+      %strong What is this?
+      %br
+      ClearStreets tracks Chicago's snow plows in real time by scraping data from the <a href='http://www.cityofchicago.org/content/city/en/depts/mayor/iframe/plow_tracker.html'>City of Chicago's Plow Tracker</a>. By knowing where the plows are, we've figured out which streets have been plowed.
+      %a{:href => "/about"} Read more »
 
     %p.alert.alert-info 
-      %strong Is your street missing?
+      %strong Did your street get skipped?
       %br
-      We <a href='http://clearstreets.org/about#who-made-this'>aren't the City of Chicago.</a> We don't control or influence where the plows go. We do try to show where the plows have gone. If your street got plowed and our map doesn't show it, <a href='mailto:clearstreets@opencityapps.org'>let us know</a>! 
+      We don't have data on all the plows, so this map may be inaccurate.
+      Also, we <a href='http://clearstreets.org/about#who-made-this'>aren't the City of Chicago</a>, and we don't control or influence where the plows go. If your street needs plowing, call 311.
+
+
     
   .span8
     #map_canvas
     %span.pull-right
-      An 
-      %a{:href => 'http://opencityapps.org'} Open City
-      app. Hosting provided by
-      %a{:href => 'http://www.smartchicagocollaborative.org/'} Smart Chicago Collaborative
-      and
-      %a{:href => 'http://cartodb.com/'} CartoDB
+      An <a href='http://opencityapps.org'>Open City</a> app. 
+      Map hosting provided by <a href='http://cartodb.com/'>CartoDB</a>.
 
 - content_for :stylesheets do
   = include_stylesheet "http://libs.cartocdn.com/cartodb.js/v3/themes/css/cartodb.css"  

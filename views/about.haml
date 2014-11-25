@@ -27,7 +27,7 @@
   .span8
     %h1 About
 
-    %h2#what-is-this What is this?
+    %h3#what-is-this What is this?
     %p
       On Jan 3rd 2012, the City of Chicago released Plow Tracker, an app that tracks the city's snow plows in real time. We want to thank the city for taking this innovative step towards
       = succeed "." do
@@ -45,18 +45,15 @@
         %a{:href => "http://www.ascentstage.com/archives/2012/01/open-data-in-chicago/"} open data
       The more data they release, the more useful stuff we can build.
 
-    %h2#whats-new Dec 2013 updates
-    %p
-      For the first two winters of ClearStreets, we used Google Fusion Tables to display our maps. This worked out really well, especially since it able to display a lot of data quickly at no cost to us. However, for storms when the city deploys all ~300 of its plows over a period of several days, we found that Fusion Tables could not display all our data due to its <a href='https://developers.google.com/fusiontables/docs/v1/using#Geo'>limit of 100,000 features per map</a>.
+    %h3#what-data-is What exactly does the map show?
+    %p The dark lines on the map are road segments that plows have likely driven over since we started tracking them. That's it. We don't know whether they were salting, plowing, or just passing through. And we don't know for sure whether those streets are currently clear, because we don't have info about road conditions. Roads that were plowed early on might accumulate fresh snow as the storm ginds on.
 
-    %p
-      This was an issue we weren't sure how to solve with the resources we had (none), but as luck would have it, <a href='https://twitter.com/andrewxhill'>Andrew Hill</a> from <a href='https://cartodb.com/'>CartoDB</a> reached out to us with an <a href='http://andrew.cartodb.com/viz/0fc7f022-5ed7-11e3-b3ad-3085a9a9563c/embed_map'>animated map built with our plow data</a> and we got to talking. From that conversation, CartoDB graciously offered to gift us their <a href='https://cartodb.com/pricing/'>Cornelli plan</a> to display our plow data.
+    %h3#dont-sue-us Disclaimer: data may not be accurate
+    %p What's more, we don't guarantee that the dark lines — which, again, show where plows have passed - are accurate or complete. We only have data that the <a href='http://www.cityofchicago.org/content/city/en/depts/mayor/iframe/plow_tracker.html'>City of Chicago's Plow Tracker</a> makes available. This means that private plows, modified garbage trucks and smaller vehicles are not tracked. 
 
-    %p
-      ClearStreets now uses CartoDB to fully map the most recent snow storm and Fusion Tables to archive our past storms.
+    %p The plows we do track only transmit their rough locations, and they don't quite do so in real time. We make a best guess about where plows have passed, but it's still just that: a guess, though hopefully a good one. Don't sue us.
 
-
-    %h2#press Press
+    %h3#press Press
     %ul
       %li
         %a{:href => "http://www.nbcchicago.com/investigations/Chicago-Block-Has-Not-Been-Plowed-This-Winter-243875781.html"} Chicago Block Has Not Been Plowed This Winter
@@ -95,7 +92,7 @@
         %a{:href => "http://chicagoist.com/2012/01/20/clear_streets_a_better_use_of_snow.php#photo-1"} Chicago ClearStreets: A Better Use Of Snow Plow Tracker Technology
         \- Chicagoist | Jan 20th, 2012 
 
-    %h2#who-made-this Who made this?
+    %h3#who-made-this Who made this?
     %p
       This is an
       %a{:href => "http://opencityapps.org"} Open City
@@ -123,18 +120,12 @@
       %li 
         %a{:href => 'https://twitter.com/samarthbhaskar'} Samarth Bhaskar 
         \- former data analyst at Obama For America
-        
-    %h2#what-data-is What exactly does the map show?
-    %p The dark lines on the map are road segments that plows have driven over since 10am on Friday. That's it. We don't know whether they were salting, plowing, or just passing through. And we don't know for sure whether those streets are currently clear, because we don't have info about road conditions. Roads that were plowed early on might accumulate fresh snow as the storm ginds on.
 
-    %h2#dont-sue-us Disclaimer: data may not be accurate
-    %p What's more, we don't guarantee that the dark lines — which, again, show where plows have passed - are accurate or complete. The plows only transmit their rough locations, and they don't quite do so in real time. We make a best guess about where plows have passed, but it's still just that: a guess, though hopefully a good one. Don't sue us.
-
-    %h2#how-does-it-work How did we do this?
+    %h3#how-does-it-work How did we do this?
     %p Each of the city's snow plows is outfitted with a GPS system. When a storm hits, the plows begin transmitting their location to the city in real-time. The city puts this data online and constantly updates it to power their real-time Plow Tracker map.
     %p We took that location data - where was plow x at time y? - and used it to figure out which streets plows have driven through.
 
-    %h2#how-does-it-really-work
+    %h3#how-does-it-really-work
       How did we
       %i really
       do this? (For the geeks)
@@ -185,21 +176,28 @@
           %a{:href => "https://github.com/open-city/clearstreets-web"} ClearStreets map front-end
 
       %p
-        The processing scripts are all 
-        %a{:href => 'http://www.smartchicagocollaborative.org/projects/hosted-web-space/'} hosted 
-        on Amazon's EC2 by the 
-        = succeed '.' do
-          %a{:href => 'http://www.smartchicagocollaborative.org/'} Smart Chicago Collaborative
-        This website is hosted on 
-        = succeed '.' do
-          %a{:href => 'http://heroku.com'} Heroku
-        Thanks to the 
-        %a{:href => 'http://cct.org'} Chicago Community Trust 
-        for helping us increase our
-        %a{:href => 'https://developers.google.com/fusiontables/docs/v1/using#Geo'} Google Fusion Tables limit
-        and a very special thanks to <a href='http://cartodb.com'>CartoDB</a> for gifting us their Cornelli data plan that we use to power the latest version of this site.
-
-      %h2#can-i-have-your-data Can I have your data?
-
+        The processing scripts are all hosted on Amazon's <a href='http://aws.amazon.com/ec2/'>Elastic Cloud Compute</a> (EC2) and this website is hosted on <a href='http://heroku.com'>Heroku</a>.
       %p
-        Sure! We'd love other people to use our plow data. You can download all the raw files from on the <a href='/history'>past storms page</a>.
+        Special thanks to <a href='http://cartodb.com'>CartoDB</a> for gifting us their <a href='http://cartodb.com/pricing/'>Cornelli data plan</a> that we use to power the current version of this site.
+      %p
+        Thanks to the <a href='http://www.smartchicagocollaborative.org/'>Smart Chicago Collaborative</a> for hosting us from Dec 2012 - Nov 2014 and to the <a href='http://cct.org'>Chicago Community Trust</a> for helping us increase our <a href='https://developers.google.com/fusiontables/docs/v1/using#Geo'>Google Fusion Tables limit</a> before we switched to CartoDB.
+
+    %h3#can-i-have-your-data Can I have your data?
+
+    %p
+      Sure! We'd love other people to use our plow data. You can download all the raw files from on the <a href='/history'>past storms page</a>.
+
+
+    %h3#whats-new Switching to CartoDB
+    %p
+      For the first two winters of ClearStreets, we used Google Fusion Tables to display our maps. This worked out really well, especially since it able to display a lot of data quickly at no cost to us. However, for storms when the city deploys all ~300 of its plows over a period of several days, we found that Fusion Tables could not display all our data due to its <a href='https://developers.google.com/fusiontables/docs/v1/using#Geo'>limit of 100,000 features per map</a>.
+
+    %p
+      This was an issue we weren't sure how to solve with the resources we had (none), but as luck would have it, <a href='https://twitter.com/andrewxhill'>Andrew Hill</a> from <a href='https://cartodb.com/'>CartoDB</a> reached out to us in December 2013 with an <a href='http://www.fastcoexist.com/3023269/watch-this-fascinating-animation-of-chicagos-egalitarian-snow-plows'>animated map built with our plow data</a> and we got to talking. From that conversation, CartoDB graciously offered to gift us their <a href='https://cartodb.com/pricing/'>Cornelli plan</a> to display our plow data.
+
+    %p
+      ClearStreets now uses CartoDB to fully map Chicago's plows.
+
+    %br
+    %br
+    %br
