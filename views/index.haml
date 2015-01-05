@@ -63,7 +63,7 @@
       $.when( $.getJSON("http://status.clearstreets.org/snow-plow-data/") ).then(function( data, textStatus, jqXHR ) {
 
         if (data['data_present'] == true) {
-          var resp = 'Fleet status: ' + data['asset_count']  + ' active vehicles';
+          var resp = data['asset_count']  + ' active vehicles';
 
           $('#fleet-status').html(resp)
         }
