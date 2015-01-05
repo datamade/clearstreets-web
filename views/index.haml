@@ -27,6 +27,9 @@
       We don't have data on all the plows, so this map may be <a href='/about#what-data-is'>inaccurate</a>.
       Also, we <a href='http://clearstreets.org/about#who-made-this'>aren't the City of Chicago</a>, and we don't control or influence where the plows go. If your street needs plowing, call 311.
 
+    %p
+      <a href='http://status.clearstreets.org'>Fleet status</a>:
+      %span.label.label-info#fleet-status No data
 
     
   .span8
@@ -43,7 +46,6 @@
   = include_javascript :"http://libs.cartocdn.com/cartodb.js/v3/cartodb.js"
   = include_javascript :"http://maps.google.com/maps/api/js?sensor=false&amp;libraries=places"
   / = include_javascript :Google
-  = include_javascript "jquery.geocomplete.min"
   = include_javascript "moment.min"
   %script{:src => "/javascripts/cartodb_lib.js?10", :type => "text/javascript"}
 
@@ -58,16 +60,17 @@
     $(function() {
       CartoDbLib.initialize();
 
-      var chicagoBounds = new google.maps.LatLngBounds(
-        new google.maps.LatLng(41.691747,-87.806472),
-        new google.maps.LatLng(41.991511,-87.54692));
+      $.when( $.getJSON("http://status.clearstreets.org/snow-plow-data/") ).then(function( data, textStatus, jqXHR ) {
 
-      $("#search_address").geocomplete({
-        types: ['geocode'],
-        bounds: chicagoBounds,
-        componentRestrictions: {country: 'us'}
+        if (data['data_present'] == true) {
+          var resp = 'Fleet status: ' + data['asset_count']  + ' active vehicles';
+
+          $('#fleet-status').html(resp)
+        }
       });
       
+      var autocomplete = new google.maps.places.Autocomplete(document.getElementById('search_address'));
+
       $('#search_radius').change(function(){
         CartoDbLib.doSearch();
       });
