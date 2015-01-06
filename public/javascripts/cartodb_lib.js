@@ -8,6 +8,7 @@ var CartoDbLib = {
   layerUrl: 'http://clearstreets.cartodb.com/api/v2/viz/7ba12324-6736-11e3-a0d3-27d40b6ff03f/viz.json',
   //vizHackUrl: 'http://clearstreets.cartodb.com/api/v2/viz/589c99a4-673a-11e3-bc87-37a820bb3867/viz.json',
   tableName: 'clearstreets_live',
+  plowPoints: [],
 
   initialize: function(){
     geocoder = new google.maps.Geocoder();
@@ -18,26 +19,58 @@ var CartoDbLib = {
         center: CartoDbLib.map_centroid,
         zoom: CartoDbLib.defaultZoom
       });
+
+      L.tileLayer('https://{s}.tiles.mapbox.com/v3/derekeder.hehblhbj/{z}/{x}/{y}.png', {
+        attribution: '<a href="http://www.mapbox.com/about/maps/" target="_blank">Terms &amp; Feedback</a>'
+      }).addTo(CartoDbLib.map);
+
+      CartoDbLib.info = L.control({position: 'bottomright'});
+
+      CartoDbLib.info.onAdd = function (map) {
+          this._div = L.DomUtil.create('div', 'info'); // create a div with a class "info"
+          this.update();
+          return this._div;
+      };
+
+      // method that we will use to update the control based on feature properties passed
+      CartoDbLib.info.update = function (props) {
+        var date_formatted = '';
+        if (props)
+          date_formatted = new moment(props.date_stamp).format("h:mm:ss a M/D/YYYY");
+
+        this._div.innerHTML = '<h4>Plow info</h4>' +  (props ?
+              'Plowed at <b/>' + date_formatted + '</b> by Plow ' + props.id : 'Hover over a plow path');
+      };
+
+      CartoDbLib.info.addTo(CartoDbLib.map);
     }
 
-    // var gmap_options = {
-    //   mapOptions: { 
-    //     styles: [
-    //       {
-    //         stylers: [
-    //           { saturation: -100 },
-    //           { lightness: 40 }
-    //         ]
-    //       }
-    //     ]
-    //   }
-    // };
+    CartoDbLib.plowPoints = [];
+    $.when( $.getJSON("http://status.clearstreets.org/snow-plow-data/") ).then(function( data, textStatus, jqXHR ) {
 
-    // var gmap_layer = new L.Google('ROADMAP', gmap_options);
-    // CartoDbLib.map.addLayer(gmap_layer);
-    L.tileLayer('https://{s}.tiles.mapbox.com/v3/derekeder.hehblhbj/{z}/{x}/{y}.png', {
-      attribution: '<a href="http://www.mapbox.com/about/maps/" target="_blank">Terms &amp; Feedback</a>'
-    }).addTo(CartoDbLib.map);
+      var fleet_info = "";
+      if (data['data_present'] == true) {
+        $.each(data.assets, function( i, asset_type ) {
+
+          var label_type = "info";
+          if (asset_type['type'] == "SNOW 4X4")
+            label_type = "success";
+          fleet_info += "<span class='label label-" + label_type + "'>" + asset_type.count + " " + asset_type['type']  + '</span> ';
+
+          $.each(asset_type.vehicles, function( j, v ) {
+            // console.log(v)
+            var point_color = "#2669AB";
+            if (v.assetType == "SNOW 4X4")
+              point_color = "#42A233";
+            var marker = L.circleMarker([v.latitude, v.longitude], {radius: 3, color: point_color, fillOpacity: 1, fillColor: point_color});
+            marker.bindPopup("<h4>" + v.assetName + "</h4>" + v.assetType + "");
+            marker.addTo(CartoDbLib.map);
+            CartoDbLib.plowPoints.push(marker);
+          });
+        });
+        $('#fleet-status').html(fleet_info)
+      }
+    });
 
     //reset filters
     $("#search_address").val(CartoDbLib.convertToPlainString($.address.parameter('address')));
@@ -50,28 +83,6 @@ var CartoDbLib = {
       interactivity: 'cartodb_id, id, date_stamp'
     }
 
-    // console.log(sql);
-
-    CartoDbLib.info = L.control({position: 'bottomright'});
-
-    CartoDbLib.info.onAdd = function (map) {
-        this._div = L.DomUtil.create('div', 'info'); // create a div with a class "info"
-        this.update();
-        return this._div;
-    };
-
-    // method that we will use to update the control based on feature properties passed
-    CartoDbLib.info.update = function (props) {
-      var date_formatted = '';
-      if (props)
-        date_formatted = new moment(props.date_stamp).format("h:mm:ss a M/D/YYYY");
-
-      this._div.innerHTML = '<h4>Plow info</h4>' +  (props ?
-            'Plowed at <b/>' + date_formatted + '</b> by Plow ' + props.id : 'Hover over a plow path');
-    };
-
-    CartoDbLib.info.addTo(CartoDbLib.map);
-
     CartoDbLib.dataLayer = cartodb.createLayer(CartoDbLib.map, CartoDbLib.layerUrl)
       .addTo(CartoDbLib.map)
       .on('done', function(layer) {
@@ -82,11 +93,7 @@ var CartoDbLib = {
         });
       }).on('error', function() {
         //log the error
-    }); 
-
-    //CartoDbLib.hackLayer = cartodb.createLayer(CartoDbLib.map, CartoDbLib.vizHackUrl).addTo(CartoDbLib.map);
-
-    CartoDbLib.doSearch();
+    });
   },
 
   doSearch: function() {
@@ -124,9 +131,27 @@ var CartoDbLib = {
     }
   },
 
+  refreshMap: function() {
+    if (CartoDbLib.dataLayer)
+      CartoDbLib.map.removeLayer( CartoDbLib.dataLayer );
+    if (CartoDbLib.plowPoints) {
+      for(var m=0;m<CartoDbLib.plowPoints.length;m++){
+        CartoDbLib.map.removeLayer( CartoDbLib.plowPoints[m] );
+      }
+      CartoDbLib.plowPoints = [];
+    }
+    CartoDbLib.initialize();
+  },
+
   clearSearch: function(){
     if (CartoDbLib.dataLayer)
       CartoDbLib.map.removeLayer( CartoDbLib.dataLayer );
+    if (CartoDbLib.plowPoints) {
+      for(var m=0;m<CartoDbLib.plowPoints.length;m++){
+        LeafletLib.map.removeLayer( CartoDbLib.plowPoints[m] );
+      }
+      CartoDbLib.plowPoints = [];
+    }
     if (CartoDbLib.centerMark)
       CartoDbLib.map.removeLayer( CartoDbLib.centerMark );
     if (CartoDbLib.circle)

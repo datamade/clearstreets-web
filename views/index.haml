@@ -27,9 +27,9 @@
       We don't have data on all the plows, so this map may be <a href='/about#what-data-is'>inaccurate</a>.
       Also, we <a href='http://clearstreets.org/about#who-made-this'>aren't the City of Chicago</a>, and we don't control or influence where the plows go. If your street needs plowing, call 311.
 
-    %p
-      <a href='http://status.clearstreets.org'>Plow fleet status</a>:
-      %span.label.label-info#fleet-status Hybernating
+    <a href='http://status.clearstreets.org'>Plows active</a>:
+    #fleet-status
+      %span.label.label-info Hybernating
 
     
   .span8
@@ -59,16 +59,8 @@
 
     $(function() {
       CartoDbLib.initialize();
+      CartoDbLib.doSearch();
 
-      $.when( $.getJSON("http://status.clearstreets.org/snow-plow-data/") ).then(function( data, textStatus, jqXHR ) {
-
-        if (data['data_present'] == true) {
-          var resp = data['asset_count']  + ' active vehicles';
-
-          $('#fleet-status').html(resp)
-        }
-      });
-      
       var autocomplete = new google.maps.places.Autocomplete(document.getElementById('search_address'));
 
       $('#search_radius').change(function(){
@@ -97,4 +89,12 @@
               return false;
           }
       });
+
+      function timeout() {
+        setTimeout(function () {
+          CartoDbLib.refreshMap();
+          timeout();
+        }, 30000);
+      }
+      timeout();
     });
