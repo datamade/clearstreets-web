@@ -1,4 +1,5 @@
 source "http://rubygems.org"
+ruby "1.9.3"
 
 # web
 gem "sinatra"
@@ -12,6 +13,4 @@ gem "memcachier"
 gem "dalli"
 gem "rack-cache"
 
-group :development do
-  gem "unicorn"
-end
+gem "unicorn"
