@@ -8,6 +8,7 @@ var CartoDbLib = {
   layerUrl: 'http://clearstreets.cartodb.com/api/v2/viz/7ba12324-6736-11e3-a0d3-27d40b6ff03f/viz.json',
   //vizHackUrl: 'http://clearstreets.cartodb.com/api/v2/viz/589c99a4-673a-11e3-bc87-37a820bb3867/viz.json',
   tableName: 'clearstreets_live',
+  maptiks_tracking_code: 'a83cd5c8-ee1a-4640-8555-ea513888e821',
   plowPoints: [],
 
   initialize: function(){
@@ -17,7 +18,8 @@ var CartoDbLib = {
     if (!CartoDbLib.map) {
       CartoDbLib.map = new L.Map('map_canvas', { 
         center: CartoDbLib.map_centroid,
-        zoom: CartoDbLib.defaultZoom
+        zoom: CartoDbLib.defaultZoom,
+        track_id: CartoDbLib.maptiks_tracking_code
       });
 
       L.tileLayer('https://{s}.tiles.mapbox.com/v3/derekeder.hehblhbj/{z}/{x}/{y}.png', {
