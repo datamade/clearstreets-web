@@ -47,6 +47,33 @@ var CartoDbLib = {
       CartoDbLib.info.addTo(CartoDbLib.map);
     }
 
+    CartoDbLib.drawPlowPoints();
+
+    //reset filters
+    $("#search_address").val(CartoDbLib.convertToPlainString($.address.parameter('address')));
+
+    var sql = "SELECT * FROM " + CartoDbLib.tableName + "";
+
+    // change the query for the first layer
+    var subLayerOptions = {
+      sql: sql,
+      interactivity: 'cartodb_id, id, date_stamp'
+    }
+
+    CartoDbLib.dataLayer = cartodb.createLayer(CartoDbLib.map, CartoDbLib.layerUrl, {refreshTime: 30000})
+      .addTo(CartoDbLib.map)
+      .on('done', function(layer) {
+        layer.getSubLayer(0)
+        .set(subLayerOptions)
+        .on('featureOver', function(e, latlng, pos, data, subLayerIndex) {
+          CartoDbLib.info.update(data);
+        });
+      }).on('error', function() {
+        //log the error
+    });
+  },
+
+  drawPlowPoints: function() {
     CartoDbLib.plowPoints = [];
     $.when( $.getJSON("http://status.clearstreets.org/snow-plow-data/") ).then(function( data, textStatus, jqXHR ) {
 
@@ -72,29 +99,6 @@ var CartoDbLib = {
         });
         $('#fleet-status').html(fleet_info)
       }
-    });
-
-    //reset filters
-    $("#search_address").val(CartoDbLib.convertToPlainString($.address.parameter('address')));
-
-    var sql = "SELECT * FROM " + CartoDbLib.tableName + "";
-
-    // change the query for the first layer
-    var subLayerOptions = {
-      sql: sql,
-      interactivity: 'cartodb_id, id, date_stamp'
-    }
-
-    CartoDbLib.dataLayer = cartodb.createLayer(CartoDbLib.map, CartoDbLib.layerUrl)
-      .addTo(CartoDbLib.map)
-      .on('done', function(layer) {
-        layer.getSubLayer(0)
-        .set(subLayerOptions)
-        .on('featureOver', function(e, latlng, pos, data, subLayerIndex) {
-          CartoDbLib.info.update(data);
-        });
-      }).on('error', function() {
-        //log the error
     });
   },
 
@@ -134,15 +138,13 @@ var CartoDbLib = {
   },
 
   refreshMap: function() {
-    if (CartoDbLib.dataLayer)
-      CartoDbLib.map.removeLayer( CartoDbLib.dataLayer );
     if (CartoDbLib.plowPoints) {
       for(var m=0;m<CartoDbLib.plowPoints.length;m++){
         CartoDbLib.map.removeLayer( CartoDbLib.plowPoints[m] );
       }
       CartoDbLib.plowPoints = [];
     }
-    CartoDbLib.initialize();
+    CartoDbLib.drawPlowPoints();
   },
 
   clearSearch: function(){
