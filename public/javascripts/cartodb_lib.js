@@ -152,7 +152,7 @@ var CartoDbLib = {
       CartoDbLib.map.removeLayer( CartoDbLib.dataLayer );
     if (CartoDbLib.plowPoints) {
       for(var m=0;m<CartoDbLib.plowPoints.length;m++){
-        LeafletLib.map.removeLayer( CartoDbLib.plowPoints[m] );
+        CartoDbLib.map.removeLayer( CartoDbLib.plowPoints[m] );
       }
       CartoDbLib.plowPoints = [];
     }
