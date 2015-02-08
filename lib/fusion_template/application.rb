@@ -25,6 +25,7 @@ module FusionTemplate
     helpers FusionTemplate::HtmlHelpers
 
     Past_storms = [
+      {:title => 'Jan 31 - Feb 8, 2015', :backup_folder => '02-08-2015', :snowfall => '19.3"', :notes => 'Missing data from 10pm Feb 2nd to 8am Feb 3rd'},
       {:title => 'Jan 26, 2015', :backup_folder => '01-27-2015', :snowfall => '1.0"', :notes => ''},
       {:title => 'Jan 25, 2015', :backup_folder => '01-25-2015', :snowfall => '1.0"', :notes => ''},
       {:title => 'Jan 11-12, 2015', :backup_folder => '01-13-2015', :snowfall => '3.0"', :notes => ''},
@@ -58,12 +59,16 @@ module FusionTemplate
       {:fusion_table_id => '12vrI6yT7pIKFqRLPDs2BiRNdH3Y0DXzyNEISSeg', :title => 'Dec 20, 2012', :type => '', :backup_folder => '12-20-2012', :snowfall => '0.3"'},
       {:fusion_table_id => '1Joj30eltDiXAhbhizuurstPUfqYeSISEmlOANHE', :title => 'Feb 10, 2012', :type => 'legacy', :backup_folder => '', :snowfall => '1.5"'},
       {:fusion_table_id => '18LV9PXFVzgP_eZhBRcbsCWRW9sHTMLPaxx3lDa8', :title => 'Jan 21, 2012 (part 2)', :type => 'legacy', :backup_folder => ''},
-      {:fusion_table_id => '1hq3bK1dUqyE6LCQ488tZF3syQQc5jYsluMS5Fy0', :title => 'Jan 21, 2012 (part 1)', :type => 'legacy', :backup_folder => '', :snowfall => 'T', :notes => 'Split in to two Fusion Tables.'}
+      {:fusion_table_id => '1hq3bK1dUqyE6LCQ488tZF3syQQc5jYsluMS5Fy0', :title => 'Jan 21, 2012 (part 1)', :type => 'legacy', :backup_folder => '', :snowfall => '9"', :notes => 'Split in to two Fusion Tables.'}
     ]
 
     # redirects for old site
     get "/2012*" do
       redirect "/?1"
+    end
+
+    get "/history" do
+      redirect "/data"
     end
 
     get "/about.html" do

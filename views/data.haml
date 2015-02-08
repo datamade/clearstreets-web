@@ -1,0 +1,55 @@
+.span10
+
+  %h1 Data
+
+  %p
+    Since January 2012, we've tracked and archived plow activity for <strong>#{Past_storms.length} snow events</strong> in Chicago. 
+    %br
+    You can download the raw data from past storms here.
+
+  %h3#usage Using this data
+  %p
+    We save every GPS observation we scrape from the <a href='http://www.cityofchicago.org/city/en/depts/mayor/iframe/plow_tracker.html'>City of Chicago Plow Tracker</a>. Each observation contains:
+
+  %ul
+    %li
+      location X and Y (projected in <a href='http://spatialreference.org/ref/esri/102671/'>EPSG 102671</a> or latitude/longitude)
+    %li
+      date and time of observation
+    %li
+      vehicle ID (for example S11375)
+
+  %p
+    We make these points available in a <a href='http://www.sqlite.org/'>SQLite3 database</a>. The easiest way to work with this data is to run the points through our <a href='https://github.com/open-city/clearstreets-processing/blob/master/slurp2gpx/write_gpx_all.py'>write_gpx_all.py</a> script to generate a set of <a href='http://en.wikipedia.org/wiki/GPS_Exchange_Format'>GPX files</a> (one for each plow). From there, you can import it into <a href='http://www2.qgis.org/en/site/'>QGIS</a> or write a script to analyze it.
+
+  %p
+    %strong Please note: 
+    Sometimes our data feed breaks while collecting plow locations from the City of Chicago Plow Tracker. This means that some of our data has gaps in it for periods of time.
+
+  %table.table.table-striped.table-bordered
+    %thead
+      %tr
+        %th Date
+        %th Snowfall
+        %th GPS observations
+        %th Map
+        %th Notes
+    %tbody
+      - Past_storms.each do |f|
+        %tr
+          %td #{f[:title]}
+          %td #{f[:snowfall]}
+          %td 
+            - unless f[:backup_folder].empty?
+              %a{:href => "https://s3.amazonaws.com/clearstreets-data/#{f[:backup_folder]}/plow-#{f[:backup_folder]}.db"} <i class='icon-download-alt'></i> SQLite database
+          %td 
+            - unless f[:fusion_table_id].nil?
+              %a{:href => "https://www.google.com/fusiontables/DataSource?docid=#{f[:fusion_table_id]}"} Fusion&nbsp;Table
+            - unless f[:carto_db_url].nil?
+              %a{:href => f[:carto_db_url]} CartoDB
+          %td
+            = f[:notes]
+
+  %br
+  %br
+  %br
