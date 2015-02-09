@@ -1,4 +1,4 @@
-.span10
+.span8
 
   %h1 Data
 
@@ -6,6 +6,17 @@
     Since January 2012, we've tracked and archived plow activity for <strong>#{Past_storms.length} snow events</strong> in Chicago. 
     %br
     You can download the raw data from past storms here.
+
+  %h3#super-bowl-storm 2015 Super Bowl Storm
+
+  %p 
+    From Jan 31st - Feb 8th 2015 Chicago got <a target="_blank" href="http://wgntv.com/2015/02/02/super-bowl-blizzard-officially-chicagos-5th-largest-snowstorm/">19.3 inches of snow</a>, making it the 5th largest snow storm on record. 
+
+  %p
+    During this time, we collected <strong>1.94 million GPS observations</strong> of Chicago snow plows. We invite you to do something cool with this data!
+
+  %p 
+    Download it here: <a href='https://s3.amazonaws.com/clearstreets-data/02-08-2015/plow-02-08-2015.db'>SQLite3 database</a> (223mb) | <a href='https://s3.amazonaws.com/clearstreets-data/clearstreets-super-bowl-storm.gpx.zip'>GPX points</a> (12.mb zip)
 
   %h3#usage Using this data
   %p
@@ -25,6 +36,8 @@
   %p
     %strong Please note: 
     Sometimes our data feed breaks while collecting plow locations from the City of Chicago Plow Tracker. This means that some of our data has gaps in it for periods of time.
+
+  %h3 Past storms
 
   %table.table.table-striped.table-bordered
     %thead
@@ -53,3 +66,6 @@
   %br
   %br
   %br
+
+.span4
+  <img src='/images/super-bowl-storm.png' alt='Snow Plows during the Super Bowl Storm' title='Snow Plows during the Super Bowl Storm' class='img-polaroid' />
