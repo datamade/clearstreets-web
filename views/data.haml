@@ -53,8 +53,11 @@
           %td #{f[:title]}
           %td #{f[:snowfall]}
           %td 
+            - if f[:show_gpx]
+              %a{:href => "https://s3.amazonaws.com/clearstreets-data/#{f[:backup_folder]}/gpx-#{f[:backup_folder]}.tar.gz"} <i class='icon-download-alt'></i> GPX traces
+              %br
             - unless f[:backup_folder].empty?
-              %a{:href => "https://s3.amazonaws.com/clearstreets-data/#{f[:backup_folder]}/plow-#{f[:backup_folder]}.db"} <i class='icon-download-alt'></i> SQLite database
+              %a{:href => "https://s3.amazonaws.com/clearstreets-data/#{f[:backup_folder]}/plow-#{f[:backup_folder]}.db"} <i class='icon-download-alt'></i> SQLite
           %td 
             - unless f[:fusion_table_id].nil?
               %a{:href => "https://www.google.com/fusiontables/DataSource?docid=#{f[:fusion_table_id]}"} Fusion&nbsp;Table
