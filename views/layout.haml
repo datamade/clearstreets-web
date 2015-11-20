@@ -32,6 +32,9 @@
     = include_stylesheet :custom
     = include_stylesheet "http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css"
     = content :stylesheets
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+
     
     / HTML5 shim, for IE6-8 support of HTML5 elements
     /[if lt IE 9]
@@ -63,6 +66,8 @@
                 %a{:href => "/history"} Data
               %li{:class => current_menu_class("about")}
                 %a{:href => "/about"} About
+              %li
+                <a href='https://twitter.com/clearstreets'><i class='fa fa-twitter'></i></a>
   
     .container-fluid
           
