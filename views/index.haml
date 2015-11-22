@@ -1,9 +1,9 @@
 .row-fluid
   .span4
     .well
-      %strong Nov 20, 2015
+      %strong Nov 20-22, 2015
       %p
-        Chicago is expected to get <a target="_blank" href="https://www.google.org/publicalerts/alert?aid=4c6e4714df917c61&hl=en&gl=US&source=wweather">3-6" of snow tonight</a>.
+        The Chicago area got <a target="_blank" href="https://www.google.org/publicalerts/alert?aid=4c6e4714df917c61&hl=en&gl=US&source=wweather">up to a foot of snow</a>.
         %br
         See which streets have been plowed and when.
       %h4
@@ -14,6 +14,11 @@
       
       %input#search.btn.btn-info{:type => "button", :value => "Search"}
       %button#reset.btn Reset
+
+      %hr
+      <a href='http://status.clearstreets.org'>Plow fleet</a>:
+      %span#fleet-status
+        %span.label.label-info Hibernating
 
     %p
       %strong What is this?
@@ -26,12 +31,6 @@
       %br
       We don't have data on all the plows, so this map may be <a href='/about#what-data-is'>inaccurate</a>.
       Also, we <a href='http://clearstreets.org/about#who-made-this'>aren't the City of Chicago</a>, and we don't control or influence where the plows go. If your street needs plowing, call 311.
-
-    %p
-      <a href='http://status.clearstreets.org'>Plow fleet</a>:
-      %span#fleet-status
-        %span.label.label-info Hibernating
-
     
   .span8
     #map_canvas
