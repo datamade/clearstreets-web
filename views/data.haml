@@ -7,17 +7,6 @@
     %br
     You can download the raw data from past storms here.
 
-  %h3#super-bowl-storm 2015 Super Bowl Storm
-
-  %p 
-    From Jan 31st - Feb 8th 2015 Chicago got <a target="_blank" href="http://wgntv.com/2015/02/02/super-bowl-blizzard-officially-chicagos-5th-largest-snowstorm/">19.3 inches of snow</a>, making it the 5th largest snow storm on record. 
-
-  %p
-    During this time, we collected <strong>1.94 million GPS observations</strong> of Chicago snow plows. We invite you to do something cool with this data!
-
-  %p 
-    Download it here: <a href='https://s3.amazonaws.com/clearstreets-data/02-08-2015/plow-02-08-2015.db'>SQLite3 database</a> (223mb) | <a href='https://s3.amazonaws.com/clearstreets-data/clearstreets-super-bowl-storm.gpx.zip'>GPX points</a> (12.mb zip)
-
   %h3#usage Using this data
   %p
     We save every GPS observation we scrape from the <a href='http://www.cityofchicago.org/city/en/depts/mayor/iframe/plow_tracker.html'>City of Chicago Plow Tracker</a>. Each observation contains:
@@ -42,7 +31,8 @@
   %table.table.table-striped.table-bordered
     %thead
       %tr
-        %th Date
+        %th{:style => "width: 20%;"} 
+          Date
         %th Snowfall
         %th GPS observations
         %th Map

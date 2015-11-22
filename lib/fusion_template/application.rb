@@ -25,9 +25,10 @@ module FusionTemplate
     helpers FusionTemplate::HtmlHelpers
 
     Past_storms = [
+      {:title => 'Nov 20-22, 2015', :backup_folder => '11-22-2015', :snowfall => '4-12"', :notes => '', :show_gpx => true},
       {:title => 'Mar 23, 2015', :backup_folder => '03-23-2015', :snowfall => '5"', :notes => '', :show_gpx => true},
       {:title => 'Feb 25-26, 2015', :backup_folder => '02-27-2015', :snowfall => '5.7"', :notes => ''},
-      {:title => 'Jan 31 - Feb 8, 2015', :backup_folder => '02-08-2015', :snowfall => '19.3"', :notes => 'Missing data from 10pm Feb 2nd to 8am Feb 3rd'},
+      {:title => 'Jan 31 - Feb 8, 2015', :backup_folder => '02-08-2015', :snowfall => '19.3"', :notes => "This was Chicago's 5th largest snow storm on record. Plows were tracked for 9 days and we collected 1.94 million GPS observations of Chicago snow plows. Missing data from 10pm Feb 2nd to 8am Feb 3rd."},
       {:title => 'Jan 26, 2015', :backup_folder => '01-27-2015', :snowfall => '1.0"', :notes => ''},
       {:title => 'Jan 25, 2015', :backup_folder => '01-25-2015', :snowfall => '1.0"', :notes => ''},
       {:title => 'Jan 11-12, 2015', :backup_folder => '01-13-2015', :snowfall => '3.0"', :notes => ''},
