@@ -19,7 +19,8 @@ var CartoDbLib = {
       CartoDbLib.map = new L.Map('map_canvas', { 
         center: CartoDbLib.map_centroid,
         zoom: CartoDbLib.defaultZoom,
-        track_id: CartoDbLib.maptiks_tracking_code
+        track_id: CartoDbLib.maptiks_tracking_code,
+        scrollWheelZoom: false
       });
 
       L.tileLayer('https://{s}.tiles.mapbox.com/v3/datamade.hn83a654/{z}/{x}/{y}.png', {
