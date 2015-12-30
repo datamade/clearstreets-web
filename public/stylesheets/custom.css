@@ -38,3 +38,10 @@ body { font-size: 15px;}
     margin: 0 0 5px;
     color: #777;
 }
+
+@media (max-width:768px){ 
+  .navbar .brand { 
+    max-width: 60%;
+    display: block;
+  }
+}
