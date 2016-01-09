@@ -4,7 +4,7 @@ ClearStreets tracks Chicago's snow plows in real time by scraping data from the 
 
 ## Installation
 
-  $ git clone git@github.com:open-city/clearstreets-web.git
+  $ git clone git@github.com:datamade/clearstreets-web.git
   $ cd clearstreets-web
   $ gem install bundler
   $ bundle
@@ -33,7 +33,7 @@ Heroku is a cloud hosting platform that can host small Ruby apps (among others) 
 ## Errors / Bugs
 
 If something is not behaving intuitively, it is a bug, and should be reported.
-Report it here: https://github.com/open-city/clearstreets-web/issues
+Report it here: https://github.com/datamade/clearstreets-web/issues
 
 
 ## Note on Patches/Pull Requests
@@ -44,6 +44,6 @@ Report it here: https://github.com/open-city/clearstreets-web/issues
 
 ## Copyright
 
-Copyright (c) 2015 Derek Eder. Released under the MIT License.
+Copyright (c) 2015 Derek Eder, Forest Gregg and Juan-Pablo Velez. Released under the MIT License.
 
-See LICENSE for details https://github.com/open-city/clearstreets-web/blob/master/LICENSE
+See LICENSE for details https://github.com/datamade/clearstreets-web/blob/master/LICENSE

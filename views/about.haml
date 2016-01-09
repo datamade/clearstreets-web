@@ -147,21 +147,30 @@
 
     %h3#who-made-this Who made this?
     %p
-      This is an
+      This app was originally built by 
       %a{:href => "http://opencityapps.org"} Open City
-      project. Open City is a group of volunteers that create web apps with open data to improve transparency, efficiency, and decision-making for governments and our democracy.
+      and is now maintained and operated by 
+      %a{:href => "http://datamade.us"} DataMade
+      \.
+
+    %p
+      The team includes:
+
     %ul
       %li
         %a{:href => "http://derekeder.com"} Derek Eder
-        \- Open data web developer and partner at
+        \- Founder and Partner at
         = succeed "." do
           %a{:href => "http://derekeder.com/datamade"} DataMade
       %li 
         Forest Gregg 
-        \- University of Chicago Sociology Ph.D. student and partner at DataMade
+        \- University of Chicago Sociology Ph.D. student and Partner at DataMade
       %li 
         %a{:href => 'https://twitter.com/jpvelez'} Juan-Pablo Velez 
         \- data scientist at Polynumeral
+      %li 
+        %a{:href => 'https://twitter.com/evanzanten'} Eric van Zanten
+        \- Senior Developer at DataMade
 
     %p
       In Dec 2012, we got some awesome help from:
@@ -195,7 +204,7 @@
           = succeed "." do
             %a{:href => "https://gisapps.cityofchicago.org/ArcGISRest/services/ExternalApps/operational/MapServer/38/query?f=json&where=OBJECTID%20is%20not%20null%20AND%20POSTING_TIME%20%3E%20SYSDATE-1%2F96&returnGeometry=true&spatialRel=esriSpatialRelIntersects&outFields=ADDRESS%2CPOSTING_TIME%2CASSET_NAME%2CASSET_TYPE%2COBJECTID"} data feed of GPS plow locations
           = succeed '.' do
-            %a{:href => 'https://github.com/open-city/clearstreets-processing/tree/master/slurp2gpx'} We pulled these dots with a script
+            %a{:href => 'https://github.com/datamade/clearstreets-processing/tree/master/slurp2gpx'} We pulled these dots with a script
       %li
         %p
           In order to figure out which streets had been cleared, we needed to turn these dots into plow paths. Lukas Kabrt's
@@ -206,7 +215,7 @@
           %br/
           = succeed ":" do
             %strong Code
-          %a{:href => "https://github.com/open-city/clearstreets-processing/tree/master/gpx2osm"} ClearStreets GPX to OSM script
+          %a{:href => "https://github.com/datamade/clearstreets-processing/tree/master/gpx2osm"} ClearStreets GPX to OSM script
       %li
         %p
           We then wrote a script to import this data into
@@ -218,20 +227,20 @@
           %br/
           = succeed ":" do
             %strong Code
-          %a{:href => "https://github.com/open-city/clearstreets-processing/tree/master/osm2ft"} ClearStreets OSM to Fusion Tables script
+          %a{:href => "https://github.com/datamade/clearstreets-processing/tree/master/osm2ft"} ClearStreets OSM to Fusion Tables script
 
         %p
           In December 2013, we updated our frontend to use <a href='http://cartodb.com'>CartoDB</a>. The process works very much the same as with Fusion Tables, but we get some advantages with the speed of updating our data and the ability to display more than 100,000 traces.
           %br
           %strong Code
-          %a{:href => "https://github.com/open-city/clearstreets-processing/tree/master/osm2cartodb"} ClearStreets OSM to CartoDB script
+          %a{:href => "https://github.com/datamade/clearstreets-processing/tree/master/osm2cartodb"} ClearStreets OSM to CartoDB script
       %li
         %p
           Finally, we styled the template based on Derek's Fusion Tables searchable map and flipped the switch.
           %br/
           = succeed ":" do
             %strong Code
-          %a{:href => "https://github.com/open-city/clearstreets-web"} ClearStreets map front-end
+          %a{:href => "https://github.com/datamade/clearstreets-web"} ClearStreets map front-end
 
       %p
         The processing scripts are all hosted on Amazon's <a href='http://aws.amazon.com/ec2/'>Elastic Cloud Compute</a> (EC2) and this website is hosted on <a href='http://heroku.com'>Heroku</a>.
