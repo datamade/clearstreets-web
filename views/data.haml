@@ -35,7 +35,6 @@
           Date
         %th Snowfall
         %th GPS observations
-        %th Map
         %th Notes
     %tbody
       - Past_storms.each do |f|
@@ -48,11 +47,6 @@
               %br
             - unless f[:backup_folder].empty?
               %a{:href => "https://s3.amazonaws.com/clearstreets-data/#{f[:backup_folder]}/plow-#{f[:backup_folder]}.db"} <i class='icon-download-alt'></i> SQLite
-          %td 
-            - unless f[:fusion_table_id].nil?
-              %a{:href => "https://www.google.com/fusiontables/DataSource?docid=#{f[:fusion_table_id]}"} Fusion&nbsp;Table
-            - unless f[:carto_db_url].nil?
-              %a{:href => f[:carto_db_url]} CartoDB
           %td
             = f[:notes]
 
