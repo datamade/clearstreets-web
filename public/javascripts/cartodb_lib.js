@@ -8,7 +8,6 @@ var CartoDbLib = {
   layerUrl: 'http://clearstreets.cartodb.com/api/v2/viz/28b1ab70-b293-11e5-8e57-0e5db1731f59/viz.json',
   //vizHackUrl: 'http://clearstreets.cartodb.com/api/v2/viz/589c99a4-673a-11e3-bc87-37a820bb3867/viz.json',
   tableName: 'clearstreets_dev',
-  maptiks_tracking_code: 'a83cd5c8-ee1a-4640-8555-ea513888e821',
   plowPoints: [],
 
   initialize: function(){
@@ -38,9 +37,11 @@ var CartoDbLib = {
       // method that we will use to update the control based on feature properties passed
       CartoDbLib.info.update = function (props) {
         var date_formatted = '';
-        if (props)
-          date_formatted = new moment(props.date_stamp).format("h:mm:ss a M/D/YYYY");
-
+        if (props) {
+          // date_formatted = new moment(props.date_stamp).format("h:mm:ss a M/D/YYYY");
+          date_formatted = new moment(props.date_stamp, "YYY-MM-DD h:mm:ss+00").format("h:mm:ss a M/D/YYYY");
+        }
+        
         this._div.innerHTML = '<h4>Plow info</h4>' +  (props ?
               'Plowed at <b/>' + date_formatted + '</b> by Plow ' + props.id : 'Hover over a plow path');
       };
@@ -60,7 +61,7 @@ var CartoDbLib = {
       sql: sql,
       interactivity: 'cartodb_id, id, date_stamp'
     }
-
+ 
     CartoDbLib.dataLayer = cartodb.createLayer(CartoDbLib.map, CartoDbLib.layerUrl, {refreshTime: 30000})
       .addTo(CartoDbLib.map)
       .on('done', function(layer) {
