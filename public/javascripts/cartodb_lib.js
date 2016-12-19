@@ -39,7 +39,6 @@ var CartoDbLib = {
         var date_formatted = '';
         if (props) {
           // date_formatted = new moment(props.date_stamp).format("h:mm:ss a M/D/YYYY");
-          console.log(props)
           date_formatted = new moment(props.date_stamp, "YYY-MM-DD h:mm:ss+00").subtract(5, 'hour').format("h:mm:ss a M/D/YYYY");
         }
         
