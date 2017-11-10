@@ -39,7 +39,7 @@ var CartoDbLib = {
         var date_formatted = '';
         if (props) {
           // date_formatted = new moment(props.date_stamp).format("h:mm:ss a M/D/YYYY");
-          date_formatted = new moment(props.date_stamp, "YYY-MM-DD h:mm:ss+00").subtract(5, 'hour').format("h:mm:ss a M/D/YYYY");
+          date_formatted = new moment(props.date_stamp, "YYYY-MM-DD h:mm:ss+00").subtract(5, 'hour').format("h:mm:ss a M/D/YYYY");
         }
         
         this._div.innerHTML = '<h4>Plow info</h4>' +  (props ?
