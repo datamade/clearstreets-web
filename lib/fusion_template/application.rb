@@ -25,6 +25,7 @@ module FusionTemplate
     helpers FusionTemplate::HtmlHelpers
 
     Past_storms = [
+      {:title => 'Jan 12, 2019', :backup_folder => '01-18-2019', :snowfall => '4"', :notes => '', :show_gpx => true},
       {:title => 'Nov 25-26, 2018', :backup_folder => '12-02-2018', :snowfall => '9"', :notes => '', :show_gpx => true},
       {:title => 'Feb 17, 2018', :backup_folder => '02-18-2018', :snowfall => '2"', :notes => '', :show_gpx => true},
       {:title => 'Feb 8-11, 2018', :backup_folder => '02-13-2018', :snowfall => '14.3"', :notes => '', :show_gpx => true},
