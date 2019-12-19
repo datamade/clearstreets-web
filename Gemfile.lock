@@ -9,7 +9,7 @@ GEM
     memcachier (0.0.2)
     multi_json (1.7.9)
     r18n-core (1.1.6)
-    rack (1.5.2)
+    rack (1.6.12)
     rack-cache (1.2)
       rack (>= 0.4)
     rack-protection (1.5.0)
