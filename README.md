@@ -4,12 +4,15 @@ ClearStreets tracks Chicago's snow plows in real time by scraping data from the 
 
 ## Installation
 
-  $ git clone git@github.com:datamade/clearstreets-web.git
-  $ cd clearstreets-web
-  $ gem install bundler
-  $ bundle
-  $ unicorn
-  navigate to http://localhost:8080/
+```
+git clone git@github.com:datamade/clearstreets-web.git
+cd clearstreets-web
+gem install bundler
+bundle
+unicorn
+```
+
+navigate to http://localhost:8080/
 
 ## Deploy to Heroku
   
