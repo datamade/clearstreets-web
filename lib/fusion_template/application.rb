@@ -91,7 +91,7 @@ module FusionTemplate
     end
 
     get "/about.html" do
-      redirect "/about"
+      redirect "/"
     end
 
     get "/past-storms.html" do
@@ -111,12 +111,6 @@ module FusionTemplate
       cache_control :public, max_age: 1800  # 30 min
       @current_menu = "home"
       haml :index
-    end
-
-    get "/about" do
-      cache_control :public, max_age: 1800  # 30 min
-      @current_menu = "about"
-      haml :about
     end
     
     # catchall for static pages

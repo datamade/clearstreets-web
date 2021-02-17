@@ -1,102 +1,297 @@
-.row-fluid
+.row
   .span4
-    %p.alert.alert-warning
-      %strong Clear Streets is inactive
-      %br
-      Winter 2020: We are not currently tracking snow plows in real time. Please check back again at a later date.
     .well
-      %p
-        %strong Jan 18, 2019
-        The Chicago area is expected to get <a href='https://www.chicagotribune.com/news/local/breaking/ct-met-chicago-snow-weekend-weather-20190117-story.html'>between 6-10 inches of snow</a>.
-        %br
-        See which streets have been plowed and when.
-      %h4
-        Did my street get plowed?
-        <small>(<a id='find_me' href='#'>find me</a>)</small>
-
-      %input#search_address.input-block-level{:placeholder => "Enter an address or an intersection", :type => "text"}
-      
-      %input#search.btn.btn-info{:type => "button", :value => "Search"}
-      %button#reset.btn Reset
-
-      %hr
-      <a href='http://status.clearstreets.org'>Plow fleet</a>:
-      %span#fleet-status
-        %span.label.label-info Hibernating
+      %ol
+        %li
+          %a{:href => "#no-longer-active"} ClearStreets is no longer active
+        %li
+          %a{:href => "#what-is-this"} What was ClearStreets?
+        %li
+          %a{:href => "#what-data-is"} What exactly does the map show?
+        %li
+          %a{:href => "#dont-sue-us"} Disclaimer: data may not be accurate
+        %li
+          %a{:href => "#lessons"} What we've learned about plowing in Chicago
+        %li
+          %a{:href => "#investigations"} Investigations
+        %li
+          %a{:href => "#press"} Press
+        %li
+          %a{:href => "#who-made-this"} Who made this?
+        %li
+          %a{:href => "#how-does-it-work"} How did we do this?
+        %li
+          %a{:href => "#how-does-it-really-work"}
+            How did we
+            %i really
+            do this? (For the geeks)
+        %li
+          %a{:href => "#can-i-have-your-data"} Can I have your data?
+        %li
+          %a{:href => "#whats-new"} Switching to CartoDB
+  .span8
+    %h3#no-longer-active ClearStreets is no longer active
 
     %p
-      Clear Streets tracks Chicago's snow plows in real time by using data from the <a href='http://www.cityofchicago.org/content/city/en/depts/mayor/iframe/plow_tracker.html'>City of Chicago's Plow Tracker</a>. By knowing where the plows have been, we've figured out which streets have been plowed.
-      %a{:href => "/about"} Read more »
+      <strong>ClearStreets</strong> was a volunteer-run project from 2012 - 2019. We tracked the snow plows in Chicago for 8 winters, bringing more attention to an essential city service. Along the way, provided detailed plowing conditions to Chicago residents, assisted investigations into plowing practices in Chicago, and provided our fellow Chicagoans with a better understanding of their city and government.
 
-    %p.alert.alert-info 
-      %strong Did your street get skipped?
+    %p
+      When ClearStreets was active, this is what it looked like:
       %br
-      We don't have data on all the plows, so this map may be <a href='/about#what-data-is'>inaccurate</a>.
-      Also, we <a href='http://clearstreets.org/about#who-made-this'>aren't the City of Chicago</a>, and we don't control or influence where the plows go. If your street needs plowing, call 311.
-    
-  .span8
-    #map_canvas
-    %span.pull-right
-      By <a href='http://datamade.us'>DataMade</a>. 
-      Map hosting provided by <a href='http://cartodb.com/'>CartoDB</a>.
+      %br
 
-- content_for :stylesheets do
-  = include_stylesheet "http://libs.cartocdn.com/cartodb.js/v3/themes/css/cartodb.css"  
+    %p
+      <img class='img-polaroid' src='/images/clearstreets-2016.jpg' alt='ClearStreets from 2016' title='ClearStreets from 2016' />
 
-- content_for :javascripts do
-  = include_javascript :"jquery.address.min"
-  = include_javascript :"http://libs.cartocdn.com/cartodb.js/v3/cartodb.js"
-  = include_javascript :"http://maps.google.com/maps/api/js?sensor=false&amp;libraries=places"
-  = include_javascript "moment.min"
-  = include_javascript :"http://cdn.maptiks.com/maptiks-leaflet.min.js"
-  %script{:src => "/javascripts/cartodb_lib.js?10", :type => "text/javascript"}
+      %br
+      %br
 
-  :javascript
-    $(window).resize(function () {
-      var h = $(window).height(),
-        offsetTop = 130; // Calculate the top offset
-    
-      $('#map_canvas').css('height', (h - offsetTop));
-    }).resize();
+    %p
+      Due to changes with the City’s own plow tracker (which are great!), the discontinuation of free accounts with the Carto service we use to make our maps, and the high amount of maintenance needed to collect and update snow plow data every time it snows, we decided to discontinue the ClearStreets plow tracker in 2020.
 
-    $(function() {
-      CartoDbLib.initialize();
-      CartoDbLib.doSearch();
+    %p
+      We encourage you to use the <a href='https://www.chicago.gov/city/en/depts/streets/supp_info/plowtracker.html' target='_blank'>City of Chicago’s own Plow Tracker</a> to see if and when your street has been plowed. You can now search by address and get a log of plow visits to that street, providing the same information that ClearStreets used to give, but with greater accuracy:
 
-      var autocomplete = new google.maps.places.Autocomplete(document.getElementById('search_address'));
+    %p
+      <a href='https://www.chicago.gov/city/en/depts/streets/supp_info/plowtracker.html' target='_blank'><img class='img-polaroid' src='/images/plow-tracker-2021.png' alt='Address search in the City’s updated Plow Tracker' title='Address search in the City’s updated Plow Tracker' /></a>
 
-      $('#search_radius').change(function(){
-        CartoDbLib.doSearch();
-      });
-      
-      $('#search').click(function(){
-        CartoDbLib.doSearch();
-      });
-      
-      $('#find_me').click(function(){
-        CartoDbLib.findMe(); 
-        return false;
-      });
-      
-      $('#reset').click(function(){
-        $.address.parameter('address','');
-        CartoDbLib.clearSearch(); 
-        return false;
-      });
-      
-      $(":text").keydown(function(e){
-          var key =  e.keyCode ? e.keyCode : e.which;
-          if(key == 13) {
-              $('#search').click();
-              return false;
-          }
-      });
+      %br
+      %br
 
-      function timeout() {
-        setTimeout(function () {
-          CartoDbLib.refreshMap();
-          timeout();
-        }, 30000);
-      }
-      timeout();
-    });
+    %p 
+      We will continue to maintain the ClearStreets.org website as an archive of this project. You can read more about how it worked and access our data archive.
+
+    %p
+      Thanks to everyone for using this site. It’s been fun!
+
+
+    %h3#what-is-this What is ClearStreets?
+    %p
+      On Jan 3rd 2012, the City of Chicago released Plow Tracker, an app that tracks the city's snow plows in real time. We want to thank the city for taking this innovative step towards
+      = succeed "." do
+        %a{:href => "http://radar.oreilly.com/2011/08/chicago-data-apps-open-government.html"} open government
+      In the
+      = succeed "," do
+        %a{:href => "http://gridchicago.com/2012/plow-tracker-not-ready-for-prime-time/#comment-410190320"} words of Dan O'Neil
+      "it exposed city data in a fun and timely way that got people talking about an essential city service."
+    %p
+      %b> We wanted to help make it better
+      , so we took the plows' locations and figured out which streets they're clearing.
+    %p
+      However, the urge to make this ClearStreets app only hit us on Thursday evening, 12 hours before the storm descended on our fair city. So this is a rough draft (see disclaimer), but it shows what can be done when the city embraces
+      = succeed "." do
+        %a{:href => "http://www.ascentstage.com/archives/2012/01/open-data-in-chicago/"} open data
+      The more data they release, the more useful stuff we can build.
+
+    %h3#what-data-is What exactly did the map show?
+    %p The dark lines on the map are road segments that plows have likely driven over since we started tracking them. That's it. We don't know whether they were salting, plowing, or just passing through. And we don't know for sure whether those streets are currently clear, because we don't have info about road conditions. Roads that were plowed early on might accumulate fresh snow as the storm ginds on.
+
+    %h3#dont-sue-us Disclaimer: data may not be accurate
+    %p What's more, we don't guarantee that the dark lines — which, again, show where plows have passed - are accurate or complete. We only have data that the <a href='http://www.cityofchicago.org/content/city/en/depts/mayor/iframe/plow_tracker.html'>City of Chicago's Plow Tracker</a> makes available. This means that private plows, modified garbage trucks and smaller vehicles are not tracked. 
+
+    %p The plows we do track only transmit their rough locations, and they don't quite do so in real time. We make a best guess about where plows have passed, but it's still just that: a guess, though hopefully a good one. Don't sue us.
+
+    %h3#lessons What we've learned about plowing in Chicago
+
+    %p After tracking the plow operations for several winters in Chicago, we've learned a few things:
+
+    %ul
+      %li 
+        %p
+          On average, the City does a consistent and amazing job plowing every street in the City equitably and fairly. At the ward level, however, there is a lot of <a href='https://chicago.suntimes.com/2016/7/19/18481226/the-snowplows-hit-ald-burke-s-street-five-times'>local discretion</a>.
+      %li 
+        %p
+          Snow plows will stay on the main arterial streets until it stops snowing. After that, they get to the side streets.
+      %li 
+        %p
+          The City of Chicago does have official routes for snow plows. This is referred to as "The Plow Book". This was successfully FOIA'd for by Dan Mihalopoulos when he was at the Chicago Sun-Times.
+      %li
+        %p
+          Plow operations are run by the <a href='http://www.cityofchicago.org/city/en/depts/streets.html'>Department of Streets and Sanitation</a>. You can find them on Twitter <a href='https://twitter.com/StreetsandSan'>@StreetsandSan</a>
+
+    %h3#investigations Investigations
+    %p
+      We've used the Chicago snow plow data we've collected since 2012 to help Chicago reporters investigate particular cases where blocks have been plowed (or not plowed) irregularly.
+
+    %ul
+      %li
+        %a{:href => "https://chicago.suntimes.com/2016/7/19/18481226/the-snowplows-hit-ald-burke-s-street-five-times"} The snowplows hit Ald. Burke's street — five times 
+        \- Chicago Sun-Times, Feb 2, 2015
+        %p
+          We helped Dan Mihalopoulos at the Chicago Sun-Times check snow plow visits to houses of Alderman Burke, Alderman Laurino and Mayor Emanuel during the Super Bowl Storm of 2015.
+        %p
+          <a href='http://chicago.suntimes.com/chicago-politics/7/71/341993/snowplows-hit-ald-burkes-street-five-times'><img class='img-polaroid span3' src='/images/sun-times-burke-front-page.png' alt='Sun-Times cover story: HE HAS SNOW SHAME' title='Sun-Times cover story: HE HAS SNOW SHAME' /></a>
+          <a href='http://chicago.suntimes.com/chicago-politics/7/71/341993/snowplows-hit-ald-burkes-street-five-times'><img class='img-polaroid span3' src='/images/sun-times-burke-block.jpg' alt="Ald. Ed Burke's house on 51st Street and the condo he developed next to it, Feb. 2 at about 2 p.m." title="Ald. Ed Burke's house on 51st Street and the condo he developed next to it, Feb. 2 at about 2 p.m." /></a>
+        .clearfix
+        %br
+      %li
+        %a{:href => "http://www.nbcchicago.com/investigations/Chicago-Block-Has-Not-Been-Plowed-This-Winter-243875781.html"} Chicago Block Has Not Been Plowed This Winter
+        \- NBC 5 Investigates | Feb 5th, 2014
+        %p 
+          We helped NBC 5 Investigates map plow activity around the 4600 block of N Kelso, which suggests that no city plows had visited that block during the 2013-2014 winter.
+        %p
+          <a href='http://www.nbcchicago.com/investigations/Chicago-Block-Has-Not-Been-Plowed-This-Winter-243875781.html'><img class='img-polaroid span3' src='/images/NBC_5_Investigates.png' alt='NBC 5 Investigates the un-plowed 4600 block of N Kelso' /></a>
+          <a href='http://www.nbcchicago.com/news/local/Snow-Plow-Activity-Around--243880801.html'><img class='img-polaroid span3' src='/images/4600_kelso_2013_12_08.png' alt='4600 block of N Kelso during the Dec 8th, 2013 snowstorm' /></a>
+        .clearfix
+
+    %h3#press Press
+    %ul
+      %li
+        %a{:href => "http://chicago.suntimes.com/chicago-politics/7/71/359154/city-investigates-ald-burkes-street-got-plowed-early-often-blizzard"} City investigates how Ald. Burke's street got plowed early and often during blizzard 
+        \- Chicago Sun-Times, Feb 10, 2015
+      %li
+        %a{:href => "http://chicago.suntimes.com/chicago-politics/7/71/350155/animation-mapping-chicago-snow-plows-blizzard"} Animation: Mapping Chicago snow plows during the blizzard 
+        \- Chicago Sun-Times, Feb 8, 2015
+      %li
+        %a{:href => "https://soundcloud.com/afternoonshiftwbez/are-streets-actually-plowed"} Are streets actually plowed?
+        \- WBEZ's Afternoon Shift , Feb 3, 2015
+      %li
+        %a{:href => "http://chicago.suntimes.com/politics/7/71/302721/snowplow-tracking-apps-hold-cities-accountable-cleanup"} Snowplow tracking apps hold cities accountable for cleanup 
+        \- Associated Press, Jan 19, 2015
+      %li
+        %a{:href => "http://chicagoinno.streetwise.co/2015/01/05/snow-plow-tracker-chicago-see-what-streets-have-been-plowed/"} See Which Streets Have Been Plowed and When, Thanks to the ClearStreets App 
+        \- ChicagoInno, Jan 5, 2015
+      %li
+        %a{:href => "http://www.cbc.ca/edmontonam/episodes/2013/12/18/keeping-track-of-snow-plowing/"} Keeping track of snow plowing
+        \- CBC Edmonton | Dec 18th, 2013
+      %li
+        %a{:href => "http://googlemapsmania.blogspot.com/2013/12/the-chicago-snow-plow-map.html"} The Chicago Snow Plow Map
+        \- Google Maps Mania | Dec 15th, 2013
+      %li
+        %a{:href => "http://www.fastcoexist.com/3023269/watch-this-fascinating-animation-of-chicagos-egalitarian-snow-plows"} Watch This Fascinating Animation Of Chicago’s Egalitarian Snow Plows
+        \- FastCompany | Dec 12th, 2013
+      %li
+        %a{:href => "http://gridchicago.com/2012/updated-clearstreets-alternative-to-plow-tracker-brings-new-features-and-mobile-friendly-design/"} Updated ClearStreets, Alternative to Plow Tracker, Brings New Features and Mobile Friendly Design
+        \- GridChicago | Dec 20th, 2012 
+      %li
+        %a{:href => "http://www.smartchicagocollaborative.org/clearstreets-another-great-project-benefitting-from-space-on-the-smart-chicago-ec2-account/"} ClearStreets: Another Great Project Benefitting from Space on the Smart Chicago EC2 Account
+        \- Smart Chicago Collaborative Blog | Dec 20th, 2012 
+      %li
+        %a{:href => "http://www.chicagotribune.com/news/ct-talk-snow-tracker-0121-20120121,0,4501133.story"} What streets have been plowed, and when? Check the Web
+        \- Chicago Tribune | Jan 21st, 2012 
+      %li
+        %a{:href => "http://www.chicagojournal.com/News/01-20-2012/Web_apps_track_snow_plows_progress_around_Chicago"} Web apps track snow plows progress around Chicago
+        \- Chicago Journal | Jan 20th, 2012 
+      %li
+        %a{:href => "http://gridchicago.com/2012/new-plow-tracker-style-website-hits-the-web-in-time-for-todays-snow-storm/"} New plow tracker-style website hits the web in time for today's snow storm
+        \- GridChicago | Jan 20th, 2012 
+      %li
+        %a{:href => "http://chicagoist.com/2012/01/20/clear_streets_a_better_use_of_snow.php#photo-1"} Chicago ClearStreets: A Better Use Of Snow Plow Tracker Technology
+        \- Chicagoist | Jan 20th, 2012 
+
+    %h3#who-made-this Who made this?
+    %p
+      This app was originally built by 
+      %a{:href => "http://opencityapps.org"} Open City
+      and is now maintained and operated by 
+      %a{:href => "http://datamade.us"} DataMade
+      \.
+
+    %p
+      The team includes:
+
+    %ul
+      %li
+        %a{:href => "http://derekeder.com"} Derek Eder
+        \- Founder and Partner at
+        = succeed "." do
+          %a{:href => "http://derekeder.com/datamade"} DataMade
+      %li 
+        Forest Gregg 
+        \- University of Chicago Sociology Ph.D. student and Partner at DataMade
+      %li 
+        %a{:href => 'https://twitter.com/jpvelez'} Juan-Pablo Velez 
+        \- data scientist at Polynumeral
+      %li 
+        %a{:href => 'https://twitter.com/evanzanten'} Eric van Zanten
+        \- Senior Developer at DataMade
+
+    %p
+      In Dec 2012, we got some awesome help from:
+
+    %ul
+      %li 
+        %a{:href => 'https://twitter.com/bsmithgall'} Ben Smithgall 
+        \- former data analyst at Obama For America 
+      %li 
+        %a{:href => 'https://twitter.com/samarthbhaskar'} Samarth Bhaskar 
+        \- former data analyst at Obama For America
+
+    %p
+      Special thanks to <a href='http://cartodb.com'>CartoDB</a> for gifting us their <a href='http://cartodb.com/pricing/'>Cornelli data plan</a> that we use to power the current version of this site.
+    %p
+      Thanks to the <a href='http://www.smartchicagocollaborative.org/'>Smart Chicago Collaborative</a> for hosting us from Dec 2012 - Nov 2014 and to the <a href='http://cct.org'>Chicago Community Trust</a> for helping us increase our <a href='https://developers.google.com/fusiontables/docs/v1/using#Geo'>Google Fusion Tables limit</a> before we switched to CartoDB.
+
+    %h3#how-does-it-work How did we do this?
+    %p Each of the city's snow plows is outfitted with a GPS system. When a storm hits, the plows begin transmitting their location to the city in real-time. The city puts this data online and constantly updates it to power their real-time Plow Tracker map.
+    %p We took that location data - where was plow x at time y? - and used it to figure out which streets plows have driven through.
+
+    %h3#how-does-it-really-work
+      How did we
+      %i really
+      do this? (For the geeks)
+    %p This app was hacked together with python, php, google fusion tables, javascript, html/css, and a humble batch script. Here's how we did it:
+    %ol
+      %li
+        %p
+          We dug around in the Plow Tracker code and stumbled into the
+          = succeed "." do
+            %a{:href => "https://gisapps.cityofchicago.org/ArcGISRest/services/ExternalApps/operational/MapServer/38/query?f=json&where=OBJECTID%20is%20not%20null%20AND%20POSTING_TIME%20%3E%20SYSDATE-1%2F96&returnGeometry=true&spatialRel=esriSpatialRelIntersects&outFields=ADDRESS%2CPOSTING_TIME%2CASSET_NAME%2CASSET_TYPE%2COBJECTID"} data feed of GPS plow locations
+          = succeed '.' do
+            %a{:href => 'https://github.com/datamade/clearstreets-processing/tree/master/slurp2gpx'} We pulled these dots with a script
+      %li
+        %p
+          In order to figure out which streets had been cleared, we needed to turn these dots into plow paths. Lukas Kabrt's
+          %a{:href => "http://wiki.openstreetmap.org/wiki/Routing/Travel_Time_Analysis/MatchGPX2OSM"} MatchGPX2OSM
+          did the trick. It takes a series of GPS locations and snaps them to the street grid in order to calculate the most likely path taken by the vehicle. The street grid itself was provided by the thousands of unsung heroes at
+          = succeed "." do
+            %a{:href => "http://www.openstreetmap.org/"} OpenStreetMap
+          %br/
+          = succeed ":" do
+            %strong Code
+          %a{:href => "https://github.com/datamade/clearstreets-processing/tree/master/gpx2osm"} ClearStreets GPX to OSM script
+      %li
+        %p
+          We then wrote a script to import this data into
+          = succeed "," do
+            %a{:href => "http://wiki.openstreetmap.org/wiki/Routing/Travel_Time_Analysis/MatchGPX2OSM"} Google Fusion Tables
+          so we could display it using Derek Eder's
+          = succeed "." do
+            %a{:href => "http://derekeder.com/searchable_map_template/"} searchable map template
+          %br/
+          = succeed ":" do
+            %strong Code
+          %a{:href => "https://github.com/datamade/clearstreets-processing/tree/master/osm2ft"} ClearStreets OSM to Fusion Tables script
+
+        %p
+          In December 2013, we updated our frontend to use <a href='http://cartodb.com'>CartoDB</a>. The process works very much the same as with Fusion Tables, but we get some advantages with the speed of updating our data and the ability to display more than 100,000 traces.
+          %br
+          %strong Code
+          %a{:href => "https://github.com/datamade/clearstreets-processing/tree/master/osm2cartodb"} ClearStreets OSM to CartoDB script
+      %li
+        %p
+          Finally, we styled the template based on Derek's Fusion Tables searchable map and flipped the switch.
+          %br/
+          = succeed ":" do
+            %strong Code
+          %a{:href => "https://github.com/datamade/clearstreets-web"} ClearStreets map front-end
+
+      %p
+        The processing scripts are all hosted on Amazon's <a href='http://aws.amazon.com/ec2/'>Elastic Cloud Compute</a> (EC2) and this website is hosted on <a href='http://heroku.com'>Heroku</a>.
+
+    %h3#can-i-have-your-data Can I have your data?
+
+    %p
+      Sure! We'd love other people to use our plow data. You can download all the raw files from on the <a href='/data'>data page</a>.
+
+
+    %h3#whats-new Switching to CartoDB
+    %p
+      For the first two winters of ClearStreets, we used Google Fusion Tables to display our maps. This worked out really well, especially since it able to display a lot of data quickly at no cost to us. However, for storms when the city deploys all ~300 of its plows over a period of several days, we found that Fusion Tables could not display all our data due to its <a href='https://developers.google.com/fusiontables/docs/v1/using#Geo'>limit of 100,000 features per map</a>.
+
+    %p
+      This was an issue we weren't sure how to solve with the resources we had (none), but as luck would have it, <a href='https://twitter.com/andrewxhill'>Andrew Hill</a> from <a href='https://cartodb.com/'>CartoDB</a> reached out to us in December 2013 with an <a href='http://www.fastcoexist.com/3023269/watch-this-fascinating-animation-of-chicagos-egalitarian-snow-plows'>animated map built with our plow data</a> and we got to talking. From that conversation, CartoDB graciously offered to gift us their <a href='https://cartodb.com/pricing/'>Cornelli plan</a> to display our plow data.
+
+    %br
+    %br
+    %br
