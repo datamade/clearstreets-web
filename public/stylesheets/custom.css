@@ -1,6 +1,6 @@
 a { color: #4B58A6; }
 
-body { font-size: 15px;}
+body, p { font-size: 18px; line-height: 24px;}
 
 #map_canvas img {
   max-width: none;
